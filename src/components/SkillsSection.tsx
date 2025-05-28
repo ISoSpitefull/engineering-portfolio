@@ -49,31 +49,31 @@ const SkillsSection = () => {
   const getLevelColor = (level: string) => {
     switch (level) {
       case "Advanced":
-        return "bg-green-100 text-green-800 border-green-300";
+        return "bg-green-900 text-green-200 border-green-700";
       case "Intermediate":
-        return "bg-blue-100 text-blue-800 border-blue-300";
+        return "bg-blue-900 text-blue-200 border-blue-700";
       case "Beginner":
-        return "bg-yellow-100 text-yellow-800 border-yellow-300";
+        return "bg-yellow-900 text-yellow-200 border-yellow-700";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-300";
+        return "bg-gray-700 text-gray-300 border-gray-600";
     }
   };
 
   return (
-    <section className="py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl my-20">
+    <section className="py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-700 rounded-3xl my-20">
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">Technical Skills</h2>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <h2 className="text-4xl font-bold text-white mb-4">Technical Skills</h2>
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
           A comprehensive overview of my technical expertise across different domains of engineering and software development.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
         {skillCategories.map((category, index) => (
-          <Card key={index} className="hover:shadow-xl transition-shadow duration-300 bg-white/80 backdrop-blur-sm">
+          <Card key={index} className="hover:shadow-xl transition-shadow duration-300 bg-gray-800 backdrop-blur-sm border-gray-700">
             <CardHeader>
-              <CardTitle className="text-xl text-gray-900 flex items-center">
-                <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3"></div>
+              <CardTitle className="text-xl text-white flex items-center">
+                <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-3"></div>
                 {category.category}
               </CardTitle>
             </CardHeader>
@@ -81,7 +81,7 @@ const SkillsSection = () => {
               <div className="space-y-3">
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skillIndex} className="flex items-center justify-between">
-                    <span className="font-medium text-gray-700">{skill.name}</span>
+                    <span className="font-medium text-gray-300">{skill.name}</span>
                     <Badge 
                       variant="outline" 
                       className={`${getLevelColor(skill.level)} font-semibold border`}
