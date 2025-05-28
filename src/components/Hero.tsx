@@ -15,7 +15,7 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
+        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in leading-tight">
           Student Engineer
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
             & Designer

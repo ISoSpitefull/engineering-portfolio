@@ -32,13 +32,13 @@ const Index = () => {
                   Individual engineering projects showcasing my technical skills and learning journey
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-300 leading-relaxed mb-4">
+              <CardContent className="space-y-4 flex flex-col h-full">
+                <p className="text-gray-300 leading-relaxed mb-4 flex-grow">
                   Explore my personal projects where I experiment with new technologies, solve interesting problems, 
                   and document my learning experiences. Each project includes detailed insights into what I learned 
                   and my future plans for improvement.
                 </p>
-                <Link to="/personal-projects">
+                <Link to="/personal-projects" className="mt-auto">
                   <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                     View Personal Projects
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -57,13 +57,13 @@ const Index = () => {
                   Collaborative engineering projects demonstrating teamwork and leadership skills
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-300 leading-relaxed mb-4">
+              <CardContent className="space-y-4 flex flex-col h-full">
+                <p className="text-gray-300 leading-relaxed mb-4 flex-grow">
                   Discover the collaborative projects I've worked on with diverse teams. These projects highlight 
                   my ability to work effectively in group settings, contribute to shared goals, and learn from 
                   fellow engineers and designers.
                 </p>
-                <Link to="/team-projects">
+                <Link to="/team-projects" className="mt-auto">
                   <Button className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700">
                     View Team Projects
                     <ArrowRight className="h-4 w-4 ml-2" />
