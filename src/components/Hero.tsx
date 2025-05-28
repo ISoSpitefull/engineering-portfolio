@@ -4,7 +4,7 @@ import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden bg-gray-900">
+    <section className="relative min-h-[70vh] flex items-center justify-center px-4 overflow-hidden bg-gray-900">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black"></div>
       
@@ -15,14 +15,6 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
-        <div className="mb-8">
-          <img 
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
-            alt="Profile" 
-            className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-gray-700 shadow-xl hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-        
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
           Student Engineer
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">

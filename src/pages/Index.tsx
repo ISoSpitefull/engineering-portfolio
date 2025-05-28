@@ -13,15 +13,15 @@ const Index = () => {
         <Hero />
         
         {/* Project Categories Section */}
-        <section className="py-20 px-4 max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-6">Explore My Projects</h2>
+        <section className="py-12 px-4 max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">Explore My Projects</h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Dive deeper into my engineering journey through detailed project showcases, organized by collaboration type.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
             <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gray-800 backdrop-blur-sm border-gray-700 shadow-lg">
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors flex items-center gap-3">
@@ -32,8 +32,8 @@ const Index = () => {
                   Individual engineering projects showcasing my technical skills and learning journey
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <p className="text-gray-300 leading-relaxed">
+              <CardContent className="space-y-4">
+                <p className="text-gray-300 leading-relaxed mb-4">
                   Explore my personal projects where I experiment with new technologies, solve interesting problems, 
                   and document my learning experiences. Each project includes detailed insights into what I learned 
                   and my future plans for improvement.
@@ -57,8 +57,8 @@ const Index = () => {
                   Collaborative engineering projects demonstrating teamwork and leadership skills
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <p className="text-gray-300 leading-relaxed">
+              <CardContent className="space-y-4">
+                <p className="text-gray-300 leading-relaxed mb-4">
                   Discover the collaborative projects I've worked on with diverse teams. These projects highlight 
                   my ability to work effectively in group settings, contribute to shared goals, and learn from 
                   fellow engineers and designers.
