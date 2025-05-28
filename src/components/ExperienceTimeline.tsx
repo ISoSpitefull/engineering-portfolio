@@ -33,8 +33,8 @@ const ExperienceTimeline = () => {
   return (
     <section className="py-20 px-4 max-w-6xl mx-auto">
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">My Journey & Experience</h2>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <h2 className="text-4xl font-bold text-white mb-6">My Engineering Journey</h2>
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
           Every step of my engineering journey has taught me valuable lessons about technology, teamwork, and innovation.
         </p>
       </div>
@@ -50,32 +50,32 @@ const ExperienceTimeline = () => {
               className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} gap-8`}
             >
               <div className="flex-1">
-                <Card className="hover:shadow-lg transition-shadow duration-300 bg-white/90 backdrop-blur-sm">
+                <Card className="hover:shadow-lg transition-shadow duration-300 bg-gray-800 backdrop-blur-sm border-gray-700">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                      <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold">
                         {exp.year}
                       </Badge>
                     </div>
-                    <CardTitle className="text-xl text-gray-900">{exp.title}</CardTitle>
-                    <CardDescription className="text-blue-600 font-semibold">
+                    <CardTitle className="text-xl text-white">{exp.title}</CardTitle>
+                    <CardDescription className="text-blue-400 font-semibold">
                       {exp.company}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <p className="text-gray-700">{exp.description}</p>
+                    <p className="text-gray-300 leading-relaxed">{exp.description}</p>
                     
                     <div className="flex flex-wrap gap-2">
                       {exp.skills.map((skill) => (
-                        <Badge key={skill} variant="outline" className="text-xs">
+                        <Badge key={skill} variant="outline" className="text-xs border-gray-600 text-gray-300">
                           {skill}
                         </Badge>
                       ))}
                     </div>
                     
-                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
-                      <p className="text-sm text-gray-700">
-                        <strong>Key Lesson:</strong> {exp.lessons}
+                    <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 p-4 rounded-lg border-l-4 border-orange-400">
+                      <p className="text-sm text-gray-300 leading-relaxed">
+                        <strong className="text-orange-400">Key Lesson:</strong> {exp.lessons}
                       </p>
                     </div>
                   </CardContent>
@@ -83,7 +83,7 @@ const ExperienceTimeline = () => {
               </div>
 
               {/* Timeline dot */}
-              <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full border-4 border-white shadow-lg flex-shrink-0 z-10"></div>
+              <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full border-4 border-gray-900 shadow-lg flex-shrink-0 z-10"></div>
               
               <div className="flex-1"></div>
             </div>

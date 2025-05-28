@@ -9,48 +9,48 @@ const ContactSection = () => {
   return (
     <section className="py-20 px-4 max-w-6xl mx-auto">
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">Let's Connect</h2>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <h2 className="text-4xl font-bold text-white mb-6">Let's Connect</h2>
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
           I'm always excited to discuss new opportunities, collaborate on projects, or share insights about engineering and technology.
         </p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-12">
         {/* Contact Form */}
-        <Card className="bg-white/90 backdrop-blur-sm shadow-xl border-0">
+        <Card className="bg-gray-800 backdrop-blur-sm shadow-xl border-gray-700">
           <CardHeader>
-            <CardTitle className="text-2xl text-gray-900">Send Me a Message</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl text-white">Send Me a Message</CardTitle>
+            <CardDescription className="text-gray-300">
               Whether you have a project idea, job opportunity, or just want to chat about engineering!
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">First Name</label>
-                <Input placeholder="John" />
+                <label className="text-sm font-medium text-gray-300 mb-2 block">First Name</label>
+                <Input placeholder="John" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">Last Name</label>
-                <Input placeholder="Doe" />
+                <label className="text-sm font-medium text-gray-300 mb-2 block">Last Name</label>
+                <Input placeholder="Doe" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
               </div>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Email</label>
-              <Input type="email" placeholder="john.doe@example.com" />
+              <label className="text-sm font-medium text-gray-300 mb-2 block">Email</label>
+              <Input type="email" placeholder="john.doe@example.com" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
             </div>
             
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Subject</label>
-              <Input placeholder="Project Collaboration Opportunity" />
+              <label className="text-sm font-medium text-gray-300 mb-2 block">Subject</label>
+              <Input placeholder="Project Collaboration Opportunity" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
             </div>
             
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Message</label>
+              <label className="text-sm font-medium text-gray-300 mb-2 block">Message</label>
               <Textarea 
                 placeholder="Tell me about your project or opportunity..."
-                className="min-h-[120px]"
+                className="min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
               />
             </div>
             
@@ -93,30 +93,30 @@ const ContactSection = () => {
           </Card>
 
           <div className="grid grid-cols-2 gap-4">
-            <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0 hover:shadow-xl transition-shadow duration-300">
+            <Card className="bg-gray-800 backdrop-blur-sm shadow-lg border-gray-700 hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 text-center">
-                <Github className="h-8 w-8 mx-auto mb-3 text-gray-700" />
-                <h3 className="font-semibold text-gray-900 mb-1">GitHub</h3>
-                <p className="text-sm text-gray-600">View my code</p>
+                <Github className="h-8 w-8 mx-auto mb-3 text-gray-300" />
+                <h3 className="font-semibold text-white mb-1">GitHub</h3>
+                <p className="text-sm text-gray-400">View my code</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0 hover:shadow-xl transition-shadow duration-300">
+            <Card className="bg-gray-800 backdrop-blur-sm shadow-lg border-gray-700 hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 text-center">
-                <Linkedin className="h-8 w-8 mx-auto mb-3 text-blue-600" />
-                <h3 className="font-semibold text-gray-900 mb-1">LinkedIn</h3>
-                <p className="text-sm text-gray-600">Professional network</p>
+                <Linkedin className="h-8 w-8 mx-auto mb-3 text-blue-400" />
+                <h3 className="font-semibold text-white mb-1">LinkedIn</h3>
+                <p className="text-sm text-gray-400">Professional network</p>
               </CardContent>
             </Card>
           </div>
 
-          <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+          <Card className="bg-gradient-to-r from-green-600/20 to-blue-600/20 border-green-500/30">
             <CardContent className="p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">Open to Opportunities</h3>
-              <p className="text-sm text-gray-600 mb-4">
+              <h3 className="font-semibold text-white mb-2">Open to Opportunities</h3>
+              <p className="text-sm text-gray-300 mb-4 leading-relaxed">
                 Currently seeking internships, co-op positions, and collaborative projects in software engineering and sustainable technology.
               </p>
-              <Button variant="outline" className="w-full border-green-300 text-green-700 hover:bg-green-50">
+              <Button variant="outline" className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900">
                 Download Resume
               </Button>
             </CardContent>

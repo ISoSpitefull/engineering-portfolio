@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -92,8 +93,8 @@ const TeamProjects = () => {
                 </Button>
               </Link>
             </div>
-            <h1 className="text-4xl font-bold text-white mb-4">Team Projects</h1>
-            <p className="text-xl text-gray-300 max-w-3xl">
+            <h1 className="text-4xl font-bold text-white mb-6">Team Projects</h1>
+            <p className="text-xl text-gray-300 max-w-3xl leading-relaxed">
               Collaborative engineering projects that showcase teamwork, leadership, and collective problem-solving. 
               These projects demonstrate my ability to work effectively in diverse technical teams.
             </p>
@@ -101,28 +102,30 @@ const TeamProjects = () => {
         </div>
 
         {/* Showcase Project */}
-        <section className="relative">
-          <div className="w-full h-96 overflow-hidden">
+        <section className="relative overflow-hidden">
+          {/* Background Image */}
+          <div className="w-full h-[500px] relative">
             <img 
               src={showcaseProject.image} 
               alt={showcaseProject.projectName}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-gray-900/30"></div>
           </div>
           
-          <div className="absolute bottom-0 left-0 right-0 p-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="bg-gray-800/95 backdrop-blur-sm rounded-lg p-8 shadow-xl border border-gray-700">
+          {/* Content Overlay */}
+          <div className="absolute inset-0 flex items-end">
+            <div className="w-full max-w-7xl mx-auto px-4 pb-8">
+              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-8 shadow-2xl border border-gray-700 max-w-5xl">
                 <div className="flex items-center gap-3 mb-4">
                   <Award className="h-8 w-8 text-purple-400" />
                   <span className="text-sm font-medium text-purple-400 uppercase tracking-wide">Showcase Project</span>
                 </div>
                 
                 <h2 className="text-3xl font-bold text-white mb-4">{showcaseProject.projectName}</h2>
-                <p className="text-lg text-gray-300 mb-6 max-w-4xl">{showcaseProject.description}</p>
+                <p className="text-lg text-gray-300 mb-6 leading-relaxed">{showcaseProject.description}</p>
                 
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="grid md:grid-cols-2 gap-8 mb-6">
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <Users className="h-5 w-5 text-blue-400" />
@@ -176,8 +179,8 @@ const TeamProjects = () => {
         {/* Other Team Projects */}
         <section className="py-20 px-4 max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">Other Team Projects</h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-white mb-6">Other Team Projects</h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Additional collaborative projects that have contributed to my growth as a team player and technical contributor.
             </p>
           </div>
@@ -198,7 +201,7 @@ const TeamProjects = () => {
                   </div>
                 </div>
                 
-                <CardContent className="space-y-4 pt-4">
+                <CardContent className="space-y-4 pt-6">
                   <div className="flex items-center gap-2 text-gray-300">
                     <Users className="h-4 w-4" />
                     <span className="text-sm font-medium">{project.teamSize} team members</span>
