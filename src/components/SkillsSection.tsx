@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -7,43 +6,33 @@ const SkillsSection = () => {
     {
       category: "Programming Languages",
       skills: [
-        { name: "Python", level: "Advanced" },
-        { name: "JavaScript", level: "Advanced" },
+        { name: "Python", level: "Beginner" },
+        { name: "JavaScript", level: "Beginner" },
         { name: "C++", level: "Intermediate" },
-        { name: "Java", level: "Intermediate" },
-        { name: "MATLAB", level: "Intermediate" }
-      ]
-    },
-    {
-      category: "Web Technologies",
-      skills: [
-        { name: "React", level: "Advanced" },
-        { name: "Node.js", level: "Intermediate" },
-        { name: "HTML/CSS", level: "Advanced" },
-        { name: "TypeScript", level: "Intermediate" },
-        { name: "REST APIs", level: "Intermediate" }
+        { name: "MATLAB", level: "Advanced" },
+        { name: "HTML/CSS", level: "Intermediate" }
       ]
     },
     {
       category: "Engineering Tools",
       skills: [
-        { name: "AutoCAD", level: "Intermediate" },
+        { name: "AutoCAD", level: "Advanced" },
         { name: "SolidWorks", level: "Intermediate" },
         { name: "Arduino", level: "Advanced" },
-        { name: "Raspberry Pi", level: "Advanced" },
+        { name: "Fusion 360", level: "Advanced" },
         { name: "Circuit Design", level: "Intermediate" }
       ]
     },
     {
-      category: "Data & Analytics",
+      category: "Documentation",
       skills: [
-        { name: "Machine Learning", level: "Intermediate" },
-        { name: "Data Visualization", level: "Advanced" },
-        { name: "SQL", level: "Intermediate" },
-        { name: "TensorFlow", level: "Beginner" },
-        { name: "Statistical Analysis", level: "Intermediate" }
+        { name: "Microsoft Word", level: "Advanced" },
+        { name: "Microsoft PowerPoint", level: "Advanced" },
+        { name: "Excel", level: "Intermediate" },
+        { name: "GitHub", level: "Intermediate" },
+        { name: "Logbooks", level: "Intermediate" }
       ]
-    }
+    },
   ];
 
   const getLevelColor = (level: string) => {
@@ -64,13 +53,18 @@ const SkillsSection = () => {
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold text-white mb-4">Technical Skills</h2>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-          A comprehensive overview of my technical expertise across different domains of engineering and software development.
+          A comprehensive overview of my technical expertise across different domains of engineering and development.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
         {skillCategories.map((category, index) => (
-          <Card key={index} className="hover:shadow-xl transition-shadow duration-300 bg-gray-800 backdrop-blur-sm border-gray-700">
+          <Card 
+            key={index} 
+            className={`hover:shadow-xl transition-shadow duration-300 bg-gray-800 backdrop-blur-sm border-gray-700 ${
+              index === skillCategories.length - 1 ? 'md:col-span-2 md:w-1/2 md:mx-auto' : ''
+            }`}
+          >
             <CardHeader>
               <CardTitle className="text-xl text-white flex items-center">
                 <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-3"></div>

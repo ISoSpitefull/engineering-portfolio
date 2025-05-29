@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -86,7 +85,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold">Location</h3>
-                  <p className="text-blue-100">University Campus, Your City</p>
+                  <p className="text-blue-100">University of Saskatchewan, Saskatoon, SK</p>
                 </div>
               </div>
             </CardContent>
@@ -95,17 +94,31 @@ const ContactSection = () => {
           <div className="grid grid-cols-2 gap-4">
             <Card className="bg-gray-800 backdrop-blur-sm shadow-lg border-gray-700 hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 text-center">
-                <Github className="h-8 w-8 mx-auto mb-3 text-gray-300" />
-                <h3 className="font-semibold text-white mb-1">GitHub</h3>
-                <p className="text-sm text-gray-400">View my code</p>
+                <a 
+                  href="https://github.com/ISoSpitefull"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block hover:opacity-80 transition-opacity"
+                >
+                  <Github className="h-8 w-8 mx-auto mb-3 text-gray-300" />
+                  <h3 className="font-semibold text-white mb-1">GitHub</h3>
+                  <p className="text-sm text-gray-400">View my code</p>
+                </a>
               </CardContent>
             </Card>
             
             <Card className="bg-gray-800 backdrop-blur-sm shadow-lg border-gray-700 hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 text-center">
-                <Linkedin className="h-8 w-8 mx-auto mb-3 text-blue-400" />
-                <h3 className="font-semibold text-white mb-1">LinkedIn</h3>
-                <p className="text-sm text-gray-400">Professional network</p>
+                <a 
+                  href="https://www.linkedin.com/in/nikhil-p-ba1581281/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block hover:opacity-80 transition-opacity"
+                >
+                  <Linkedin className="h-8 w-8 mx-auto mb-3 text-blue-400" />
+                  <h3 className="font-semibold text-white mb-1">LinkedIn</h3>
+                  <p className="text-sm text-gray-400">Professional network</p>
+                </a>
               </CardContent>
             </Card>
           </div>

@@ -1,32 +1,37 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const ExperienceTimeline = () => {
   const experiences = [
     {
-      year: "2024",
-      title: "Software Engineering Intern",
-      company: "Tech Startup Inc.",
-      description: "Developed full-stack web applications using React and Node.js. Collaborated with senior engineers on scalable system architecture.",
+      year: "2024-2025",
+      title: "Propulsion & Systems Member",
+      company: "University of Saskatchewan Space Design Team",
+      description: (
+        <>
+          Performed trajectory and apogee simulations while designing and optimizing a boat tail for improved aerodynamics. I conducted hand calculations for thrust, forces, and center of gravity, ensuring stable flight performance through iterative design.
+          <br /><br />
+          Additionally, I documented critical design processes in logbooks and technical reports to support future team efforts. My contributions also included competition planning, data analysis in Excel, and organizational tasks to streamline team operations.
+        </>
+      ),
       skills: ["React", "Node.js", "PostgreSQL", "Docker"],
       lessons: "Learned the importance of code reviews and agile development practices in a fast-paced startup environment."
     },
     {
       year: "2023",
-      title: "Research Assistant",
-      company: "University Engineering Lab",
-      description: "Conducted research on sustainable energy systems and published findings in undergraduate research journal.",
-      skills: ["MATLAB", "Data Analysis", "Technical Writing"],
-      lessons: "Discovered the value of systematic experimentation and the challenges of presenting complex technical concepts clearly."
+      title: "Skills Alberta Provincial Competitor",
+      company: "Skills Canada Alberta 2023 Robotics Competition",
+      description: "Designed and built a hockey robot in a team of 3 to compete in the 2023 Skills Alberta Provincial Robotics Competition.",
+      skills: ["Fabrication ", "Technical Documentation", "Teamwork", "Presentation Skills"],
+      lessons: "Discovered the value behind simulation and calculations before starting on construction and testing phases."
     },
     {
-      year: "2022",
-      title: "Engineering Student",
-      company: "University",
-      description: "Started my engineering journey with a focus on computer science and sustainable technology solutions.",
-      skills: ["Python", "C++", "Circuit Design", "3D Modeling"],
-      lessons: "Realized that engineering is not just about technical skills, but also about creative problem-solving and teamwork."
+      year: "2023",
+      title: "FRC Mechanical Lead",
+      company: "4627 Manning Robotics",
+      description: "As a grade 12 student, I was the mechanical lead for 4627 Manning Robotics. I was responsible for the design and construction drive train systems for our 2023 season robot.",
+      skills: ["Team Leadership", "Fusion 360", "Excel Optimization"],
+      lessons: "Began to realize that engineering is not just about technical skills, but also about creative problem-solving and understanding the team."
     }
   ];
 

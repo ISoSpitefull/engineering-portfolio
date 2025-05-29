@@ -23,7 +23,7 @@ const AboutMe = () => {
             </div>
             <h1 className="text-4xl font-bold text-white mb-4">About Me</h1>
             <p className="text-xl text-gray-300 max-w-3xl">
-              Learn more about my journey as a student engineer, my experience, and the technical skills I've developed along the way.
+              Learn more about my journey as an engineering student, my experience, and the technical skills I've developed along the way.
             </p>
           </div>
         </div>
