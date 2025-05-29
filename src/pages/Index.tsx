@@ -29,12 +29,12 @@ const Index = () => {
                   Personal Projects
                 </CardTitle>
                 <CardDescription className="text-gray-400 text-lg">
-                  Individual engineering projects showcasing my technical skills and learning journey
+                  Individual engineering projects showcasing my technical skills and learning journey.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 flex flex-col h-full">
                 <p className="text-gray-300 leading-relaxed mb-4 flex-grow">
-                  Explore my personal projects where I experiment with new technologies, solve interesting problems, 
+                  Explore and view my personal projects where I experiment with new technologies, solve day to day problems, 
                   and document my learning experiences. Each project includes detailed insights into what I learned 
                   and my future plans for improvement.
                 </p>
@@ -54,7 +54,7 @@ const Index = () => {
                   Team Projects
                 </CardTitle>
                 <CardDescription className="text-gray-400 text-lg">
-                  Collaborative engineering projects demonstrating teamwork and leadership skills
+                  Collaborative engineering projects demonstrating teamwork and leadership skills through various organizations and events.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 flex flex-col h-full">

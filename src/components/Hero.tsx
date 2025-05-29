@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 
@@ -16,16 +15,18 @@ const Hero = () => {
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in leading-tight">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">
+            Nikhil Patel
+          </span>
           Student Engineer
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 leading-normal">
             & Designer
           </span>
         </h1>
         
         <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
           Passionate about creating innovative solutions that bridge the gap between 
-          engineering principles and real-world applications. Currently studying to become 
-          the next generation of problem solvers.
+          engineering principles and real-world application. Currently studying to complete my degree in Electrical Engineering.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -47,13 +48,13 @@ const Hero = () => {
 
         <div className="flex justify-center space-x-6">
           <a 
-            href="#" 
+            href="https://github.com/ISoSpitefull" 
             className="text-gray-400 hover:text-blue-400 transition-colors duration-300 hover:scale-110 transform"
           >
             <Github className="h-8 w-8" />
           </a>
           <a 
-            href="#" 
+            href="https://www.linkedin.com/in/nikhil-p-ba1581281/" 
             className="text-gray-400 hover:text-blue-400 transition-colors duration-300 hover:scale-110 transform"
           >
             <Linkedin className="h-8 w-8" />
