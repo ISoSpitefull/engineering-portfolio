@@ -40,10 +40,10 @@ const TeamProjects = () => {
     {
       id: 3,
       teamSize: 6,
-      teamName: "Space Explorers",
+      teamName: "ExoSpace",
       projectName: "2024 NASA Space Apps Challenge",
       skills: ["HTML", "CSS", "JavaScript", "NASA API"],
-      image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=300&fit=crop",
+      image: "https://images-assets.nasa.gov/image/PIA23408/PIA23408~orig.jpg?w=600&h=300&fit=crop",
       description: "Competed in the 2024 NASA Space Apps Challenge, developing innovative solutions for space exploration and technology.",
       myRole: "Team member responsible for brainstorming, coding, and prototyping solutions to address key challenges in space science and technology."
     },

@@ -2,6 +2,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 
 const Hero = () => {
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center px-4 overflow-hidden bg-gray-900">
       {/* Background gradient */}
@@ -29,10 +36,11 @@ const Hero = () => {
           engineering principles and real-world application. Currently studying to complete my degree in Electrical Engineering.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <Button 
             size="lg" 
             className="bg-blue-600 text-white hover:bg-blue-700 font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:scale-105"
+            onClick={scrollToProjects}
           >
             View My Projects
             <ArrowRight className="ml-2 h-5 w-5" />

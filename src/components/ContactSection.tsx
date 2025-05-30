@@ -20,7 +20,7 @@ const ContactSection = () => {
           <CardHeader>
             <CardTitle className="text-2xl text-white">Send Me a Message</CardTitle>
             <CardDescription className="text-gray-300">
-              Whether you have a project idea, job opportunity, or just want to chat about engineering!
+              Whether you have a project idea, or are reaching out about ajob opportunity!
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -127,7 +127,7 @@ const ContactSection = () => {
             <CardContent className="p-6">
               <h3 className="font-semibold text-white mb-2">Open to Opportunities</h3>
               <p className="text-sm text-gray-300 mb-4 leading-relaxed">
-                Currently seeking internships, co-op positions, and collaborative projects in software engineering and sustainable technology.
+                Currently seeking internships, co-op positions, and collaborative projects in Electrical engineering and Mechatronics technology.
               </p>
               <Button variant="outline" className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900">
                 Download Resume

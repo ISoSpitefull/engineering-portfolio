@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Users, User } from "lucide-react";
@@ -13,7 +12,7 @@ const Index = () => {
         <Hero />
         
         {/* Project Categories Section */}
-        <section className="py-12 px-4 max-w-7xl mx-auto">
+        <section id="projects" className="py-12 px-4 max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">Explore My Projects</h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
