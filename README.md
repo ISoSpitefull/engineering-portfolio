@@ -23,10 +23,10 @@ The only requirement is having Node.js & npm installed - [install with nvm](http
 Follow these steps:
 
 Step 1: Type the following into the terminal
-> ```sh npm run dev ```
+``` npm run dev ```
 
 Step 2: Paste the Local URL into "Simple Browser"
-> ```sh "CMD - Shift - P" ``` - "Simple Browser" - Paste local host URL
+```sh "CTRL - Shift - P" ``` - "Simple Browser" - Paste local host URL
 
 ## What technologies are used for this project?
 

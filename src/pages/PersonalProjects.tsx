@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,49 +8,32 @@ const PersonalProjects = () => {
   const personalProjects = [
     {
       id: 1,
-      name: "Smart Energy Monitor",
-      skills: ["Arduino", "Python", "Data Analysis", "IoT"],
-      learningExperience: "This project taught me the importance of real-time data processing and how to optimize power consumption in embedded systems. I learned to work with various sensors and understand the challenges of wireless communication in IoT devices.",
-      futurePlans: "Plan to integrate machine learning algorithms for predictive energy usage patterns and develop a mobile app for remote monitoring.",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=400&fit=crop",
+      name: "Sunrise Simulight",
+      skills: ["Arduino", "Python", "Systems Integration", "IoT"],
+      learningExperience: "This project taught me the importance of IOT connections and how to optimize power consumption in embedded systems. I learned to work with circuits and softwares and understand the challenges of wireless communication in IoT devices.",
+      futurePlans: "Plan to make a standalone mobile application for users to control the lights and set the schedule, to shift away from the reliance on other apps and services.",
+      image: "/src/assets/images/simulightlogo.jpg",
       format: "large"
     },
     {
       id: 2,
-      name: "Personal Finance Tracker",
-      skills: ["React", "Node.js", "MongoDB", "Chart.js"],
-      learningExperience: "Gained valuable experience in full-stack development and learned about data visualization best practices. Understanding user experience design became crucial for making financial data accessible.",
-      futurePlans: "Add AI-powered spending insights and integrate with banking APIs for automatic transaction categorization.",
+      name: "Arduino Based Macro Keyboard",
+      skills: ["Arduino", "C++", "Electronics", "User-Centric Design"],
+      learningExperience: "This project taught me how to design accessible solutions and customize hardware for diverse needs. I improved my programming and engineering skills while learning the importance of user-centric design.",
+      futurePlans: "plan to develop a fully customizable keyboard layout software for users, allowing them to adjust settings and configurations without needing third-party applications or services.",
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop",
-      format: "medium"
+      format: "large"
     },
     {
       id: 3,
-      name: "Automated Plant Watering System",
-      skills: ["Raspberry Pi", "Python", "Sensors"],
-      learningExperience: "Learned about hardware-software integration and the importance of fail-safe mechanisms in automated systems.",
-      futurePlans: "Expand to multiple plants with individual care profiles.",
+      name: "RC Airplane Based Land Surveying System",
+      skills: ["Raspberry Pi", "Python", "LiDAR", "GPS"],
+      learningExperience: "Currently building an RC airplane to take aerial photos and videos of the land, and use them to create a 3D model of the land.",
+      futurePlans: "Hoping to expand into LiDAR and GPS integration to create a more accurate 3D model of the land.",
       image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=200&fit=crop",
-      format: "small"
+      format: "large"
     },
-    {
-      id: 4,
-      name: "Task Management CLI Tool",
-      skills: ["Go", "CLI Design", "File Systems"],
-      learningExperience: "First project in Go language. Learned about efficient file handling and creating intuitive command-line interfaces.",
-      futurePlans: "Add cloud synchronization and team collaboration features.",
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=200&fit=crop",
-      format: "small"
-    },
-    {
-      id: 5,
-      name: "Weather Prediction Model",
-      skills: ["Python", "TensorFlow", "Data Science", "API Integration"],
-      learningExperience: "Deep dive into machine learning algorithms and working with large datasets. Learned about model validation and the importance of feature engineering in prediction accuracy.",
-      futurePlans: "Improve model accuracy by incorporating satellite imagery data and expand to long-term climate predictions.",
-      image: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=600&h=300&fit=crop",
-      format: "medium"
-    }
+
   ];
 
   const renderProjectCard = (project: typeof personalProjects[0]) => {

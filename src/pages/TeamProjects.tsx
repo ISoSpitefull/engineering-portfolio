@@ -7,76 +7,47 @@ import { Link } from "react-router-dom";
 
 const TeamProjects = () => {
   const showcaseProject = {
-    teamSize: 8,
-    teamName: "Innovation Labs",
-    projectName: "Campus Sustainability Platform",
-    skills: ["React", "Node.js", "PostgreSQL", "Docker", "AWS", "Data Analytics"],
-    image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1600&h=600&fit=crop",
-    description: "A comprehensive platform to monitor and optimize energy consumption across university buildings, featuring real-time dashboards, predictive analytics, and automated reporting systems.",
-    myRole: "As the frontend lead, I was responsible for designing and implementing the user interface components, creating interactive data visualizations, and ensuring responsive design across all devices. I collaborated closely with the backend team to integrate APIs and worked with UX designers to create an intuitive user experience."
+    teamSize: 25,
+    teamName: "USST - University of Saskatchewan Space Design Team",
+    projectName: "USST Rocket Project: Up ↑",
+    skills: ["OpenRocket", "Fusion 360", "ANSYS", "SolidWorks", "OnShape"],
+    image: "/src/assets/images/Rocket Full Length.png",
+    description: "Collaborated as a part of the propulsion and systems sub-team at the University of Saskatchewan Space Design Team (USST) to design and optimize components for the launch of an 8ft M-class rocket at Launch Canada 2025.",
+    myRole: "Created CAD models using Solidworks, Fusion360, and OnShape, and used ANSYS and OpenRocket to optimize performance. Managed timelines, organized meetings, and coordinated reviews, gaining hands-on experience in aerospace engineering and team management."
   };
 
   const teamProjects = [
     {
       id: 1,
-      teamSize: 5,
-      teamName: "Tech Pioneers",
-      projectName: "Smart Library System",
-      skills: ["Python", "Flask", "SQLite", "RFID", "IoT"],
-      image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=300&fit=crop",
-      description: "Developed an automated library management system using RFID technology for book tracking and user authentication.",
-      myRole: "Backend developer responsible for database design and RFID integration system."
+      teamSize: 35,
+      teamName: "4627 Manning Robotics",
+      projectName: "Thor & Loki",
+      skills: ["Fusion 360 Simulation", "Fusion 360 Assemblies", "Team Leadership", "Manufacturing"],
+      image: "/src/assets/images/4627Thor.png",
+      description: "Designed and maintained the drive train systems for 4627 Manning Robotics during the 2023 FRC Charged Up challenge.",
+      myRole: "Drive train systems lead engineer responsible for gearbox design and system optimization, contributing to top rankings at regional and international events"
     },
     {
       id: 2,
-      teamSize: 6,
-      teamName: "Data Wizards",
-      projectName: "Student Performance Analytics",
-      skills: ["Python", "Pandas", "Machine Learning", "Tableau", "REST APIs"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=300&fit=crop",
-      description: "Built a comprehensive analytics platform to track and predict student performance using machine learning algorithms.",
-      myRole: "Data analyst and ML engineer, developed prediction models and created interactive dashboards for educators."
+      teamSize: 3,
+      teamName: "Manning Robotics",
+      projectName: "2023 Skills Alberta Robotics Competition",
+      skills: ["Machining", "Circuit Design", "Problem Solving", "Technical Documentation", "Fabrication",],
+      image: "/src/assets/images/skillsbot.JPG",
+      description: "Led a team of 3 to design and engineer two high-performance hockey robots for the 2023 Skills Robotics Competition.",
+      myRole: "Team leader responsible for coordinating design, prototyping, documentation, and testing to optimize robot functionality and precision."
     },
     {
       id: 3,
-      teamSize: 4,
-      teamName: "Mobile Masters",
-      projectName: "Campus Navigation App",
-      skills: ["React Native", "Firebase", "Google Maps API", "GPS"],
+      teamSize: 6,
+      teamName: "Space Explorers",
+      projectName: "2024 NASA Space Apps Challenge",
+      skills: ["HTML", "CSS", "JavaScript", "NASA API"],
       image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=300&fit=crop",
-      description: "Created a mobile app for campus navigation with real-time location tracking and building information.",
-      myRole: "Mobile app developer, implemented GPS navigation features and integrated mapping services."
+      description: "Competed in the 2024 NASA Space Apps Challenge, developing innovative solutions for space exploration and technology.",
+      myRole: "Team member responsible for brainstorming, coding, and prototyping solutions to address key challenges in space science and technology."
     },
-    {
-      id: 4,
-      teamSize: 7,
-      teamName: "AI Enthusiasts",
-      projectName: "Automated Grading System",
-      skills: ["Python", "TensorFlow", "NLP", "Computer Vision", "Django"],
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=300&fit=crop",
-      description: "Developed an AI-powered system for automatically grading assignments and providing feedback to students.",
-      myRole: "AI/ML developer focused on natural language processing for essay grading and feedback generation."
-    },
-    {
-      id: 5,
-      teamSize: 3,
-      teamName: "Hardware Hackers",
-      projectName: "IoT Weather Station Network",
-      skills: ["Arduino", "LoRaWAN", "Python", "Time Series DB", "Grafana"],
-      image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=300&fit=crop",
-      description: "Built a network of IoT weather stations for campus-wide environmental monitoring and data collection.",
-      myRole: "Hardware engineer and data visualization specialist, designed sensor networks and monitoring dashboards."
-    },
-    {
-      id: 6,
-      teamSize: 5,
-      teamName: "Web Warriors",
-      projectName: "Event Management Platform",
-      skills: ["Vue.js", "Express.js", "MongoDB", "Socket.io", "Stripe API"],
-      image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=300&fit=crop",
-      description: "Created a comprehensive platform for managing campus events with real-time updates and payment processing.",
-      myRole: "Full-stack developer, implemented real-time features and payment integration systems."
-    }
+
   ];
 
   return (
