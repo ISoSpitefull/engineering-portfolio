@@ -12,7 +12,7 @@ const PersonalProjects = () => {
       skills: ["Arduino", "Python", "Systems Integration", "IoT"],
       learningExperience: "This project taught me the importance of IOT connections and how to optimize power consumption in embedded systems. I learned to work with circuits and softwares and understand the challenges of wireless communication in IoT devices.",
       futurePlans: "Plan to make a standalone mobile application for users to control the lights and set the schedule, to shift away from the reliance on other apps and services.",
-      image: "/src/assets/images/simulightlogo.jpg",
+      image: "/src/assets/images/SimuLight Wide Banner Website.png",
       format: "large"
     },
     {
@@ -21,17 +21,17 @@ const PersonalProjects = () => {
       skills: ["Arduino", "C++", "Electronics", "User-Centric Design"],
       learningExperience: "This project taught me how to design accessible solutions and customize hardware for diverse needs. I improved my programming and engineering skills while learning the importance of user-centric design.",
       futurePlans: "plan to develop a fully customizable keyboard layout software for users, allowing them to adjust settings and configurations without needing third-party applications or services.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop",
-      format: "large"
+      image: "/src/assets/images/MacroKeyboard Banner Website.png",
+      format: "medium"
     },
     {
       id: 3,
       name: "RC Airplane Based Land Surveying System",
       skills: ["Raspberry Pi", "Python", "LiDAR", "GPS"],
-      learningExperience: "Currently building an RC airplane to take aerial photos and videos of the land, and use them to create a 3D model of the land.",
+      learningExperience: "Currently building a radio controlled airplane to take aerial photos and videos of land to eventually use them to create a 3D model of the land.",
       futurePlans: "Hoping to expand into LiDAR and GPS integration to create a more accurate 3D model of the land.",
-      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=200&fit=crop",
-      format: "large"
+      image: "https://images.unsplash.com/photo-1628158088936-68ccaaa400dc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      format: "small"
     },
 
   ];
@@ -126,16 +126,26 @@ const PersonalProjects = () => {
     // Small format
     return (
       <Card key={project.id} className={baseClasses}>
-        <div className="relative h-32 overflow-hidden rounded-t-lg">
+        <div className="relative h-40 overflow-hidden rounded-t-lg">
           <img 
             src={project.image} 
             alt={project.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-          <div className="absolute bottom-2 left-2">
+          <div className="absolute bottom-3 left-2">
             <h3 className="text-lg font-bold text-white">{project.name}</h3>
           </div>
+          {project.id === 3 && (
+            <a 
+              href="https://unsplash.com/photos/black-and-white-tripod-on-green-grass-field-during-daytime-zSrksQgp4W0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute top-2 right-2 text-xs text-gray-300 hover:text-white transition-colors bg-black/50 px-2 py-1 rounded"
+            >
+              Valerie V. 2021, Aug 5th. Unsplash
+            </a>
+          )}
         </div>
         <CardContent className="space-y-3 pt-3">
           <div className="flex flex-wrap gap-1">
