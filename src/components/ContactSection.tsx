@@ -3,8 +3,85 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      reset: () => void;
+    };
+  }
+}
 
 const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  const recaptchaRef = useRef<HTMLDivElement>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string>("");
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData(event.currentTarget);
+      
+      // Check if honeypot field is filled (if it is, it's likely a bot)
+      if (formData.get("website")) {
+        console.log("Bot detected");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Get reCAPTCHA token
+      const recaptchaValue = formData.get("g-recaptcha-response");
+      if (!recaptchaValue) {
+        toast({
+          title: "Error",
+          description: "Please complete the reCAPTCHA verification.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+          variant: "default",
+        });
+        (event.target as HTMLFormElement).reset();
+        // Reset reCAPTCHA
+        if (window.grecaptcha) {
+          window.grecaptcha.reset();
+        }
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section className="py-20 px-4 max-w-6xl mx-auto">
       <div className="text-center mb-16">
@@ -20,42 +97,91 @@ const ContactSection = () => {
           <CardHeader>
             <CardTitle className="text-2xl text-white">Send Me a Message</CardTitle>
             <CardDescription className="text-gray-300">
-              Whether you have a project idea, or are reaching out about ajob opportunity!
+              Whether you have a project idea, or are reaching out about a job opportunity!
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-300 mb-2 block">First Name</label>
-                <Input placeholder="John" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
+            <form onSubmit={onSubmit} className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-300 mb-2 block">First Name</label>
+                  <Input 
+                    name="firstName"
+                    required
+                    placeholder="Peter" 
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" 
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-300 mb-2 block">Last Name</label>
+                  <Input 
+                    name="lastName"
+                    required
+                    placeholder="Parker" 
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" 
+                  />
+                </div>
               </div>
+              
               <div>
-                <label className="text-sm font-medium text-gray-300 mb-2 block">Last Name</label>
-                <Input placeholder="Doe" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
+                <label className="text-sm font-medium text-gray-300 mb-2 block">Email</label>
+                <Input 
+                  type="email" 
+                  name="email"
+                  required
+                  placeholder="not.spiderman@example.com" 
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" 
+                />
               </div>
-            </div>
-            
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-2 block">Email</label>
-              <Input type="email" placeholder="john.doe@example.com" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
-            </div>
-            
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-2 block">Subject</label>
-              <Input placeholder="Project Collaboration Opportunity" className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" />
-            </div>
-            
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-2 block">Message</label>
-              <Textarea 
-                placeholder="Tell me about your project or opportunity..."
-                className="min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              />
-            </div>
-            
-            <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3">
-              Send Message
-            </Button>
+              
+              {/* Honeypot field - hidden from real users */}
+              <div className="hidden">
+                <label>Website</label>
+                <Input 
+                  type="text" 
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-300 mb-2 block">Subject</label>
+                <Input 
+                  name="subject"
+                  required
+                  placeholder="Project Collaboration Opportunity" 
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400" 
+                />
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-300 mb-2 block">Message</label>
+                <Textarea 
+                  name="message"
+                  required
+                  placeholder="Tell me about your project or opportunity..."
+                  className="min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                />
+              </div>
+
+              {/* Google reCAPTCHA */}
+              <div className="flex justify-center">
+                <div 
+                  className="g-recaptcha" 
+                  data-sitekey="6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok"
+                  ref={recaptchaRef}
+                ></div>
+              </div>
+              
+              <Button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3"
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </Button>
+            </form>
           </CardContent>
         </Card>
 

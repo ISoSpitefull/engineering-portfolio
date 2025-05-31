@@ -12,7 +12,7 @@ const PersonalProjects = () => {
       skills: ["Arduino", "Python", "Systems Integration", "IoT"],
       learningExperience: "This project taught me the importance of IOT connections and how to optimize power consumption in embedded systems. I learned to work with circuits and softwares and understand the challenges of wireless communication in IoT devices.",
       futurePlans: "Plan to make a standalone mobile application for users to control the lights and set the schedule, to shift away from the reliance on other apps and services.",
-      image: "/src/assets/images/SimuLight Wide Banner Website.png",
+      image: "/images/SimuLight Wide Banner Website.png",
       format: "large"
     },
     {
@@ -21,7 +21,7 @@ const PersonalProjects = () => {
       skills: ["Arduino", "C++", "Electronics", "User-Centric Design"],
       learningExperience: "This project taught me how to design accessible solutions and customize hardware for diverse needs. I improved my programming and engineering skills while learning the importance of user-centric design.",
       futurePlans: "plan to develop a fully customizable keyboard layout software for users, allowing them to adjust settings and configurations without needing third-party applications or services.",
-      image: "/src/assets/images/MacroKeyboard Banner Website.png",
+      image: "/images/MacroKeyboard Banner Website.png",
       format: "medium"
     },
     {
