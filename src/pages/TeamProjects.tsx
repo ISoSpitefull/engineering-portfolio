@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,7 +10,7 @@ const TeamProjects = () => {
     teamName: "USST - University of Saskatchewan Space Design Team",
     projectName: "USST Rocket Project: Up ↑",
     skills: ["OpenRocket", "Fusion 360", "ANSYS", "SolidWorks", "OnShape"],
-    image: "/src/assets/images/Rocket Full Length.png",
+    image: "/images/Rocket Full Length.png",
     description: "Collaborated as a part of the propulsion and systems sub-team at the University of Saskatchewan Space Design Team (USST) to design and optimize components for the launch of an 8ft M-class rocket at Launch Canada 2025.",
     myRole: "Created CAD models using Solidworks, Fusion360, and OnShape, and used ANSYS and OpenRocket to optimize performance. Managed timelines, organized meetings, and coordinated reviews, gaining hands-on experience in aerospace engineering and team management."
   };
@@ -23,7 +22,7 @@ const TeamProjects = () => {
       teamName: "4627 Manning Robotics",
       projectName: "Thor & Loki",
       skills: ["Fusion 360 Simulation", "Fusion 360 Assemblies", "Team Leadership", "Manufacturing"],
-      image: "/src/assets/images/4627Thor.png",
+      image: "/images/4627Thor.png",
       description: "Designed and maintained the drive train systems for 4627 Manning Robotics during the 2023 FRC Charged Up challenge.",
       myRole: "Drive train systems lead engineer responsible for gearbox design and system optimization, contributing to top rankings at regional and international events"
     },
@@ -33,7 +32,7 @@ const TeamProjects = () => {
       teamName: "Manning Robotics",
       projectName: "2023 Skills Alberta Robotics Competition",
       skills: ["Machining", "Circuit Design", "Problem Solving", "Technical Documentation", "Fabrication",],
-      image: "/src/assets/images/skillsbot.JPG",
+      image: "/images/skillsbot.JPG",
       description: "Led a team of 3 to design and engineer two high-performance hockey robots for the 2023 Skills Robotics Competition.",
       myRole: "Team leader responsible for coordinating design, prototyping, documentation, and testing to optimize robot functionality and precision."
     },
