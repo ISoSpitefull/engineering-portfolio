@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Hero from "@/components/Hero";
 import ContactSection from "@/components/ContactSection";
 
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-gray-900">
