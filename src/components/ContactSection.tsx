@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -17,23 +17,24 @@ const ContactSection = () => {
     try {
       const formData = new FormData(event.currentTarget);
       
-      // Check if honeypot field is filled (if it is, it's likely a bot)
-      if (formData.get("website")) {
-        console.log("Bot detected");
-        setIsSubmitting(false);
-        return;
-      }
-
-      formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
-
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // You would replace this with your own API endpoint
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: formData
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          subject: formData.get("subject"),
+          message: formData.get("message"),
+        }),
       });
 
       const data = await response.json();
 
-      if (data.success) {
+      if (response.ok) {
         toast({
           title: "Message sent!",
           description: "Thank you for reaching out. I'll get back to you soon.",
@@ -41,7 +42,7 @@ const ContactSection = () => {
         });
         (event.target as HTMLFormElement).reset();
       } else {
-        throw new Error(data.message);
+        throw new Error(data.message || "Failed to send message");
       }
     } catch (error) {
       console.error('Form submission error:', error);
@@ -107,17 +108,6 @@ const ContactSection = () => {
                 />
               </div>
               
-              {/* Honeypot field - hidden from real users */}
-              <div className="hidden">
-                <label>Website</label>
-                <Input 
-                  type="text" 
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                />
-              </div>
-              
               <div>
                 <label className="text-sm font-medium text-gray-300 mb-2 block">Subject</label>
                 <Input 
@@ -180,38 +170,6 @@ const ContactSection = () => {
               </div>
             </CardContent>
           </Card>
-
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="bg-gray-800 backdrop-blur-sm shadow-lg border-gray-700 hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-6 text-center">
-                <a 
-                  href="https://github.com/ISoSpitefull"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block hover:opacity-80 transition-opacity"
-                >
-                  <Github className="h-8 w-8 mx-auto mb-3 text-gray-300" />
-                  <h3 className="font-semibold text-white mb-1">GitHub</h3>
-                  <p className="text-sm text-gray-400">View my code</p>
-                </a>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gray-800 backdrop-blur-sm shadow-lg border-gray-700 hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-6 text-center">
-                <a 
-                  href="https://www.linkedin.com/in/nikhil-p-ba1581281/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block hover:opacity-80 transition-opacity"
-                >
-                  <Linkedin className="h-8 w-8 mx-auto mb-3 text-blue-400" />
-                  <h3 className="font-semibold text-white mb-1">LinkedIn</h3>
-                  <p className="text-sm text-gray-400">Professional network</p>
-                </a>
-              </CardContent>
-            </Card>
-          </div>
 
           <Card className="bg-gradient-to-r from-green-600/20 to-blue-600/20 border-green-500/30">
             <CardContent className="p-6">
