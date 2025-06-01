@@ -29,6 +29,7 @@ const ContactSection = () => {
           email: formData.get("email"),
           subject: formData.get("subject"),
           message: formData.get("message"),
+          phone_number: formData.get("phone_number"),
           from_name: "Engineering Portfolio Contact Form",
         }),
       });
@@ -77,6 +78,16 @@ const ContactSection = () => {
           </CardHeader>
           <CardContent className="space-y-6">
             <form onSubmit={onSubmit} className="space-y-6">
+              {/* Honeypot field - hidden from real users */}
+              <input
+                type="text"
+                name="phone_number"
+                className="hidden"
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+              
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-300 mb-2 block">First Name</label>
