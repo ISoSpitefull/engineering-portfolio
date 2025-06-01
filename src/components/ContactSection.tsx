@@ -8,7 +8,12 @@ import { useToast } from "@/components/ui/use-toast";
 
 declare global {
   interface Window {
-    hcaptcha: any;
+    hcaptcha: {
+      execute: (widgetId?: string) => void;
+      render: (container: string | HTMLElement, options: any) => string;
+      remove: (widgetId: string) => void;
+      reset: (widgetId?: string) => void;
+    };
   }
 }
 
@@ -17,37 +22,47 @@ const ContactSection = () => {
   const { toast } = useToast();
   const hcaptchaRef = useRef<HTMLDivElement>(null);
   const [hcaptchaToken, setHcaptchaToken] = useState<string>("");
+  const [widgetId, setWidgetId] = useState<string>("");
 
   useEffect(() => {
-    // Reset hCaptcha on component unmount
+    // Initialize hCaptcha
+    if (hcaptchaRef.current) {
+      const id = window.hcaptcha.render(hcaptchaRef.current, {
+        sitekey: "2ec8be54-0ce2-4174-9e5a-43de23d4f3ea",
+        size: "invisible",
+        theme: "dark",
+        callback: (token: string) => {
+          console.log("hCaptcha token:", token); // For testing
+          setHcaptchaToken(token);
+          handleFormSubmission();
+        },
+        "expired-callback": () => {
+          console.log("hCaptcha expired"); // For testing
+          setHcaptchaToken("");
+        },
+        "error-callback": (error: any) => {
+          console.error("hCaptcha error:", error); // For testing
+        }
+      });
+      setWidgetId(id);
+    }
+
     return () => {
-      if (window.hcaptcha) {
-        window.hcaptcha.reset();
+      // Cleanup
+      if (widgetId) {
+        window.hcaptcha.remove(widgetId);
       }
     };
   }, []);
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-
+  const handleFormSubmission = async () => {
     try {
-      const formData = new FormData(event.currentTarget);
+      const form = document.querySelector('form') as HTMLFormElement;
+      const formData = new FormData(form);
       
       // Check if honeypot field is filled (if it is, it's likely a bot)
       if (formData.get("website")) {
         console.log("Bot detected");
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Verify hCaptcha token
-      if (!hcaptchaToken) {
-        toast({
-          title: "Error",
-          description: "Please complete the hCaptcha verification.",
-          variant: "destructive",
-        });
         setIsSubmitting(false);
         return;
       }
@@ -61,6 +76,7 @@ const ContactSection = () => {
       });
 
       const data = await response.json();
+      console.log("Form submission response:", data); // For testing
 
       if (data.success) {
         toast({
@@ -68,10 +84,9 @@ const ContactSection = () => {
           description: "Thank you for reaching out. I'll get back to you soon.",
           variant: "default",
         });
-        (event.target as HTMLFormElement).reset();
-        // Reset hCaptcha after successful submission
-        if (window.hcaptcha) {
-          window.hcaptcha.reset();
+        form.reset();
+        if (widgetId) {
+          window.hcaptcha.reset(widgetId);
         }
         setHcaptchaToken("");
       } else {
@@ -86,6 +101,30 @@ const ContactSection = () => {
       });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Execute hCaptcha verification
+      if (widgetId) {
+        console.log("Executing hCaptcha..."); // For testing
+        window.hcaptcha.execute(widgetId);
+      } else {
+        console.error("hCaptcha widget ID not found"); // For testing
+        throw new Error("hCaptcha initialization failed");
+      }
+    } catch (error) {
+      console.error('hCaptcha execution error:', error);
+      setIsSubmitting(false);
+      toast({
+        title: "Error",
+        description: "Failed to verify human presence. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -172,17 +211,8 @@ const ContactSection = () => {
                 />
               </div>
 
-              {/* hCaptcha Widget */}
-              <div className="flex justify-center">
-                <div
-                  ref={hcaptchaRef}
-                  className="h-captcha"
-                  data-sitekey="2ec8be54-0ce2-4174-9e5a-43de23d4f3ea"
-                  data-theme="dark"
-                  data-callback={(token: string) => setHcaptchaToken(token)}
-                  data-expired-callback={() => setHcaptchaToken("")}
-                ></div>
-              </div>
+              {/* Hidden hCaptcha Widget */}
+              <div ref={hcaptchaRef}></div>
               
               <Button 
                 type="submit" 
