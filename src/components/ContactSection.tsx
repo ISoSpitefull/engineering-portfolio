@@ -3,12 +3,29 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Github, Linkedin, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
+
+declare global {
+  interface Window {
+    hcaptcha: any;
+  }
+}
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const hcaptchaRef = useRef<HTMLDivElement>(null);
+  const [hcaptchaToken, setHcaptchaToken] = useState<string>("");
+
+  useEffect(() => {
+    // Reset hCaptcha on component unmount
+    return () => {
+      if (window.hcaptcha) {
+        window.hcaptcha.reset();
+      }
+    };
+  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +41,19 @@ const ContactSection = () => {
         return;
       }
 
+      // Verify hCaptcha token
+      if (!hcaptchaToken) {
+        toast({
+          title: "Error",
+          description: "Please complete the hCaptcha verification.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
+      formData.append("h-captcha-response", hcaptchaToken);
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -40,6 +69,11 @@ const ContactSection = () => {
           variant: "default",
         });
         (event.target as HTMLFormElement).reset();
+        // Reset hCaptcha after successful submission
+        if (window.hcaptcha) {
+          window.hcaptcha.reset();
+        }
+        setHcaptchaToken("");
       } else {
         throw new Error(data.message);
       }
@@ -136,6 +170,18 @@ const ContactSection = () => {
                   placeholder="Tell me about your project or opportunity..."
                   className="min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                 />
+              </div>
+
+              {/* hCaptcha Widget */}
+              <div className="flex justify-center">
+                <div
+                  ref={hcaptchaRef}
+                  className="h-captcha"
+                  data-sitekey="2ec8be54-0ce2-4174-9e5a-43de23d4f3ea"
+                  data-theme="dark"
+                  data-callback={(token: string) => setHcaptchaToken(token)}
+                  data-expired-callback={() => setHcaptchaToken("")}
+                ></div>
               </div>
               
               <Button 
