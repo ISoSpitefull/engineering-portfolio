@@ -3,24 +3,43 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Github, Linkedin, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 declare global {
   interface Window {
-    grecaptcha: any;
+    grecaptcha: {
+      enterprise: {
+        execute: (siteKey: string, options: { action: string }) => Promise<string>;
+        ready: (callback: () => void) => void;
+      };
+    };
   }
 }
+
+const RECAPTCHA_SITE_KEY = "6LeNpFErAAAAADQUzFQZBzUm56tO0WqaOLLxCuEn";
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Initialize reCAPTCHA when component mounts
+    window.grecaptcha?.enterprise?.ready(() => {
+      console.log('reCAPTCHA Enterprise is ready');
+    });
+  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
 
     try {
+      // Execute reCAPTCHA Enterprise check
+      const token = await window.grecaptcha.enterprise.execute(RECAPTCHA_SITE_KEY, {
+        action: 'CONTACT'
+      });
+
       const formData = new FormData(event.currentTarget);
       
       // Check if honeypot field is filled (if it is, it's likely a bot)
@@ -30,18 +49,8 @@ const ContactSection = () => {
         return;
       }
 
-      // Get reCAPTCHA response
-      const recaptchaResponse = formData.get("g-recaptcha-response");
-      if (!recaptchaResponse) {
-        toast({
-          title: "Error",
-          description: "Please complete the reCAPTCHA verification.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
+      // Add reCAPTCHA token to form data
+      formData.append("g-recaptcha-response", token);
       formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -58,14 +67,11 @@ const ContactSection = () => {
           variant: "default",
         });
         (event.target as HTMLFormElement).reset();
-        // Reset reCAPTCHA
-        if (typeof window.grecaptcha !== 'undefined') {
-          window.grecaptcha.enterprise.reset();
-        }
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again later.",
@@ -159,15 +165,7 @@ const ContactSection = () => {
                 />
               </div>
 
-              {/* Google reCAPTCHA */}
               <div className="space-y-4">
-                <div className="flex justify-center">
-                  <div 
-                    className="g-recaptcha" 
-                    data-sitekey="6LeNpFErAAAAADQUzFQZBzUm56tO0WqaOLLxCuEn"
-                    data-action="CONTACT"
-                  ></div>
-                </div>
                 <p className="text-xs text-gray-400 text-center">
                   This site is protected by reCAPTCHA Enterprise and the Google{' '}
                   <a 
