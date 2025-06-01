@@ -17,24 +17,25 @@ const ContactSection = () => {
     try {
       const formData = new FormData(event.currentTarget);
       
-      // You would replace this with your own API endpoint
-      const response = await fetch("/api/contact", {
+      // Web3Forms submission
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName: formData.get("firstName"),
-          lastName: formData.get("lastName"),
+          access_key: "57552333-638f-41a0-8e70-9ed33ef005ec",
+          name: `${formData.get("firstName")} ${formData.get("lastName")}`,
           email: formData.get("email"),
           subject: formData.get("subject"),
           message: formData.get("message"),
+          from_name: "Engineering Portfolio Contact Form",
         }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (data.success) {
         toast({
           title: "Message sent!",
           description: "Thank you for reaching out. I'll get back to you soon.",
