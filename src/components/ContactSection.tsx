@@ -3,20 +3,51 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Github, Linkedin, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 declare global {
   interface Window {
-    grecaptcha: {
-      reset: () => void;
-    };
+    grecaptcha: any;
+    onRecaptchaLoad: () => void;
   }
 }
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const recaptchaRef = useRef<HTMLDivElement>(null);
+  const [recaptchaWidget, setRecaptchaWidget] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Define the callback function for when reCAPTCHA script loads
+    window.onRecaptchaLoad = () => {
+      if (recaptchaRef.current) {
+        try {
+          const widgetId = window.grecaptcha.render(recaptchaRef.current, {
+            sitekey: '6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok',
+            theme: 'dark',
+            callback: (response: string) => {
+              console.log('reCAPTCHA response:', response);
+            }
+          });
+          setRecaptchaWidget(widgetId);
+        } catch (error) {
+          console.error('Error rendering reCAPTCHA:', error);
+        }
+      }
+    };
+
+    // If grecaptcha is already loaded, initialize immediately
+    if (window.grecaptcha && window.grecaptcha.render) {
+      window.onRecaptchaLoad();
+    }
+
+    return () => {
+      // Cleanup
+      window.onRecaptchaLoad = () => {};
+    };
+  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,7 +64,7 @@ const ContactSection = () => {
       }
 
       // Get reCAPTCHA response
-      const recaptchaResponse = formData.get("g-recaptcha-response");
+      const recaptchaResponse = window.grecaptcha?.getResponse(recaptchaWidget);
       if (!recaptchaResponse) {
         toast({
           title: "Error",
@@ -44,6 +75,7 @@ const ContactSection = () => {
         return;
       }
 
+      formData.append("g-recaptcha-response", recaptchaResponse);
       formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -61,8 +93,8 @@ const ContactSection = () => {
         });
         (event.target as HTMLFormElement).reset();
         // Reset reCAPTCHA
-        if (typeof window.grecaptcha !== 'undefined') {
-          window.grecaptcha.reset();
+        if (recaptchaWidget !== null) {
+          window.grecaptcha.reset(recaptchaWidget);
         }
       } else {
         throw new Error(data.message);
@@ -164,11 +196,7 @@ const ContactSection = () => {
               {/* Google reCAPTCHA */}
               <div className="space-y-4">
                 <div className="flex justify-center">
-                  <div 
-                    className="g-recaptcha" 
-                    data-sitekey="6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok"
-                    data-theme="dark"
-                  ></div>
+                  <div ref={recaptchaRef}></div>
                 </div>
                 <p className="text-xs text-gray-400 text-center">
                   This site is protected by reCAPTCHA and the Google{' '}
