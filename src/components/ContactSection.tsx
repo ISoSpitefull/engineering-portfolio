@@ -11,16 +11,48 @@ declare global {
     grecaptcha: {
       ready: (callback: () => void) => void;
       execute: (siteKey: string, options: { action: string }) => Promise<string>;
-      reset: () => void;
+      render: (container: string | HTMLElement, parameters: any) => number;
+      reset: (widgetId?: number) => void;
+      getResponse: (widgetId?: number) => string;
     };
   }
 }
+
+const RECAPTCHA_SITE_KEY = "6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok";
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const recaptchaRef = useRef<HTMLDivElement>(null);
-  const [recaptchaToken, setRecaptchaToken] = useState<string>("");
+  const [widgetId, setWidgetId] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Initialize reCAPTCHA when the component mounts
+    const initRecaptcha = () => {
+      if (recaptchaRef.current && window.grecaptcha) {
+        const id = window.grecaptcha.render(recaptchaRef.current, {
+          sitekey: RECAPTCHA_SITE_KEY,
+          theme: 'dark', // This matches your dark theme
+          callback: (response: string) => {
+            console.log("reCAPTCHA completed", response);
+          }
+        });
+        setWidgetId(id);
+      }
+    };
+
+    // Check if grecaptcha is loaded
+    if (window.grecaptcha && window.grecaptcha.render) {
+      initRecaptcha();
+    } else {
+      // If not loaded yet, wait for it
+      window.addEventListener('load', initRecaptcha);
+    }
+
+    return () => {
+      window.removeEventListener('load', initRecaptcha);
+    };
+  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,9 +68,9 @@ const ContactSection = () => {
         return;
       }
 
-      // Get reCAPTCHA token
-      const recaptchaValue = formData.get("g-recaptcha-response");
-      if (!recaptchaValue) {
+      // Get reCAPTCHA response
+      const recaptchaResponse = widgetId !== null ? window.grecaptcha.getResponse(widgetId) : '';
+      if (!recaptchaResponse) {
         toast({
           title: "Error",
           description: "Please complete the reCAPTCHA verification.",
@@ -48,6 +80,8 @@ const ContactSection = () => {
         return;
       }
 
+      // Add reCAPTCHA response to form data
+      formData.append("g-recaptcha-response", recaptchaResponse);
       formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -65,8 +99,8 @@ const ContactSection = () => {
         });
         (event.target as HTMLFormElement).reset();
         // Reset reCAPTCHA
-        if (window.grecaptcha) {
-          window.grecaptcha.reset();
+        if (widgetId !== null) {
+          window.grecaptcha.reset(widgetId);
         }
       } else {
         throw new Error(data.message);
@@ -167,11 +201,7 @@ const ContactSection = () => {
 
               {/* Google reCAPTCHA */}
               <div className="flex justify-center">
-                <div 
-                  className="g-recaptcha" 
-                  data-sitekey="6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok"
-                  ref={recaptchaRef}
-                ></div>
+                <div ref={recaptchaRef}></div>
               </div>
               
               <Button 
