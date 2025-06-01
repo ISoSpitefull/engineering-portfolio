@@ -102,8 +102,7 @@
 
 /* Custom styles for reCAPTCHA */
 .g-recaptcha {
-  transform-origin: left top;
-  -webkit-transform-origin: left top;
+  display: inline-block;
 }
 
 /* Custom container for reCAPTCHA to ensure proper centering and spacing */
@@ -118,9 +117,9 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Hide reCAPTCHA badge */
+/* Hide reCAPTCHA badge since we show the notice in the form */
 .grecaptcha-badge {
-  visibility: hidden;
+  visibility: hidden !important;
 }
 
 /* Add reCAPTCHA notice text */

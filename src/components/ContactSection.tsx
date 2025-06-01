@@ -162,35 +162,36 @@ const ContactSection = () => {
               </div>
 
               {/* Google reCAPTCHA */}
-              <div className="recaptcha-container">
-                <div 
-                  className="g-recaptcha" 
-                  data-sitekey="6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok"
-                  data-theme="dark"
-                  data-size="normal"
-                ></div>
+              <div className="space-y-4">
+                <div className="flex justify-center">
+                  <div 
+                    className="g-recaptcha" 
+                    data-sitekey="6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok"
+                    data-theme="dark"
+                  ></div>
+                </div>
+                <p className="text-xs text-gray-400 text-center">
+                  This site is protected by reCAPTCHA and the Google{' '}
+                  <a 
+                    href="https://policies.google.com/privacy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300"
+                  >
+                    Privacy Policy
+                  </a>{' '}
+                  and{' '}
+                  <a 
+                    href="https://policies.google.com/terms" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300"
+                  >
+                    Terms of Service
+                  </a>{' '}
+                  apply.
+                </p>
               </div>
-              <p className="recaptcha-notice">
-                This site is protected by reCAPTCHA and the Google{' '}
-                <a 
-                  href="https://policies.google.com/privacy" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300"
-                >
-                  Privacy Policy
-                </a>{' '}
-                and{' '}
-                <a 
-                  href="https://policies.google.com/terms" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300"
-                >
-                  Terms of Service
-                </a>{' '}
-                apply.
-              </p>
               
               <Button 
                 type="submit" 
