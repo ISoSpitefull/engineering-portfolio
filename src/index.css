@@ -99,3 +99,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom styles for reCAPTCHA */
+.g-recaptcha {
+  transform-origin: left top;
+  -webkit-transform-origin: left top;
+}
+
+/* Custom container for reCAPTCHA to ensure proper centering and spacing */
+.recaptcha-container {
+  @apply flex justify-center items-center w-full py-4;
+  min-height: 78px; /* Minimum height to prevent layout shift */
+}
+
+/* Style for reCAPTCHA iframe border */
+.g-recaptcha > div {
+  @apply rounded-lg overflow-hidden border border-gray-600;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Hide reCAPTCHA badge */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+/* Add reCAPTCHA notice text */
+.recaptcha-notice {
+  @apply text-xs text-gray-400 text-center mt-2;
+}

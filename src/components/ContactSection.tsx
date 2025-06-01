@@ -3,56 +3,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Github, Linkedin, MapPin } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 declare global {
   interface Window {
     grecaptcha: {
-      ready: (callback: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
-      render: (container: string | HTMLElement, parameters: any) => number;
-      reset: (widgetId?: number) => void;
-      getResponse: (widgetId?: number) => string;
+      reset: () => void;
     };
   }
 }
 
-const RECAPTCHA_SITE_KEY = "6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok";
-
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const recaptchaRef = useRef<HTMLDivElement>(null);
-  const [widgetId, setWidgetId] = useState<number | null>(null);
-
-  useEffect(() => {
-    // Initialize reCAPTCHA when the component mounts
-    const initRecaptcha = () => {
-      if (recaptchaRef.current && window.grecaptcha) {
-        const id = window.grecaptcha.render(recaptchaRef.current, {
-          sitekey: RECAPTCHA_SITE_KEY,
-          theme: 'dark', // This matches your dark theme
-          callback: (response: string) => {
-            console.log("reCAPTCHA completed", response);
-          }
-        });
-        setWidgetId(id);
-      }
-    };
-
-    // Check if grecaptcha is loaded
-    if (window.grecaptcha && window.grecaptcha.render) {
-      initRecaptcha();
-    } else {
-      // If not loaded yet, wait for it
-      window.addEventListener('load', initRecaptcha);
-    }
-
-    return () => {
-      window.removeEventListener('load', initRecaptcha);
-    };
-  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -69,7 +33,7 @@ const ContactSection = () => {
       }
 
       // Get reCAPTCHA response
-      const recaptchaResponse = widgetId !== null ? window.grecaptcha.getResponse(widgetId) : '';
+      const recaptchaResponse = formData.get("g-recaptcha-response");
       if (!recaptchaResponse) {
         toast({
           title: "Error",
@@ -80,8 +44,6 @@ const ContactSection = () => {
         return;
       }
 
-      // Add reCAPTCHA response to form data
-      formData.append("g-recaptcha-response", recaptchaResponse);
       formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -99,8 +61,8 @@ const ContactSection = () => {
         });
         (event.target as HTMLFormElement).reset();
         // Reset reCAPTCHA
-        if (widgetId !== null) {
-          window.grecaptcha.reset(widgetId);
+        if (typeof window.grecaptcha !== 'undefined') {
+          window.grecaptcha.reset();
         }
       } else {
         throw new Error(data.message);
@@ -200,9 +162,35 @@ const ContactSection = () => {
               </div>
 
               {/* Google reCAPTCHA */}
-              <div className="flex justify-center">
-                <div ref={recaptchaRef}></div>
+              <div className="recaptcha-container">
+                <div 
+                  className="g-recaptcha" 
+                  data-sitekey="6Lc8llErAAAAAGa3Vfy-RwEqpOPH4CzGCjinh2Ok"
+                  data-theme="dark"
+                  data-size="normal"
+                ></div>
               </div>
+              <p className="recaptcha-notice">
+                This site is protected by reCAPTCHA and the Google{' '}
+                <a 
+                  href="https://policies.google.com/privacy" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300"
+                >
+                  Privacy Policy
+                </a>{' '}
+                and{' '}
+                <a 
+                  href="https://policies.google.com/terms" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300"
+                >
+                  Terms of Service
+                </a>{' '}
+                apply.
+              </p>
               
               <Button 
                 type="submit" 
