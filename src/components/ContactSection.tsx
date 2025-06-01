@@ -3,43 +3,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Github, Linkedin, MapPin } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-
-declare global {
-  interface Window {
-    grecaptcha: {
-      enterprise: {
-        execute: (siteKey: string, options: { action: string }) => Promise<string>;
-        ready: (callback: () => void) => void;
-      };
-    };
-  }
-}
-
-const RECAPTCHA_SITE_KEY = "6LeNpFErAAAAADQUzFQZBzUm56tO0WqaOLLxCuEn";
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    // Initialize reCAPTCHA when component mounts
-    window.grecaptcha?.enterprise?.ready(() => {
-      console.log('reCAPTCHA Enterprise is ready');
-    });
-  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Execute reCAPTCHA Enterprise check
-      const token = await window.grecaptcha.enterprise.execute(RECAPTCHA_SITE_KEY, {
-        action: 'CONTACT'
-      });
-
       const formData = new FormData(event.currentTarget);
       
       // Check if honeypot field is filled (if it is, it's likely a bot)
@@ -49,8 +24,6 @@ const ContactSection = () => {
         return;
       }
 
-      // Add reCAPTCHA token to form data
-      formData.append("g-recaptcha-response", token);
       formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -163,30 +136,6 @@ const ContactSection = () => {
                   placeholder="Tell me about your project or opportunity..."
                   className="min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                 />
-              </div>
-
-              <div className="space-y-4">
-                <p className="text-xs text-gray-400 text-center">
-                  This site is protected by reCAPTCHA Enterprise and the Google{' '}
-                  <a 
-                    href="https://policies.google.com/privacy" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300"
-                  >
-                    Privacy Policy
-                  </a>{' '}
-                  and{' '}
-                  <a 
-                    href="https://policies.google.com/terms" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300"
-                  >
-                    Terms of Service
-                  </a>{' '}
-                  apply.
-                </p>
               </div>
               
               <Button 
