@@ -3,62 +3,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Github, Linkedin, MapPin } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-
-declare global {
-  interface Window {
-    hcaptcha: {
-      execute: (widgetId?: string) => void;
-      render: (container: string | HTMLElement, options: any) => string;
-      remove: (widgetId: string) => void;
-      reset: (widgetId?: string) => void;
-    };
-  }
-}
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const hcaptchaRef = useRef<HTMLDivElement>(null);
-  const [hcaptchaToken, setHcaptchaToken] = useState<string>("");
-  const [widgetId, setWidgetId] = useState<string>("");
 
-  useEffect(() => {
-    // Initialize hCaptcha
-    if (hcaptchaRef.current) {
-      const id = window.hcaptcha.render(hcaptchaRef.current, {
-        sitekey: "2ec8be54-0ce2-4174-9e5a-43de23d4f3ea",
-        size: "invisible",
-        theme: "dark",
-        callback: (token: string) => {
-          console.log("hCaptcha token:", token); // For testing
-          setHcaptchaToken(token);
-          handleFormSubmission();
-        },
-        "expired-callback": () => {
-          console.log("hCaptcha expired"); // For testing
-          setHcaptchaToken("");
-        },
-        "error-callback": (error: any) => {
-          console.error("hCaptcha error:", error); // For testing
-        }
-      });
-      setWidgetId(id);
-    }
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
 
-    return () => {
-      // Cleanup
-      if (widgetId) {
-        window.hcaptcha.remove(widgetId);
-      }
-    };
-  }, []);
-
-  const handleFormSubmission = async () => {
     try {
-      const form = document.querySelector('form') as HTMLFormElement;
-      const formData = new FormData(form);
+      const formData = new FormData(event.currentTarget);
       
       // Check if honeypot field is filled (if it is, it's likely a bot)
       if (formData.get("website")) {
@@ -68,7 +25,6 @@ const ContactSection = () => {
       }
 
       formData.append("access_key", "57552333-638f-41a0-8e70-9ed33ef005ec");
-      formData.append("h-captcha-response", hcaptchaToken);
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -76,7 +32,6 @@ const ContactSection = () => {
       });
 
       const data = await response.json();
-      console.log("Form submission response:", data); // For testing
 
       if (data.success) {
         toast({
@@ -84,11 +39,7 @@ const ContactSection = () => {
           description: "Thank you for reaching out. I'll get back to you soon.",
           variant: "default",
         });
-        form.reset();
-        if (widgetId) {
-          window.hcaptcha.reset(widgetId);
-        }
-        setHcaptchaToken("");
+        (event.target as HTMLFormElement).reset();
       } else {
         throw new Error(data.message);
       }
@@ -101,30 +52,6 @@ const ContactSection = () => {
       });
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Execute hCaptcha verification
-      if (widgetId) {
-        console.log("Executing hCaptcha..."); // For testing
-        window.hcaptcha.execute(widgetId);
-      } else {
-        console.error("hCaptcha widget ID not found"); // For testing
-        throw new Error("hCaptcha initialization failed");
-      }
-    } catch (error) {
-      console.error('hCaptcha execution error:', error);
-      setIsSubmitting(false);
-      toast({
-        title: "Error",
-        description: "Failed to verify human presence. Please try again.",
-        variant: "destructive",
-      });
     }
   };
 
@@ -210,9 +137,6 @@ const ContactSection = () => {
                   className="min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                 />
               </div>
-
-              {/* Hidden hCaptcha Widget */}
-              <div ref={hcaptchaRef}></div>
               
               <Button 
                 type="submit" 
