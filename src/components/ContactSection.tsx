@@ -167,7 +167,12 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold">Email</h3>
-                  <p className="text-blue-100">nikhil.patel.23052@gmail.com</p>
+                  <p 
+                    className="text-blue-100"
+                    dangerouslySetInnerHTML={{
+                      __html: "<a href='mail&#116;o&#58;n%&#54;9kh%6&#57;l&#46;p&#97;%74%&#54;&#53;l&#46;230&#53;&#50;&#64;&#37;67&#109;a&#37;69l&#46;&#99;&#111;&#37;6D' class='hover:underline'>&#110;&#105;khil&#46;p&#97;tel&#46;2&#51;05&#50;&#64;gmail&#46;com</a>"
+                    }}
+                  />
                 </div>
               </div>
               
