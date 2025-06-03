@@ -42,15 +42,15 @@ const PersonalProjects = () => {
     if (project.format === "large") {
       return (
         <Card key={project.id} className={`${baseClasses} col-span-full`}>
-          <div className="relative h-64 overflow-hidden rounded-t-lg">
+          <div className="relative h-48 sm:h-64 overflow-hidden rounded-t-lg">
             <img 
               src={project.image} 
               alt={project.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-contain sm:object-cover group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
             <div className="absolute bottom-4 left-4">
-              <h3 className="text-2xl font-bold text-white">{project.name}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white">{project.name}</h3>
             </div>
           </div>
           <CardContent className="space-y-6 pt-6">
@@ -88,15 +88,15 @@ const PersonalProjects = () => {
     if (project.format === "medium") {
       return (
         <Card key={project.id} className={`${baseClasses} md:col-span-2`}>
-          <div className="relative h-48 overflow-hidden rounded-t-lg">
+          <div className="relative h-40 sm:h-48 overflow-hidden rounded-t-lg">
             <img 
               src={project.image} 
               alt={project.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-contain sm:object-cover group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
             <div className="absolute bottom-4 left-4">
-              <h3 className="text-xl font-bold text-white">{project.name}</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-white">{project.name}</h3>
             </div>
           </div>
           <CardContent className="space-y-4 pt-4">
@@ -126,15 +126,15 @@ const PersonalProjects = () => {
     // Small format
     return (
       <Card key={project.id} className={baseClasses}>
-        <div className="relative h-40 overflow-hidden rounded-t-lg">
+        <div className="relative h-36 sm:h-40 overflow-hidden rounded-t-lg">
           <img 
             src={project.image} 
             alt={project.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-contain sm:object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
           <div className="absolute bottom-3 left-2">
-            <h3 className="text-lg font-bold text-white">{project.name}</h3>
+            <h3 className="text-base sm:text-lg font-bold text-white">{project.name}</h3>
           </div>
           {project.id === 3 && (
             <a 

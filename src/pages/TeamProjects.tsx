@@ -74,57 +74,57 @@ const TeamProjects = () => {
         {/* Showcase Project */}
         <section className="relative overflow-hidden">
           {/* Background Image */}
-          <div className="w-full h-[500px] relative">
+          <div className="w-full h-[200px] sm:h-[300px] md:h-[500px] relative">
             <img 
               src={showcaseProject.image} 
               alt={showcaseProject.projectName}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain md:object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-gray-900/30"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/40"></div>
           </div>
           
           {/* Content Overlay */}
-          <div className="absolute inset-0 flex items-end">
-            <div className="w-full max-w-7xl mx-auto px-4 pb-8">
-              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-8 shadow-2xl border border-gray-700 max-w-5xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <Award className="h-8 w-8 text-purple-400" />
-                  <span className="text-sm font-medium text-purple-400 uppercase tracking-wide">Showcase Project</span>
+          <div className="relative md:absolute inset-0 flex items-end">
+            <div className="w-full max-w-7xl mx-auto px-4 py-6 md:pb-8">
+              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-4 sm:p-6 md:p-8 shadow-2xl border border-gray-700 max-w-5xl">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <Award className="h-6 w-6 sm:h-8 sm:w-8 text-purple-400" />
+                  <span className="text-xs sm:text-sm font-medium text-purple-400 uppercase tracking-wide">Showcase Project</span>
                 </div>
                 
-                <h2 className="text-3xl font-bold text-white mb-4">{showcaseProject.projectName}</h2>
-                <p className="text-lg text-gray-300 mb-6 leading-relaxed">{showcaseProject.description}</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">{showcaseProject.projectName}</h2>
+                <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">{showcaseProject.description}</p>
                 
-                <div className="grid md:grid-cols-2 gap-8 mb-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <Users className="h-5 w-5 text-blue-400" />
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6">
+                  <div className="space-y-3 sm:space-y-4">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Users className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
                       <div>
-                        <p className="text-sm text-gray-400">Team Size</p>
-                        <p className="font-semibold text-white">{showcaseProject.teamSize} members</p>
+                        <p className="text-xs sm:text-sm text-gray-400">Team Size</p>
+                        <p className="text-sm sm:text-base font-semibold text-white">{showcaseProject.teamSize} members</p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-3">
-                      <Award className="h-5 w-5 text-green-400" />
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Award className="h-4 w-4 sm:h-5 sm:w-5 text-green-400" />
                       <div>
-                        <p className="text-sm text-gray-400">Team Name</p>
-                        <p className="font-semibold text-white">{showcaseProject.teamName}</p>
+                        <p className="text-xs sm:text-sm text-gray-400">Team Name</p>
+                        <p className="text-sm sm:text-base font-semibold text-white">{showcaseProject.teamName}</p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-3">
-                      <Code className="h-5 w-5 text-purple-400" />
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <Code className="h-4 w-4 sm:h-5 sm:w-5 text-purple-400 mt-1" />
                       <div>
-                        <p className="text-sm text-gray-400">Key Technologies</p>
-                        <div className="flex flex-wrap gap-2 mt-1">
+                        <p className="text-xs sm:text-sm text-gray-400">Key Technologies</p>
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-1">
                           {showcaseProject.skills.slice(0, 3).map((skill) => (
-                            <Badge key={skill} variant="secondary" className="bg-purple-900 text-purple-200">
+                            <Badge key={skill} variant="secondary" className="bg-purple-900 text-purple-200 text-xs sm:text-sm py-0.5">
                               {skill}
                             </Badge>
                           ))}
                           {showcaseProject.skills.length > 3 && (
-                            <Badge variant="secondary" className="bg-gray-700 text-gray-300">
+                            <Badge variant="secondary" className="bg-gray-700 text-gray-300 text-xs sm:text-sm py-0.5">
                               +{showcaseProject.skills.length - 3} more
                             </Badge>
                           )}
@@ -133,12 +133,12 @@ const TeamProjects = () => {
                     </div>
                   </div>
                   
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <User className="h-5 w-5 text-orange-400" />
-                      <p className="text-sm text-gray-400 font-semibold">My Role</p>
+                  <div className="space-y-2 sm:space-y-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <User className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400" />
+                      <p className="text-xs sm:text-sm text-gray-400 font-semibold">My Role</p>
                     </div>
-                    <p className="text-gray-300 leading-relaxed">{showcaseProject.myRole}</p>
+                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">{showcaseProject.myRole}</p>
                   </div>
                 </div>
               </div>
@@ -147,48 +147,48 @@ const TeamProjects = () => {
         </section>
 
         {/* Other Team Projects */}
-        <section className="py-20 px-4 max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-6">Other Team Projects</h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        <section className="py-8 sm:py-12 md:py-20 px-4 max-w-7xl mx-auto">
+          <div className="text-center mb-8 sm:mb-10 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Other Team Projects</h2>
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed px-2">
               Additional collaborative projects that have contributed to my growth as a team player and technical contributor.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {teamProjects.map((project) => (
               <Card key={project.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gray-800 backdrop-blur-sm border-gray-700 shadow-lg">
-                <div className="relative h-48 overflow-hidden rounded-t-lg">
+                <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden rounded-t-lg">
                   <img 
                     src={project.image} 
                     alt={project.projectName}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain sm:object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4">
-                    <h3 className="text-xl font-bold text-white">{project.projectName}</h3>
-                    <p className="text-gray-300 text-sm">{project.teamName}</p>
+                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white">{project.projectName}</h3>
+                    <p className="text-xs sm:text-sm text-gray-300">{project.teamName}</p>
                   </div>
                 </div>
                 
-                <CardContent className="space-y-4 pt-6">
+                <CardContent className="space-y-3 sm:space-y-4 pt-4 sm:pt-6">
                   <div className="flex items-center gap-2 text-gray-300">
                     <Users className="h-4 w-4" />
-                    <span className="text-sm font-medium">{project.teamSize} team members</span>
+                    <span className="text-xs sm:text-sm font-medium">{project.teamSize} team members</span>
                   </div>
                   
-                  <p className="text-gray-300 text-sm leading-relaxed">{project.description}</p>
+                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">{project.description}</p>
                   
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-white text-sm">My Role</h4>
-                    <p className="text-gray-300 text-xs leading-relaxed">{project.myRole}</p>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <h4 className="font-semibold text-white text-xs sm:text-sm">My Role</h4>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">{project.myRole}</p>
                   </div>
                   
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-white text-sm">Technologies Used</h4>
-                    <div className="flex flex-wrap gap-2">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <h4 className="font-semibold text-white text-xs sm:text-sm">Technologies Used</h4>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {project.skills.map((skill) => (
-                        <Badge key={skill} variant="secondary" className="bg-blue-900 text-blue-200 text-xs">
+                        <Badge key={skill} variant="secondary" className="bg-blue-900 text-blue-200 text-xs py-0.5">
                           {skill}
                         </Badge>
                       ))}

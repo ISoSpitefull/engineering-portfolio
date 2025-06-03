@@ -59,25 +59,25 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-20 px-4 max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-white mb-6">Let's Connect</h2>
-        <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+    <section className="py-12 sm:py-20 px-4 max-w-6xl mx-auto">
+      <div className="text-center mb-10 sm:mb-16">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6">Let's Connect</h2>
+        <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-2">
           I'm always excited to discuss new opportunities, collaborate on projects, or share insights about engineering and technology.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12">
+      <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
         {/* Contact Form */}
         <Card className="bg-gray-800 backdrop-blur-sm shadow-xl border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-2xl text-white">Send Me a Message</CardTitle>
-            <CardDescription className="text-gray-300">
+          <CardHeader className="space-y-2 sm:space-y-3">
+            <CardTitle className="text-xl sm:text-2xl text-white">Send Me a Message</CardTitle>
+            <CardDescription className="text-gray-300 text-sm sm:text-base">
               Whether you have a project idea, or are reaching out about a job opportunity!
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <form onSubmit={onSubmit} className="space-y-6">
+          <CardContent className="space-y-4 sm:space-y-6">
+            <form onSubmit={onSubmit} className="space-y-4 sm:space-y-6">
               {/* Honeypot field - hidden from real users */}
               <input
                 type="text"
@@ -88,9 +88,9 @@ const ContactSection = () => {
                 autoComplete="off"
               />
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">First Name</label>
+                  <label className="text-sm font-medium text-gray-300 mb-1.5 sm:mb-2 block">First Name</label>
                   <Input 
                     name="firstName"
                     required
@@ -99,7 +99,7 @@ const ContactSection = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">Last Name</label>
+                  <label className="text-sm font-medium text-gray-300 mb-1.5 sm:mb-2 block">Last Name</label>
                   <Input 
                     name="lastName"
                     required
@@ -110,7 +110,7 @@ const ContactSection = () => {
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-300 mb-2 block">Email</label>
+                <label className="text-sm font-medium text-gray-300 mb-1.5 sm:mb-2 block">Email</label>
                 <Input 
                   type="email" 
                   name="email"
@@ -121,7 +121,7 @@ const ContactSection = () => {
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-300 mb-2 block">Subject</label>
+                <label className="text-sm font-medium text-gray-300 mb-1.5 sm:mb-2 block">Subject</label>
                 <Input 
                   name="subject"
                   required
@@ -131,19 +131,19 @@ const ContactSection = () => {
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-300 mb-2 block">Message</label>
+                <label className="text-sm font-medium text-gray-300 mb-1.5 sm:mb-2 block">Message</label>
                 <Textarea 
                   name="message"
                   required
                   placeholder="Tell me about your project or opportunity..."
-                  className="min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                  className="min-h-[100px] sm:min-h-[120px] bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                 />
               </div>
               
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base"
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
@@ -152,23 +152,23 @@ const ContactSection = () => {
         </Card>
 
         {/* Contact Info */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           <Card className="bg-gradient-to-br from-blue-600 to-purple-600 text-white border-0 shadow-xl">
-            <CardHeader>
-              <CardTitle className="text-2xl">Get In Touch</CardTitle>
-              <CardDescription className="text-blue-100">
+            <CardHeader className="space-y-2 sm:space-y-3">
+              <CardTitle className="text-xl sm:text-2xl">Get In Touch</CardTitle>
+              <CardDescription className="text-blue-100 text-sm sm:text-base">
                 Ready to start a conversation? Here are the best ways to reach me.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4 sm:space-y-6">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Mail className="h-6 w-6" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <Mail className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">Email</h3>
+                  <h3 className="font-semibold text-sm sm:text-base">Email</h3>
                   <p 
-                    className="text-blue-100"
+                    className="text-blue-100 text-sm sm:text-base"
                     dangerouslySetInnerHTML={{
                       __html: "<a href='mail&#116;o&#58;n%&#54;9kh%6&#57;l&#46;p&#97;%74%&#54;&#53;l&#46;230&#53;&#50;&#64;&#37;67&#109;a&#37;69l&#46;&#99;&#111;&#37;6D' class='hover:underline'>&#110;&#105;khil&#46;p&#97;tel&#46;2&#51;05&#50;&#64;gmail&#46;com</a>"
                     }}
@@ -177,24 +177,24 @@ const ContactSection = () => {
               </div>
               
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <MapPin className="h-6 w-6" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <MapPin className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">Location</h3>
-                  <p className="text-blue-100">University of Saskatchewan, Saskatoon, SK</p>
+                  <h3 className="font-semibold text-sm sm:text-base">Location</h3>
+                  <p className="text-blue-100 text-sm sm:text-base">University of Saskatchewan, Saskatoon, SK</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-gradient-to-r from-green-600/20 to-blue-600/20 border-green-500/30">
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-white mb-2">Open to Opportunities</h3>
-              <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+            <CardContent className="p-4 sm:p-6">
+              <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">Open to Opportunities</h3>
+              <p className="text-xs sm:text-sm text-gray-300 mb-4 leading-relaxed">
                 Currently seeking internships, co-op positions, and collaborative projects in Electrical engineering and Mechatronics technology.
               </p>
-              <Button variant="outline" className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900">
+              <Button variant="outline" className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900 text-sm sm:text-base py-2 sm:py-2.5">
                 Download Resume
               </Button>
             </CardContent>
