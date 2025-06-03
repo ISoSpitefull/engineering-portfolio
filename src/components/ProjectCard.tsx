@@ -1,8 +1,8 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
 interface Project {
   id: number;
@@ -23,9 +23,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white/80 backdrop-blur-sm border-0 shadow-lg">
       <div className="relative overflow-hidden rounded-t-lg">
-        <img 
-          src={project.image} 
+        <OptimizedImage
+          src={project.image}
           alt={project.title}
+          width={700}
+          height={475}
           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -56,17 +58,35 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         </div>
         
         <div className="flex gap-3 pt-2">
-          <Button 
-            size="sm" 
-            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+          <a 
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1"
           >
-            <ExternalLink className="h-4 w-4 mr-1" />
-            Live Demo
-          </Button>
-          <Button size="sm" variant="outline" className="flex-1 hover:bg-gray-50">
-            <Github className="h-4 w-4 mr-1" />
-            Code
-          </Button>
+            <Button 
+              size="sm" 
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            >
+              <ExternalLink className="h-4 w-4 mr-1" />
+              Live Demo
+            </Button>
+          </a>
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1"
+          >
+            <Button 
+              size="sm" 
+              variant="outline" 
+              className="w-full hover:bg-gray-50"
+            >
+              <Github className="h-4 w-4 mr-1" />
+              Code
+            </Button>
+          </a>
         </div>
       </CardContent>
     </Card>
