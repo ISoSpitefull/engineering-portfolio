@@ -14,7 +14,13 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   build: {
+    target: 'esnext',
     minify: 'terser',
     terserOptions: {
       compress: {
@@ -24,23 +30,21 @@ export default defineConfig(({ mode }) => ({
     },
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('react')) {
-              return 'react-vendor';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'radix-vendor';
-            }
-            return 'vendor';
-          }
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'ui-vendor': [
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-alert-dialog',
+            '@radix-ui/react-avatar',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+          ],
         },
       },
     },
+    chunkSizeWarningLimit: 1000,
   },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+  optimizeDeps: {
+    include: ['react', 'react-dom'],
   },
 }));
