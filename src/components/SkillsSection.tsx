@@ -49,36 +49,36 @@ const SkillsSection = () => {
   };
 
   return (
-    <section className="py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-700 rounded-3xl my-20">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-white mb-4">Technical Skills</h2>
-        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+    <section className="py-12 sm:py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl sm:rounded-3xl my-8 sm:my-20">
+      <div className="text-center mb-8 sm:mb-16">
+        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">Technical Skills</h2>
+        <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto px-2">
           A comprehensive overview of my technical expertise across different domains of engineering and development.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid sm:grid-cols-2 gap-4 sm:gap-8">
         {skillCategories.map((category, index) => (
           <Card 
             key={index} 
             className={`hover:shadow-xl transition-shadow duration-300 bg-gray-800 backdrop-blur-sm border-gray-700 ${
-              index === skillCategories.length - 1 ? 'md:col-span-2 md:w-1/2 md:mx-auto' : ''
+              index === skillCategories.length - 1 ? 'sm:col-span-2 md:col-span-1 md:col-start-2' : ''
             }`}
           >
-            <CardHeader>
-              <CardTitle className="text-xl text-white flex items-center">
-                <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-3"></div>
+            <CardHeader className="pb-3 sm:pb-4">
+              <CardTitle className="text-lg sm:text-xl text-white flex items-center">
+                <div className="w-2 sm:w-3 h-2 sm:h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-2 sm:mr-3"></div>
                 {category.category}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
+              <div className="grid gap-2 sm:gap-3">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="flex items-center justify-between">
+                  <div key={skillIndex} className="flex items-center justify-between text-sm sm:text-base">
                     <span className="font-medium text-gray-300">{skill.name}</span>
                     <Badge 
                       variant="outline" 
-                      className={`${getLevelColor(skill.level)} font-semibold border`}
+                      className={`${getLevelColor(skill.level)} text-xs sm:text-sm font-semibold border ml-2`}
                     >
                       {skill.level}
                     </Badge>
