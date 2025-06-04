@@ -1,51 +1,80 @@
-# Welcome to your Lovable project
+# Nikhil - Eng: My Portfolio
 
-## Project info
+A modern, responsive engineering portfolio built with modern web tech. This portfolio showcases my professional experience, projects, and skills.
 
-**URL**: https://lovable.dev/projects/b45d9498-ebab-42f3-9fb9-b1e5e270454e
+## 🚀 Features
 
-## How can I edit this code?
+- Modern and responsive design
+- Dark/Light theme support
+- Interactive UI components
+- Optimized performance
+- Mobile-first approach
+- Accessible components using shadcn/ui
+- SEO optimized
 
-There are several ways of editing your application.
+## 🛠️ Build Tools
 
-**Use Lovable**
+- **Framework:** React 18
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **UI Components:** shadcn/ui
+- **Type Safety:** TypeScript
+- **Routing:** React Router DOM
+- **Form Handling:** React Hook Form
+- **Data Visualization:** Recharts
+- **Analytics:** Vercel Analytics
+- **Performance Monitoring:** Vercel Speed Insights
+- **Date Handling:** date-fns
+- **Icons:** Lucide React
+- **Theming:** next-themes
+- **Toast Notifications:** sonner
+- **Form Validation:** Zod
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b45d9498-ebab-42f3-9fb9-b1e5e270454e) and start prompting.
+## 📁 Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
+```
+engineering-portfolio/
+├── src/               # Source files
+├── public/            # Static files
+├── dist/              # Build output
+├── functions/         # Backend functions
+└── components.json    # shadcn/ui components config
+```
 
-**Use your preferred IDE**
+## 🎨 Customization
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Styling
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+This project uses Tailwind CSS for styling. You can customize the theme in `tailwind.config.ts`:
 
-Follow these steps:
+- Colors
+- Typography
+- Spacing
+- Breakpoints
 
-Step 1: Type the following into the terminal
-``` npm run dev ```
+### Components
 
-Step 2: Paste the Local URL into "Simple Browser"
-```sh "CTRL - Shift - P" ``` - "Simple Browser" - Paste local host URL
+UI components are built using shadcn/ui, which provides a set of accessible and customizable components. You can customize their appearance in the `components.json` file.
 
-## What technologies are used for this project?
+## 🚀 Deployment
 
-This project is built with:
+This project can be deployed to various platforms:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Build the project:
+```bash
+npm run build
+```
 
-## How can I deploy this project?
+### Vercel Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/b45d9498-ebab-42f3-9fb9-b1e5e270454e) and click on Share -> Publish.
+This project is optimized for deployment on Vercel.
 
-## Can I connect a custom domain to my Lovable project?
+## 📈 Analytics and Performance
 
-Yes, you can!
+This project includes:
+- Vercel Analytics for tracking user interactions
+- Vercel Speed Insights for performance monitoring
+- Built-in performance optimizations
+## 📝 License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License - see the LICENSE file for details.
