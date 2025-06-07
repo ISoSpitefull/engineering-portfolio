@@ -14,7 +14,7 @@ const ExperienceTimeline = () => {
           Additionally, I documented critical design processes in logbooks and technical reports to support future team efforts. My contributions also included competition planning, data analysis in Excel, and organizational tasks to streamline team operations.
         </>
       ),
-      skills: ["React", "Node.js", "PostgreSQL", "Docker"],
+      skills: ["Solidworks", "Microsoft Office", "Ansys", "Fusion 360", "OpenRocket"],
       lessons: "Learned the importance of code reviews and agile development practices in a fast-paced startup environment."
     },
     {
