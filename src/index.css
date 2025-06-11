@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    background-color: rgb(17 24 39); /* bg-gray-900 */
+    height: 100%;
+    overscroll-behavior: none;
+  }
+
+  body {
+    background-color: rgb(17 24 39); /* bg-gray-900 */
+    min-height: 100%;
+    overscroll-behavior: none;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -95,11 +107,7 @@
     @apply border-border;
   }
 
-  html {
-    @apply bg-background min-h-screen overscroll-none;
-  }
-
   body {
-    @apply bg-background text-foreground min-h-screen;
+    @apply bg-background text-foreground;
   }
 }
