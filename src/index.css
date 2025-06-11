@@ -6,13 +6,11 @@
   html {
     background-color: rgb(17 24 39); /* bg-gray-900 */
     height: 100%;
-    overscroll-behavior: none;
   }
 
   body {
     background-color: rgb(17 24 39); /* bg-gray-900 */
     min-height: 100%;
-    overscroll-behavior: none;
   }
 
   :root {
