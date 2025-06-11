@@ -39,7 +39,7 @@ const SkillsSection = () => {
         { name: "Revit", level: "Intermediate" },
         { name: "PASCO Capstone", level: "Advanced" },
         { name: "EasyEDA Web Editor", level: "Advanced" },
-        { name: "CAM", level: "Beginner" },
+        { name: "CAM (CNC)", level: "Beginner" },
         { name: "AutoCAD", level: "Advanced" }
       ]
     },
