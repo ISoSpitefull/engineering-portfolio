@@ -169,6 +169,16 @@ const TeamProjects = () => {
                     <h3 className="text-base sm:text-lg md:text-xl font-bold text-white">{project.projectName}</h3>
                     <p className="text-xs sm:text-sm text-gray-300">{project.teamName}</p>
                   </div>
+                  {project.id === 3 && (
+                    <a 
+                      href="https://images-assets.nasa.gov/image/PIA23408/PIA23408~orig.jpg"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute top-2 right-2 text-xs text-gray-300 hover:text-white transition-colors bg-black/50 px-2 py-1 rounded"
+                    >
+                      NASA/JPL-Caltech
+                    </a>
+                  )}
                 </div>
                 
                 <CardContent className="space-y-3 sm:space-y-4 pt-4 sm:pt-6">
