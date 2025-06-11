@@ -30,7 +30,17 @@ const SkillsSection = () => {
         { name: "Microsoft PowerPoint", level: "Advanced" },
         { name: "Excel", level: "Intermediate" },
         { name: "GitHub", level: "Intermediate" },
-        { name: "Logbooks", level: "Intermediate" }
+        { name: "Engineering Logbook", level: "Intermediate" }
+      ]
+    },
+    {
+      category: "Other Tools",
+      skills: [
+        { name: "Revit", level: "Intermediate" },
+        { name: "PASCO Capstone", level: "Advanced" },
+        { name: "EasyEDA Web Editor", level: "Advanced" },
+        { name: "CAM", level: "Beginner" },
+        { name: "AutoCAD", level: "Advanced" }
       ]
     },
   ];
