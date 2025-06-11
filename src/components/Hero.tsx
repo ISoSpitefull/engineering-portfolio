@@ -10,7 +10,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] sm:min-h-[70vh] flex items-center justify-center px-4 py-16 sm:py-0 overflow-hidden bg-gray-900">
+    <section className="relative min-h-[90vh] sm:min-h-[70vh] flex items-center justify-center px-4 py-20 sm:py-28 overflow-hidden bg-gray-900">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black"></div>
       
@@ -36,7 +36,7 @@ const Hero = () => {
           engineering principles and real-world application. Currently studying to complete my degree in Electrical Engineering.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 px-2">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-14 px-2">
           <Button 
             size="lg" 
             className="w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 font-semibold px-6 sm:px-8 py-3 rounded-full transition-all duration-300 hover:scale-105"
@@ -54,7 +54,7 @@ const Hero = () => {
           </Button>
         </div>
 
-        <div className="flex justify-center space-x-6 mt-4">
+        <div className="flex justify-center space-x-6 mt-6 mb-4">
           <a 
             href="https://github.com/ISoSpitefull" 
             target="_blank"

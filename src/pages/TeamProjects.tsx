@@ -78,7 +78,7 @@ const TeamProjects = () => {
             <img 
               src={showcaseProject.image} 
               alt={showcaseProject.projectName}
-              className="w-full h-full object-contain md:object-cover"
+              className="w-full h-full object-contain"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/40"></div>
           </div>
