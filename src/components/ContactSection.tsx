@@ -196,6 +196,7 @@ const ContactSection = () => {
               </p>
               <Button variant="outline" className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900 text-sm sm:text-base py-2 sm:py-2.5">
                 Download Resume
+                <a href="https://www.linkedin.com/in/nikhil-p-ba1581281/" target="_blank" rel="noopener noreferrer"> </a>
               </Button>
             </CardContent>
           </Card>
