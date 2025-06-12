@@ -194,9 +194,8 @@ const ContactSection = () => {
               <p className="text-xs sm:text-sm text-gray-300 mb-4 leading-relaxed">
                 Currently seeking internships, co-op positions, and collaborative projects in Electrical engineering and Mechatronics technology.
               </p>
-              <Button variant="outline" className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900 text-sm sm:text-base py-2 sm:py-2.5">
+              <Button ref="https://www.linkedin.com/in/nikhil-p-ba1581281/" variant="outline" className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900 text-sm sm:text-base py-2 sm:py-2.5">
                 Download Resume
-                <a href="https://www.linkedin.com/in/nikhil-p-ba1581281/" target="_blank" rel="noopener noreferrer"> </a>
               </Button>
             </CardContent>
           </Card>
