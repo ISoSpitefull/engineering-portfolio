@@ -2,9 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Code, Lightbulb, Target, Image } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PersonalProjects = () => {
+  const navigate = useNavigate();
   const personalProjects = [
     {
       id: 1,
@@ -41,7 +42,7 @@ const PersonalProjects = () => {
     
     if (project.format === "large") {
       return (
-        <Card key={project.id} className={`${baseClasses} col-span-full`}>
+        <Card key={project.id} className={`${baseClasses} col-span-full cursor-pointer`} onClick={() => navigate(`/project/personal/${project.id}`)}>
           <div className="relative h-48 sm:h-64 overflow-hidden rounded-t-lg">
             <img 
               src={project.image} 
@@ -87,7 +88,7 @@ const PersonalProjects = () => {
 
     if (project.format === "medium") {
       return (
-        <Card key={project.id} className={`${baseClasses} md:col-span-2`}>
+        <Card key={project.id} className={`${baseClasses} md:col-span-2 cursor-pointer`} onClick={() => navigate(`/project/personal/${project.id}`)}>
           <div className="relative h-40 sm:h-48 overflow-hidden rounded-t-lg">
             <img 
               src={project.image} 
@@ -125,7 +126,7 @@ const PersonalProjects = () => {
 
     // Small format
     return (
-      <Card key={project.id} className={baseClasses}>
+      <Card key={project.id} className={`${baseClasses} cursor-pointer`} onClick={() => navigate(`/project/personal/${project.id}`)}>
         <div className="relative h-36 sm:h-40 overflow-hidden rounded-t-lg">
           <img 
             src={project.image} 

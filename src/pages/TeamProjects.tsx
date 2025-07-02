@@ -2,9 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Users, Award, Code, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const TeamProjects = () => {
+  const navigate = useNavigate();
   const showcaseProject = {
     teamSize: 25,
     teamName: "USST - University of Saskatchewan Space Design Team",
@@ -45,8 +46,7 @@ const TeamProjects = () => {
       image: "https://images-assets.nasa.gov/image/PIA23408/PIA23408~orig.jpg?w=600&h=300&fit=crop",
       description: "Competed in the 2024 NASA Space Apps Challenge, developing innovative solutions for space exploration and technology.",
       myRole: "Team member responsible for brainstorming, coding, and prototyping solutions to address key challenges in space science and technology."
-    },
-
+    }
   ];
 
   return (
@@ -86,7 +86,7 @@ const TeamProjects = () => {
           {/* Content Overlay */}
           <div className="relative md:absolute inset-0 flex items-end">
             <div className="w-full max-w-7xl mx-auto px-4 py-6 md:pb-8">
-              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-4 sm:p-6 md:p-8 shadow-2xl border border-gray-700 max-w-5xl">
+              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-4 sm:p-6 md:p-8 shadow-2xl border border-gray-700 max-w-5xl cursor-pointer" onClick={() => navigate(`/project/team/1`)}>
                 <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                   <Award className="h-6 w-6 sm:h-8 sm:w-8 text-purple-400" />
                   <span className="text-xs sm:text-sm font-medium text-purple-400 uppercase tracking-wide">Showcase Project</span>
@@ -157,7 +157,7 @@ const TeamProjects = () => {
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {teamProjects.map((project) => (
-              <Card key={project.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gray-800 backdrop-blur-sm border-gray-700 shadow-lg">
+              <Card key={project.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gray-800 backdrop-blur-sm border-gray-700 shadow-lg cursor-pointer" onClick={() => navigate(`/project/team/${project.id + 1}`)}>
                 <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden rounded-t-lg">
                   <img 
                     src={project.image} 
