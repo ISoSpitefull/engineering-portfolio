@@ -102,8 +102,8 @@ const TeamProjects = () => {
       <div className="pt-16">
         {/* Header */}
         <div className="bg-gray-800 border-b border-gray-700">
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <div className="flex items-center gap-4 mb-4">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <div className="flex items-center gap-4 mb-2">
               <Link to="/">
                 <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700">
                   <ArrowLeft className="h-4 w-4 mr-2" />
@@ -111,8 +111,8 @@ const TeamProjects = () => {
                 </Button>
               </Link>
             </div>
-            <h1 className="text-4xl font-bold text-white mb-6">Team Projects</h1>
-            <p className="text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <h1 className="text-3xl font-bold text-white mb-2">Team Projects</h1>
+            <p className="text-lg text-gray-300 max-w-3xl leading-relaxed">
               Collaborative engineering projects that showcase teamwork, leadership, and collective problem-solving. 
               These projects demonstrate my ability to work effectively in diverse technical teams.
             </p>
@@ -120,9 +120,9 @@ const TeamProjects = () => {
         </div>
 
         {/* Showcase Project */}
-        <section className="relative overflow-hidden pt-8 md:pt-16">
+        <section className="relative overflow-hidden pt-4 md:pt-8">
           {/* Background Image */}
-          <div className="w-full h-[200px] sm:h-[300px] md:h-[500px] relative">
+          <div className="w-full h-[140px] sm:h-[200px] md:h-[300px] relative">
             <img 
               src={showcaseProject.image} 
               alt={showcaseProject.projectName}
@@ -133,8 +133,8 @@ const TeamProjects = () => {
           
           {/* Content Overlay */}
           <div className="relative md:absolute inset-0 flex items-end">
-            <div className="w-full max-w-7xl mx-auto px-4 py-6 md:pb-8">
-              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-4 sm:p-6 md:p-8 shadow-2xl border border-gray-700 max-w-5xl cursor-pointer" onClick={() => navigate(`/project/team/1`)}>
+            <div className="w-full max-w-7xl mx-auto px-4 py-3 md:pb-4">
+              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-3 sm:p-4 md:p-6 shadow-2xl border border-gray-700 max-w-5xl cursor-pointer" onClick={() => navigate(`/project/team/1`)}>
                 <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                   <Award className="h-6 w-6 sm:h-8 sm:w-8 text-purple-400" />
                   <span className="text-xs sm:text-sm font-medium text-purple-400 uppercase tracking-wide">Showcase Project</span>
