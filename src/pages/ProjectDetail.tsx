@@ -1,9 +1,45 @@
+import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Target, Code, FileText, TestTube, Lightbulb } from "lucide-react";
 import { RocketModel3D } from "@/components/RocketModel3D";
+
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error?: Error }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Project Detail Error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <h1 className="text-2xl font-bold">Something went wrong</h1>
+            <p className="text-gray-400">Failed to load project details</p>
+            <Button onClick={() => window.location.href = '/'} variant="outline">
+              Return Home
+            </Button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const ProjectDetail = () => {
   const { type, id } = useParams();
@@ -479,7 +515,18 @@ const ProjectDetail = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly. Hover to stop rotation, click fullscreen for detailed view.</p>
-                  <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.05} />
+                  <div className="relative">
+                    <React.Suspense fallback={
+                      <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
+                        <div className="text-center space-y-3">
+                          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+                          <p className="text-sm text-muted-foreground">Loading 3D Model...</p>
+                        </div>
+                      </div>
+                    }>
+                      <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.5} />
+                    </React.Suspense>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -602,4 +649,10 @@ const ProjectDetail = () => {
   );
 };
 
-export default ProjectDetail;
+const ProjectDetailWithErrorBoundary = () => (
+  <ErrorBoundary>
+    <ProjectDetail />
+  </ErrorBoundary>
+);
+
+export default ProjectDetailWithErrorBoundary;
