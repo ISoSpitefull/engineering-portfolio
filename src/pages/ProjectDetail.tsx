@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Target, Code, FileText, TestTube, Lightbulb } from "lucide-react";
+import { RocketModel3D } from "@/components/RocketModel3D";
 
 const ProjectDetail = () => {
   const { type, id } = useParams();
@@ -466,6 +467,22 @@ const ProjectDetail = () => {
                 </ul>
               </CardContent>
             </Card>
+
+            {/* 3D Model - Only for USST Rocket Project */}
+            {type === 'team' && (project as any).projectName === "USST Rocket Project: Up ↑" && (
+              <Card className="bg-gray-800 border-gray-700">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-white">
+                    <div className="h-5 w-5 text-orange-400">🚀</div>
+                    3D Rocket Model
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly. Hover to stop rotation, click fullscreen for detailed view.</p>
+                  <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.05} />
+                </CardContent>
+              </Card>
+            )}
 
             {/* Schematics/Development */}
             <Card className="bg-gray-800 border-gray-700">
