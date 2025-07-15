@@ -132,7 +132,7 @@ const TeamProjects = () => {
           </div>
           
           {/* Content Overlay */}
-          <div className="relative md:absolute inset-0 flex items-end">
+          <div className="relative flex items-end">
             <div className="w-full max-w-7xl mx-auto px-4 py-3 md:pb-4">
               <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-3 sm:p-4 md:p-6 shadow-2xl border border-gray-700 max-w-5xl cursor-pointer" onClick={() => navigate(`/project/team/1`)}>
                 <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
