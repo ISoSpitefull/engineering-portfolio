@@ -524,7 +524,7 @@ const ProjectDetail = () => {
                         </div>
                       </div>
                     }>
-                      <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.5} />
+                      <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
                     </React.Suspense>
                   </div>
                 </CardContent>
