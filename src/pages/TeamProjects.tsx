@@ -120,7 +120,7 @@ const TeamProjects = () => {
         </div>
 
         {/* Showcase Project */}
-        <section className="relative overflow-hidden">
+        <section className="relative overflow-hidden pt-8 md:pt-16">
           {/* Background Image */}
           <div className="w-full h-[200px] sm:h-[300px] md:h-[500px] relative">
             <img 
