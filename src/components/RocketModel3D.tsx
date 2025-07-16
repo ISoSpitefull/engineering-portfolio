@@ -102,7 +102,7 @@ const CanvasWrapper = ({ children, camera, className, ...props }: any) => {
           powerPreference: "high-performance"
         }}
         onCreated={({ gl, camera }) => {
-          gl.setClearColor('#000000', 0);
+          gl.setClearColor('#1e293b', 1);
           gl.shadowMap.enabled = true;
           gl.shadowMap.type = THREE.PCFSoftShadowMap;
         }}
@@ -141,13 +141,14 @@ export const RocketModel3D = ({ modelPath, scale = 1 }: RocketModelProps) => {
       <div className="h-64 w-full rounded-lg overflow-hidden border bg-background">
         <Suspense fallback={<LoadingSpinner />}>
           <CanvasWrapper
-            camera={{ position: [5, 5, 5], fov: 45 }}
+            camera={{ position: [2, 2, 2], fov: 45 }}
             className="cursor-pointer"
             fallback={<Fallback3D error="Failed to initialize 3D viewer" />}
           >
             <Environment preset="studio" />
-            <ambientLight intensity={0.3} />
-            <directionalLight position={[10, 10, 5]} intensity={0.8} castShadow />
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[10, 10, 5]} intensity={1.2} castShadow />
+            <pointLight position={[-10, -10, -5]} intensity={0.5} />
             <RocketModel modelPath={modelPath} scale={scale} />
           </CanvasWrapper>
         </Suspense>
@@ -169,24 +170,26 @@ export const RocketModel3D = ({ modelPath, scale = 1 }: RocketModelProps) => {
             </button>
           </div>
         </DialogTrigger>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0">
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-slate-900">
           <DialogTitle className="sr-only">3D Rocket Model Viewer</DialogTitle>
-          <div className="w-full h-full">
+          <div className="w-full h-full bg-slate-900">
             <Suspense fallback={<LoadingSpinner />}>
               <CanvasWrapper
-                camera={{ position: [8, 8, 8], fov: 45 }}
+                camera={{ position: [3, 3, 3], fov: 45 }}
                 className="w-full h-full"
               >
-                <Environment preset="studio" />
-                <ambientLight intensity={0.3} />
-                <directionalLight position={[10, 10, 5]} intensity={0.8} castShadow />
+                <Environment preset="city" />
+                <ambientLight intensity={0.6} />
+                <directionalLight position={[10, 10, 5]} intensity={1.5} castShadow />
+                <pointLight position={[-10, -10, -5]} intensity={0.8} />
+                <spotLight position={[0, 10, 0]} intensity={1.0} castShadow />
                 <RocketModel modelPath={modelPath} scale={scale} />
                 <OrbitControls
                   enablePan={true}
                   enableZoom={true}
                   enableRotate={true}
-                  minDistance={2}
-                  maxDistance={20}
+                  minDistance={1}
+                  maxDistance={15}
                   dampingFactor={0.05}
                   enableDamping={true}
                 />
