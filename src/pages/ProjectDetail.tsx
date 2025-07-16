@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Target, Code, FileText, TestTube, Lightbulb } from "lucide-react";
 import { RocketModel3D } from "@/components/RocketModel3D";
+import { GLTFViewer } from "@/components/GLTFViewer";
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -524,7 +525,12 @@ const ProjectDetail = () => {
                         </div>
                       </div>
                     }>
-                      <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
+                      {/* Only show for USST Rocket Project: Up (team id: 1) */}
+                      {type === 'team' && project.id === 1 ? (
+                        <GLTFViewer modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} backgroundColor="#222b3a" />
+                      ) : (
+                        <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
+                      )}
                     </React.Suspense>
                   </div>
                 </CardContent>
