@@ -141,7 +141,7 @@ export const RocketModel3D = ({ modelPath, scale = 1 }: RocketModelProps) => {
       <div className="h-64 w-full rounded-lg overflow-hidden border bg-background">
         <Suspense fallback={<LoadingSpinner />}>
           <CanvasWrapper
-            camera={{ position: [0.5, 0.5, 0.5], fov: 60 }}
+            camera={{ position: [0.2, 0.2, 0.2], fov: 60 }}
             className="cursor-pointer"
             fallback={<Fallback3D error="Failed to initialize 3D viewer" />}
           >
@@ -175,7 +175,7 @@ export const RocketModel3D = ({ modelPath, scale = 1 }: RocketModelProps) => {
           <div className="w-full h-full bg-slate-900">
             <Suspense fallback={<LoadingSpinner />}>
               <CanvasWrapper
-                camera={{ position: [0.8, 0.8, 0.8], fov: 60 }}
+                camera={{ position: [0.3, 0.3, 0.3], fov: 60 }}
                 className="w-full h-full"
               >
                 <Environment preset="city" />
