@@ -12,20 +12,8 @@ const TeamProjects = () => {
     projectName: "USST Rocket Project: Up ↑",
     skills: ["OpenRocket", "Fusion 360", "ANSYS", "SolidWorks", "OnShape"],
     image: "/images/Rocket Full Length.png",
-    description: [
-      "Collaborated as a part of the propulsion and systems sub-team at the University of Saskatchewan Space Design Team (USST) to design and optimize components for the launch of an 8ft M-class rocket at Launch Canada 2025",
-      "Demonstrated the capabilities of student-led engineering teams in developing complex aerospace systems that meet professional industry standards and safety requirements",
-      "Contributed to Canada's growing space sector by developing innovative propulsion and structural design solutions for small-scale rocket systems",
-      "Provided hands-on learning opportunities for students in rocket propulsion, aerodynamics, structural analysis, and systems integration",
-      "Established the University of Saskatchewan as a leader in student aerospace engineering education and research"
-    ],
-    myRole: [
-      "Created CAD models using Solidworks, Fusion360, and OnShape for all major rocket components including nose cone, body tubes, and fin assemblies",
-      "Used ANSYS and OpenRocket to optimize performance through aerodynamic analysis, structural testing, and trajectory simulation",
-      "Managed timelines and coordinated cross-functional team meetings between propulsion, structures, and avionics sub-teams",
-      "Organized design reviews and technical presentations to ensure all team members understood project requirements and constraints",
-      "Coordinated reviews with faculty advisors and industry mentors to validate design approaches and safety considerations"
-    ]
+    description: "Designed and optimized components for an 8ft M-class rocket launch at Launch Canada 2025, contributing to Canada's growing space sector through innovative propulsion and structural design solutions.",
+    myRole: "CAD modeling lead for rocket components, aerodynamic analysis using ANSYS/OpenRocket, and cross-functional team coordination between propulsion, structures, and avionics sub-teams."
   };
 
   const teamProjects = [
@@ -36,42 +24,18 @@ const TeamProjects = () => {
       projectName: "Thor & Loki",
       skills: ["Fusion 360 Simulation", "Fusion 360 Assemblies", "Team Leadership", "Manufacturing"],
       image: "/images/4627Thor.png",
-      description: [
-        "Designed and maintained the drive train systems for 4627 Manning Robotics during the 2023 FRC Charged Up challenge",
-        "Demonstrated advanced robotics engineering principles through practical application in competitive environments with real-time problem solving",
-        "Developed innovative solutions for complex mechanical systems including drive trains, manipulators, and autonomous control systems",
-        "Fostered teamwork and leadership skills through collaborative design processes and competition strategy development",
-        "Represented Manning Robotics at regional and international levels while showcasing technical excellence and sportsmanship"
-      ],
-      myRole: [
-        "Drive train systems lead engineer responsible for gearbox design and system optimization, achieving 95% reliability during competitions",
-        "Contributed to top rankings at regional and international events through innovative design solutions and effective team coordination",
-        "Led design reviews and technical presentations to ensure all team members understood system requirements and performance expectations",
-        "Coordinated manufacturing processes including material procurement, tooling setup, and quality control procedures",
-        "Mentored junior team members in CAD modeling, simulation techniques, and manufacturing processes for skill development"
-      ]
+      description: "Designed and maintained drive train systems for 4627 Manning Robotics during the 2023 FRC Charged Up challenge, achieving 95% reliability during competitions.",
+      myRole: "Drive train systems lead engineer responsible for gearbox design, system optimization, and mentoring junior team members in CAD modeling and manufacturing processes."
     },
     {
       id: 2,
       teamSize: 3,
       teamName: "Manning Robotics",
       projectName: "2023 Skills Alberta Robotics Competition",
-      skills: ["Machining", "Circuit Design", "Problem Solving", "Technical Documentation", "Fabrication",],
+      skills: ["Machining", "Circuit Design", "Problem Solving", "Technical Documentation", "Fabrication"],
       image: "/images/skillsbot.JPG",
-      description: [
-        "Led a team of 3 to design and engineer two high-performance hockey robots for the 2023 Skills Robotics Competition",
-        "Showcased advanced robotics engineering skills in a competitive environment requiring real-time problem solving and technical innovation",
-        "Developed specialized control systems for precise movement and game piece manipulation in fast-paced competitive scenarios",
-        "Demonstrated effective project management and team leadership skills in high-pressure competition environments",
-        "Represented Manning Robotics and showcased technical excellence in precision engineering and robotic control systems"
-      ],
-      myRole: [
-        "Team leader responsible for coordinating design, prototyping, documentation, and testing to optimize robot functionality and precision",
-        "Led complete project lifecycle from initial concept development through final competition preparation and execution",
-        "Managed team resources and timelines to ensure on-time completion of all project deliverables and competition requirements",
-        "Coordinated technical design reviews and quality control procedures to maintain high standards throughout development process",
-        "Mentored team members in technical skills including machining, circuit design, and programming for comprehensive skill development"
-      ]
+      description: "Led a team of 3 to design and engineer two high-performance hockey robots for the 2023 Skills Robotics Competition, showcasing advanced robotics engineering skills.",
+      myRole: "Team leader coordinating design, prototyping, documentation, and testing to optimize robot functionality and precision for competitive performance."
     },
     {
       id: 3,
@@ -80,20 +44,8 @@ const TeamProjects = () => {
       projectName: "2024 NASA Space Apps Challenge",
       skills: ["HTML", "CSS", "JavaScript", "NASA API"],
       image: "https://images-assets.nasa.gov/image/PIA23408/PIA23408~orig.jpg?w=600&h=300&fit=crop",
-      description: [
-        "Competed in the 2024 NASA Space Apps Challenge, developing innovative solutions for space exploration and technology",
-        "Demonstrated the potential of web technologies in making complex space data accessible and useful for researchers, educators, and the public",
-        "Addressed specific challenges identified by NASA in areas such as data visualization, public engagement, and scientific communication",
-        "Showcased collaborative problem-solving skills in a time-constrained environment requiring rapid prototyping and innovative thinking",
-        "Contributed to space science advancement through creative use of publicly available space data and APIs"
-      ],
-      myRole: [
-        "Team member responsible for brainstorming, coding, and prototyping solutions to address key challenges in space science and technology",
-        "Contributed to front-end development including responsive design, user interface implementation, and data visualization components",
-        "Assisted with API integration and data processing to ensure reliable access to NASA data sources and efficient data handling",
-        "Participated in team coordination and project management to ensure timely completion of all deliverables within competition constraints",
-        "Contributed to technical documentation and presentation materials for competition judges and potential stakeholders"
-      ]
+      description: "Competed in the 2024 NASA Space Apps Challenge, developing innovative solutions for space exploration and technology using web technologies and NASA APIs.",
+      myRole: "Front-end development and API integration for data visualization components, contributing to creative solutions for space science challenges."
     }
   ];
 
@@ -141,16 +93,9 @@ const TeamProjects = () => {
                 </div>
                 
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">{showcaseProject.projectName}</h2>
-                <ul className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed space-y-2">
-                  {Array.isArray(showcaseProject.description) ? showcaseProject.description.map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-purple-400 mr-2 flex-shrink-0">•</span>
-                      <span>{item}</span>
-                    </li>
-                  )) : (
-                    <p>{showcaseProject.description}</p>
-                  )}
-                </ul>
+                <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+                  {showcaseProject.description}
+                </p>
                 
                 <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6">
                   <div className="space-y-3 sm:space-y-4">
@@ -195,16 +140,9 @@ const TeamProjects = () => {
                       <User className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400" />
                       <p className="text-xs sm:text-sm text-gray-400 font-semibold">My Role</p>
                     </div>
-                    <ul className="text-sm sm:text-base text-gray-300 leading-relaxed space-y-2">
-                      {Array.isArray(showcaseProject.myRole) ? showcaseProject.myRole.map((item, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-orange-400 mr-2 flex-shrink-0">•</span>
-                          <span>{item}</span>
-                        </li>
-                      )) : (
-                        <p>{showcaseProject.myRole}</p>
-                      )}
-                    </ul>
+                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                      {showcaseProject.myRole}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -253,29 +191,15 @@ const TeamProjects = () => {
                     <span className="text-xs sm:text-sm font-medium">{project.teamSize} team members</span>
                   </div>
                   
-                  <ul className="text-xs sm:text-sm text-gray-300 leading-relaxed space-y-1">
-                    {Array.isArray(project.description) ? project.description.map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-blue-400 mr-2 flex-shrink-0">•</span>
-                        <span>{item}</span>
-                      </li>
-                    )) : (
-                      <p>{project.description}</p>
-                    )}
-                  </ul>
+                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                    {project.description}
+                  </p>
                   
                   <div className="space-y-1.5 sm:space-y-2">
                     <h4 className="font-semibold text-white text-xs sm:text-sm">My Role</h4>
-                    <ul className="text-xs sm:text-sm text-gray-300 leading-relaxed space-y-1">
-                      {Array.isArray(project.myRole) ? project.myRole.map((item, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-orange-400 mr-2 flex-shrink-0">•</span>
-                          <span>{item}</span>
-                        </li>
-                      )) : (
-                        <p>{project.myRole}</p>
-                      )}
-                    </ul>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                      {project.myRole}
+                    </p>
                   </div>
                   
                   <div className="space-y-1.5 sm:space-y-2">
