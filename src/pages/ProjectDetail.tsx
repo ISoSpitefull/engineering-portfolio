@@ -502,12 +502,12 @@ const ProjectDetail = () => {
                       </div>
                     </div>
                   }>
-                    {/* Only show for USST Rocket Project: Up (team id: 1) */}
-                    {type === 'team' && project.id === 1 ? (
-                      <GLTFViewer modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} backgroundColor="#222b3a" />
-                    ) : (
-                      <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
-                    )}
+                                          {/* Only show for USST Rocket Project: Up (team id: 1) */}
+                      {type === 'team' && project.id === 1 ? (
+                        <GLTFViewer modelPath="/ROCKETAssembly_July8.gltf" backgroundColor="#222b3a" />
+                      ) : (
+                        <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
+                      )}
                   </React.Suspense>
                 </div>
               </CardContent>
@@ -602,8 +602,6 @@ const ProjectDetail = () => {
                 </ul>
               </CardContent>
             </Card>
-          </div>
-
           </div>
 
           {/* Future Plans and My Role - Half Width Layout */}
