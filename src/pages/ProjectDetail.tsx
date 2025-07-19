@@ -492,7 +492,7 @@ const ProjectDetail = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly. Hover to stop rotation, click fullscreen for detailed view.</p>
+                <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly with enhanced lighting and materials. Auto-rotates for optimal viewing - hover to pause, drag to rotate, scroll to zoom.</p>
                 <div className="relative">
                   <React.Suspense fallback={
                     <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
@@ -504,7 +504,7 @@ const ProjectDetail = () => {
                   }>
                                           {/* Only show for USST Rocket Project: Up (team id: 1) */}
                       {type === 'team' && project.id === 1 ? (
-                        <GLTFViewer modelPath="/ROCKETAssembly_July8.gltf" backgroundColor="#222b3a" />
+                        <GLTFViewer modelPath="/ROCKETAssembly_July8.gltf" backgroundColor="#1a1a2e" />
                       ) : (
                         <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
                       )}
