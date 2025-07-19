@@ -482,6 +482,38 @@ const ProjectDetail = () => {
 
         {/* Content */}
         <div className="max-w-7xl mx-auto px-4 py-12">
+          {/* 3D Model - Only for USST Rocket Project - Full Width at Top */}
+          {type === 'team' && (project as any).projectName === "USST Rocket Project: Up ↑" && (
+            <Card className="bg-gray-800 border-gray-700 mb-8">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <div className="h-5 w-5 text-orange-400">🚀</div>
+                  3D Rocket Model
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly. Hover to stop rotation, click fullscreen for detailed view.</p>
+                <div className="relative">
+                  <React.Suspense fallback={
+                    <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
+                      <div className="text-center space-y-3">
+                        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+                        <p className="text-sm text-muted-foreground">Loading 3D Model...</p>
+                      </div>
+                    </div>
+                  }>
+                    {/* Only show for USST Rocket Project: Up (team id: 1) */}
+                    {type === 'team' && project.id === 1 ? (
+                      <GLTFViewer modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} backgroundColor="#222b3a" />
+                    ) : (
+                      <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
+                    )}
+                  </React.Suspense>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Purpose/Motivation */}
             <Card className="bg-gray-800 border-gray-700">
@@ -504,38 +536,6 @@ const ProjectDetail = () => {
                 </ul>
               </CardContent>
             </Card>
-
-            {/* 3D Model - Only for USST Rocket Project */}
-            {type === 'team' && (project as any).projectName === "USST Rocket Project: Up ↑" && (
-              <Card className="bg-gray-800 border-gray-700">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-white">
-                    <div className="h-5 w-5 text-orange-400">🚀</div>
-                    3D Rocket Model
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly. Hover to stop rotation, click fullscreen for detailed view.</p>
-                  <div className="relative">
-                    <React.Suspense fallback={
-                      <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
-                        <div className="text-center space-y-3">
-                          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-                          <p className="text-sm text-muted-foreground">Loading 3D Model...</p>
-                        </div>
-                      </div>
-                    }>
-                      {/* Only show for USST Rocket Project: Up (team id: 1) */}
-                      {type === 'team' && project.id === 1 ? (
-                        <GLTFViewer modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} backgroundColor="#222b3a" />
-                      ) : (
-                        <RocketModel3D modelPath="/ROCKETAssembly_July8.gltf" scale={0.1} />
-                      )}
-                    </React.Suspense>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
 
             {/* Schematics/Development */}
             <Card className="bg-gray-800 border-gray-700">
@@ -604,51 +604,56 @@ const ProjectDetail = () => {
             </Card>
           </div>
 
-          {/* Future Plans - Full Width */}
-          <Card className="bg-gray-800 border-gray-700 mt-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-white">
-                <Lightbulb className="h-5 w-5 text-yellow-400" />
-                Future Plans
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3">
-                {Array.isArray(project.futurePlans) ? project.futurePlans.map((item, index) => (
-                  <li key={index} className="text-gray-300 leading-relaxed flex items-start">
-                    <span className="text-yellow-400 mr-3 flex-shrink-0">•</span>
-                    <span>{item}</span>
-                  </li>
-                )) : (
-                  <p className="text-gray-300 leading-relaxed">{project.futurePlans}</p>
-                )}
-              </ul>
-            </CardContent>
-          </Card>
+          </div>
 
-          {/* My Role - Only for team projects */}
-          {type === 'team' && (
-            <Card className="bg-gray-800 border-gray-700 mt-8">
+          {/* Future Plans and My Role - Half Width Layout */}
+          <div className="grid lg:grid-cols-2 gap-8 mt-8">
+            {/* Future Plans */}
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
-                  <Target className="h-5 w-5 text-cyan-400" />
-                  My Role
+                  <Lightbulb className="h-5 w-5 text-yellow-400" />
+                  Future Plans
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
-                  {Array.isArray((project as any).myRole) ? (project as any).myRole.map((item, index) => (
+                  {Array.isArray(project.futurePlans) ? project.futurePlans.map((item, index) => (
                     <li key={index} className="text-gray-300 leading-relaxed flex items-start">
-                      <span className="text-cyan-400 mr-3 flex-shrink-0">•</span>
+                      <span className="text-yellow-400 mr-3 flex-shrink-0">•</span>
                       <span>{item}</span>
                     </li>
                   )) : (
-                    <p className="text-gray-300 leading-relaxed">{(project as any).myRole}</p>
+                    <p className="text-gray-300 leading-relaxed">{project.futurePlans}</p>
                   )}
                 </ul>
               </CardContent>
             </Card>
-          )}
+
+            {/* My Role - Only for team projects */}
+            {type === 'team' && (
+              <Card className="bg-gray-800 border-gray-700">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-white">
+                    <Target className="h-5 w-5 text-cyan-400" />
+                    My Role
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    {Array.isArray((project as any).myRole) ? (project as any).myRole.map((item, index) => (
+                      <li key={index} className="text-gray-300 leading-relaxed flex items-start">
+                        <span className="text-cyan-400 mr-3 flex-shrink-0">•</span>
+                        <span>{item}</span>
+                      </li>
+                    )) : (
+                      <p className="text-gray-300 leading-relaxed">{(project as any).myRole}</p>
+                    )}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </div>
