@@ -61,11 +61,11 @@ const ContactSection = () => {
   return (
     <section className="py-12 sm:py-20 px-4 max-w-6xl mx-auto">
       <div className="text-center mb-10 sm:mb-16 animate-fade-in-up">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6 relative">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6 relative inline-block">
           <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
             Let's Connect
           </span>
-          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-fade-in [animation-delay:0.5s] opacity-0 [animation-fill-mode:forwards]"></div>
+          <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-fade-in [animation-delay:0.5s] opacity-0 [animation-fill-mode:forwards]"></div>
         </h2>
         <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-2 animate-fade-in-up [animation-delay:0.3s] opacity-0 [animation-fill-mode:forwards]">
           I'm always excited to discuss new opportunities, collaborate on projects, or share insights about engineering and technology.

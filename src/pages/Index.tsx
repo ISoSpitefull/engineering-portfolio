@@ -15,11 +15,11 @@ const Index = () => {
         {/* Project Categories Section with enhanced animations */}
         <section id="projects" className="py-8 sm:py-12 px-4 max-w-7xl mx-auto mb-16 sm:mb-24">
           <div className="text-center mb-8 sm:mb-12 animate-fade-in-up">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4 relative">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4 relative inline-block">
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
                 Explore My Projects
               </span>
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-fade-in [animation-delay:0.5s] opacity-0 [animation-fill-mode:forwards]"></div>
+              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-fade-in [animation-delay:0.5s] opacity-0 [animation-fill-mode:forwards]"></div>
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-2 animate-fade-in-up [animation-delay:0.2s] opacity-0 [animation-fill-mode:forwards]">
               Dive deeper into my engineering journey through detailed project showcases, organized by collaboration type.
