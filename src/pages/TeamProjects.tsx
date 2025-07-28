@@ -53,18 +53,22 @@ const TeamProjects = () => {
     <div className="min-h-screen bg-gray-900">
       <div className="pt-16">
         {/* Header */}
-        <div className="bg-gray-800 border-b border-gray-700">
+        <div className="bg-gray-800/90 border-b border-gray-700/50 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            <div className="flex items-center gap-4 mb-2">
+            <div className="flex items-center gap-4 mb-2 animate-fade-in-left">
               <Link to="/">
-                <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
+                <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700 transition-all duration-300 hover:scale-105 hover:border-blue-500 hover:text-blue-400 group">
+                  <ArrowLeft className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
                   Back to Home
                 </Button>
               </Link>
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">Team Projects</h1>
-            <p className="text-lg text-gray-300 max-w-3xl leading-relaxed">
+            <h1 className="text-3xl font-bold text-white mb-2 animate-fade-in-up [animation-delay:0.2s] opacity-0 [animation-fill-mode:forwards]">
+              <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                Team Projects
+              </span>
+            </h1>
+            <p className="text-lg text-gray-300 max-w-3xl leading-relaxed animate-fade-in-up [animation-delay:0.4s] opacity-0 [animation-fill-mode:forwards]">
               Collaborative engineering projects that showcase teamwork, leadership, and collective problem-solving. 
               These projects demonstrate my ability to work effectively in diverse technical teams.
             </p>
@@ -72,28 +76,36 @@ const TeamProjects = () => {
         </div>
 
         {/* Showcase Project */}
-        <section className="relative overflow-hidden pt-4 md:pt-8">
+        <section className="relative overflow-hidden pt-4 md:pt-8 animate-fade-in-up [animation-delay:0.6s] opacity-0 [animation-fill-mode:forwards]">
           {/* Background Image */}
-          <div className="w-full h-[140px] sm:h-[200px] md:h-[300px] relative">
+          <div className="w-full h-[140px] sm:h-[200px] md:h-[300px] relative group">
             <img 
               src={showcaseProject.image} 
               alt={showcaseProject.projectName}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/40"></div>
+            {/* Animated background elements */}
+            <div className="absolute top-10 left-10 w-4 h-4 bg-purple-400/40 rounded-full animate-bounce-gentle opacity-60"></div>
+            <div className="absolute bottom-20 right-20 w-2 h-2 bg-blue-400/50 rounded-full animate-bounce-gentle [animation-delay:1s] opacity-70"></div>
+            <div className="absolute top-1/2 left-1/4 w-3 h-3 bg-green-400/30 rounded-full animate-bounce-gentle [animation-delay:2s] opacity-50"></div>
           </div>
           
           {/* Content Overlay */}
           <div className="relative flex items-end">
             <div className="w-full max-w-7xl mx-auto px-4 py-3 md:pb-4">
-              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-3 sm:p-4 md:p-6 shadow-2xl border border-gray-700 max-w-5xl cursor-pointer" onClick={() => navigate(`/project/team/1`)}>
-                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <Award className="h-6 w-6 sm:h-8 sm:w-8 text-purple-400" />
-                  <span className="text-xs sm:text-sm font-medium text-purple-400 uppercase tracking-wide">Showcase Project</span>
+              <div className="bg-gray-800/95 backdrop-blur-md rounded-lg p-3 sm:p-4 md:p-6 shadow-2xl border border-gray-700/50 max-w-5xl cursor-pointer group hover:shadow-purple-500/20 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden" onClick={() => navigate(`/project/team/1`)}>
+                {/* Animated glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-purple-400/20 rounded-full blur-xl transform translate-x-10 -translate-y-10 group-hover:scale-150 transition-transform duration-700"></div>
+                
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 relative z-10 animate-fade-in-left [animation-delay:0.8s] opacity-0 [animation-fill-mode:forwards]">
+                  <Award className="h-6 w-6 sm:h-8 sm:w-8 text-purple-400 group-hover:animate-bounce-gentle transition-all duration-300 group-hover:scale-110" />
+                  <span className="text-xs sm:text-sm font-medium text-purple-400 uppercase tracking-wide group-hover:text-purple-300 transition-colors duration-300">Showcase Project</span>
                 </div>
                 
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">{showcaseProject.projectName}</h2>
-                <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 relative z-10 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-500 transition-all duration-500 animate-fade-in-up [animation-delay:1s] opacity-0 [animation-fill-mode:forwards]">{showcaseProject.projectName}</h2>
+                <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed relative z-10 group-hover:text-gray-200 transition-colors duration-300 animate-fade-in-up [animation-delay:1.2s] opacity-0 [animation-fill-mode:forwards]">
                   {showcaseProject.description}
                 </p>
                 
