@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import FloatingParticles from "@/components/FloatingParticles";
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -20,11 +21,12 @@ const Hero = () => {
         <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500 opacity-15 rounded-full blur-xl animate-float [animation-delay:1s]"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 sm:w-48 h-32 sm:h-48 bg-indigo-500 opacity-10 rounded-full blur-2xl animate-bounce-gentle [animation-delay:2s]"></div>
         
-        {/* Particle effect elements */}
-        <div className="absolute top-10 left-10 w-2 h-2 bg-blue-400 rounded-full animate-bounce-gentle opacity-60"></div>
-        <div className="absolute top-20 right-20 w-1 h-1 bg-purple-400 rounded-full animate-bounce-gentle [animation-delay:0.5s] opacity-40"></div>
-        <div className="absolute bottom-20 left-20 w-3 h-3 bg-indigo-400 rounded-full animate-bounce-gentle [animation-delay:1.5s] opacity-50"></div>
-        <div className="absolute bottom-10 right-10 w-1.5 h-1.5 bg-blue-300 rounded-full animate-bounce-gentle [animation-delay:2.5s] opacity-60"></div>
+        {/* Particle effect elements (randomized fade-in/out without overlapping important content) */}
+        <FloatingParticles count={18} />
+        
+        
+        
+        
       </div>
 
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6">

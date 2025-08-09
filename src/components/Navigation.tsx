@@ -61,7 +61,7 @@ const Navigation = () => {
                 }`}></span>
                 
                 {/* Hover glow effect */}
-                <div className="absolute inset-0 bg-blue-400/10 rounded-md scale-0 group-hover:scale-110 transition-transform duration-300 blur-sm"></div>
+                
               </Link>
             ))}
           </div>
@@ -98,7 +98,7 @@ const Navigation = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
-                <div className="absolute inset-0 bg-blue-400/5 rounded scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                
               </Link>
             ))}
           </div>
