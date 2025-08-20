@@ -79,13 +79,20 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
     controlsRef.current = controls;
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = false;
+    controls.screenSpacePanning = true; // Enable screen space panning
     controls.minDistance = 0.5; // Allow much closer zoom
     controls.maxDistance = 20;   // Reduced max distance for better control
     controls.maxPolarAngle = Math.PI;
     controls.autoRotate = autoRotate;
     controls.autoRotateSpeed = 0.5;
     controls.zoomSpeed = 1.2;   // Faster zooming
+    
+    // Set middle mouse button for panning
+    controls.mouseButtons = {
+      LEFT: THREE.MOUSE.ROTATE,
+      MIDDLE: THREE.MOUSE.PAN,
+      RIGHT: THREE.MOUSE.DOLLY
+    };
 
     // Lighting setup
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -388,18 +395,18 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
           Loading 3D Model...
         </div>
       )}
-      <div style={{
-        position: 'absolute',
-        bottom: '16px',
-        left: '16px',
-        right: '16px',
-        textAlign: 'center',
-        color: '#94a3b8',
-        fontSize: '12px',
-        zIndex: 5
-      }}>
-        💡 <strong>Tip:</strong> Drag and drop any .glb or .gltf file onto the viewer to load it! | Double-click to reset camera view
-      </div>
+             <div style={{
+         position: 'absolute',
+         bottom: '16px',
+         left: '16px',
+         right: '16px',
+         textAlign: 'center',
+         color: '#94a3b8',
+         fontSize: '12px',
+         zIndex: 5
+       }}>
+         💡 <strong>Tip:</strong> Double-click to reset camera view | Middle mouse to pan
+       </div>
     </div>
   );
 };

@@ -100,7 +100,7 @@ const Test3DViewer: React.FC = () => {
           />
           <div className="mt-4 text-center">
             <p className="text-slate-400 text-sm">
-              💡 <strong>Tip:</strong> Drag and drop any .glb or .gltf file onto the viewer to load it!
+              💡 <strong>Controls:</strong> Left mouse to rotate • Middle mouse to pan • Mouse wheel to zoom • Double-click to reset view • Drag & drop .glb/.gltf files
             </p>
           </div>
         </div>
