@@ -8,6 +8,7 @@ import PersonalProjects from "./pages/PersonalProjects";
 import TeamProjects from "./pages/TeamProjects";
 import ProjectDetail from "./pages/ProjectDetail";
 import AboutMe from "./pages/AboutMe";
+import Test3DViewer from "./pages/Test3DViewer";
 import NotFound from "./pages/NotFound";
 import Navigation from "./components/Navigation";
 import ScrollToTop from "./components/ScrollToTop";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/team-projects" element={<TeamProjects />} />
             <Route path="/project/:type/:id" element={<ProjectDetail />} />
             <Route path="/about-me" element={<AboutMe />} />
+            <Route path="/test-3d-viewer" element={<Test3DViewer />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

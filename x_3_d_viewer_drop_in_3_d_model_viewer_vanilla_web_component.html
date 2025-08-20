@@ -1,0 +1,115 @@
+# X-3D-Viewer — Drop-in 3D Model Viewer (with Multi-format Support)
+
+```html
+<script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+  import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+  import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+  import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/OBJLoader.js';
+  import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/FBXLoader.js';
+  import { STLLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/STLLoader.js';
+
+  class X3DViewer extends HTMLElement {
+    constructor(){
+      super();
+      this.attachShadow({mode:'open'});
+      this.$wrapper = document.createElement('div');
+      Object.assign(this.$wrapper.style, {
+        display:'block',
+        width:'100%',
+        height:'100%',
+        position:'relative'
+      });
+      this.shadowRoot.appendChild(this.$wrapper);
+    }
+
+    connectedCallback(){
+      this._initThree();
+      if(this.hasAttribute('src')){
+        const src = this.getAttribute('src');
+        const ext = src.split('.').pop().toLowerCase();
+        this._loadModel(src, ext);
+      }
+    }
+
+    _initThree(){
+      const width = this.clientWidth || 400;
+      const height = this.clientHeight || 300;
+      this.scene = new THREE.Scene();
+      this.camera = new THREE.PerspectiveCamera(60, width/height, 0.1, 1000);
+      this.camera.position.set(2,2,3);
+      this.renderer = new THREE.WebGLRenderer({antialias:true});
+      this.renderer.setSize(width, height);
+      this.$wrapper.appendChild(this.renderer.domElement);
+      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.controls.enableDamping = true;
+
+      const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+      hemi.position.set(0,20,0);
+      this.scene.add(hemi);
+      const dir = new THREE.DirectionalLight(0xffffff, 1);
+      dir.position.set(3,10,10);
+      this.scene.add(dir);
+
+      this.animate = this.animate.bind(this);
+      requestAnimationFrame(this.animate);
+    }
+
+    animate(){
+      requestAnimationFrame(this.animate);
+      this.controls.update();
+      this.renderer.render(this.scene, this.camera);
+    }
+
+    async _loadModel(url, ext){
+      // Clear old model if any
+      if(this.currentModel){
+        this.scene.remove(this.currentModel);
+        this.currentModel.traverse(c=>{
+          if(c.geometry) c.geometry.dispose();
+          if(c.material){
+            if(Array.isArray(c.material)) c.material.forEach(m=>m.dispose());
+            else c.material.dispose();
+          }
+        });
+      }
+
+      let loader;
+      if(ext === 'glb' || ext === 'gltf'){
+        loader = new GLTFLoader();
+        loader.load(url, gltf => {
+          this.currentModel = gltf.scene;
+          this.scene.add(this.currentModel);
+        });
+      } else if(ext === 'obj'){
+        loader = new OBJLoader();
+        loader.load(url, obj => {
+          this.currentModel = obj;
+          this.scene.add(this.currentModel);
+        });
+      } else if(ext === 'fbx'){
+        loader = new FBXLoader();
+        loader.load(url, obj => {
+          this.currentModel = obj;
+          this.scene.add(this.currentModel);
+        });
+      } else if(ext === 'stl'){
+        loader = new STLLoader();
+        loader.load(url, geometry => {
+          const material = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+          const mesh = new THREE.Mesh(geometry, material);
+          this.currentModel = mesh;
+          this.scene.add(this.currentModel);
+        });
+      } else {
+        console.warn(`Unsupported format: ${ext}`);
+      }
+    }
+  }
+
+  customElements.define('x-3d-viewer', X3DViewer);
+</script>
+
+<!-- Example usage -->
+<x-3d-viewer src="/models/example.glb" style="width:600px; height:400px;"></x-3d-viewer>
+```

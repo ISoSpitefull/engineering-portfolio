@@ -32,6 +32,7 @@ const Navigation = () => {
     { path: "/about-me", label: "About Me" },
     { path: "/personal-projects", label: "Personal Projects" },
     { path: "/team-projects", label: "Team Projects" },
+    { path: "/test-3d-viewer", label: "3D Viewer Test" },
   ];
 
   return (
