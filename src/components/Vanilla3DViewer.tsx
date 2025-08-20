@@ -49,7 +49,7 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
     // Camera setup
     const camera = new THREE.PerspectiveCamera(45, containerRef.current.clientWidth / height, 0.1, 1000);
     cameraRef.current = camera;
-    camera.position.set(5, 3, 5);
+    camera.position.set(3, 2, 3); // Closer initial position
 
     // Renderer setup with high quality settings
     const renderer = new THREE.WebGLRenderer({ 
@@ -80,11 +80,12 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
-    controls.minDistance = 1;
-    controls.maxDistance = 50;
+    controls.minDistance = 0.5; // Allow much closer zoom
+    controls.maxDistance = 20;   // Reduced max distance for better control
     controls.maxPolarAngle = Math.PI;
     controls.autoRotate = autoRotate;
     controls.autoRotateSpeed = 0.5;
+    controls.zoomSpeed = 1.2;   // Faster zooming
 
     // Lighting setup
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -194,18 +195,18 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
 
       const maxDim = Math.max(size.x, size.y, size.z);
       const fov = camera.fov * (Math.PI / 180);
-      const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.8; // Increased distance for better framing
+      const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.2; // Much closer for detail viewing
 
-      // Better camera positioning for rocket models
+      // Better camera positioning for rocket models - closer for detail
       camera.position.set(
-        center.x + cameraZ * 0.4,  // Slightly more centered
-        center.y + cameraZ * 0.2,  // Lower angle for better rocket view
+        center.x + cameraZ * 0.3,  // More centered
+        center.y + cameraZ * 0.15, // Lower angle for better rocket view
         center.z + cameraZ
       );
 
       controls.target.copy(center);
-      controls.minDistance = maxDim * 0.8;  // Prevent getting too close
-      controls.maxDistance = cameraZ * 3;    // Allow zooming out
+      controls.minDistance = maxDim * 0.3;  // Allow much closer zoom for details
+      controls.maxDistance = cameraZ * 2;    // Reasonable max zoom out
       controls.update();
     };
 
@@ -267,6 +268,13 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
     containerRef.current.addEventListener('dragover', handleDragOver);
     containerRef.current.addEventListener('dragleave', handleDragLeave);
     containerRef.current.addEventListener('drop', handleDrop);
+
+    // Add double-click to reset camera position
+    containerRef.current.addEventListener('dblclick', () => {
+      if (modelRef.current && camera && controls) {
+        fitCameraToModel(modelRef.current, camera, controls);
+      }
+    });
 
     // Load initial model
     loadModel();
@@ -390,7 +398,7 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
         fontSize: '12px',
         zIndex: 5
       }}>
-        💡 <strong>Tip:</strong> Drag and drop any .glb or .gltf file onto the viewer to load it!
+        💡 <strong>Tip:</strong> Drag and drop any .glb or .gltf file onto the viewer to load it! | Double-click to reset camera view
       </div>
     </div>
   );
