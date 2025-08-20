@@ -1,4 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 interface Vanilla3DViewerProps {
   modelPath?: string;
@@ -9,21 +13,6 @@ interface Vanilla3DViewerProps {
   cameraControls?: boolean;
   poster?: boolean;
   className?: string;
-}
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'x-3d-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
-        src?: string;
-        envmap?: string;
-        'camera-controls'?: boolean;
-        'auto-rotate'?: boolean;
-        poster?: boolean;
-        style?: React.CSSProperties;
-      };
-    }
-  }
 }
 
 export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
@@ -37,180 +26,326 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
   className = ''
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scriptLoadedRef = useRef(false);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
+  const modelRef = useRef<THREE.Group | null>(null);
+  const mixerRef = useRef<THREE.AnimationMixer | null>(null);
+  const clockRef = useRef<THREE.Clock | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Only load the script once
-    if (scriptLoadedRef.current) return;
+    if (!containerRef.current) return;
 
-    const loadScript = async () => {
+    // Initialize Three.js scene
+    const scene = new THREE.Scene();
+    sceneRef.current = scene;
+    
+    // Set background
+    scene.background = new THREE.Color(backgroundColor);
+
+    // Camera setup
+    const camera = new THREE.PerspectiveCamera(45, containerRef.current.clientWidth / height, 0.1, 1000);
+    cameraRef.current = camera;
+    camera.position.set(5, 3, 5);
+
+    // Renderer setup with high quality settings
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true, 
+      alpha: false, 
+      powerPreference: 'high-performance',
+      preserveDrawingBuffer: false,
+      stencil: false,
+      depth: true
+    });
+    rendererRef.current = renderer;
+    
+    // High quality rendering settings
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(containerRef.current.clientWidth, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.autoUpdate = true;
+    
+    containerRef.current.appendChild(renderer.domElement);
+
+    // Controls setup
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controlsRef.current = controls;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.minDistance = 1;
+    controls.maxDistance = 50;
+    controls.maxPolarAngle = Math.PI;
+    controls.autoRotate = autoRotate;
+    controls.autoRotateSpeed = 0.5;
+
+    // Lighting setup
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    directionalLight.position.set(10, 10, 5);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.width = 2048;
+    directionalLight.shadow.mapSize.height = 2048;
+    directionalLight.shadow.camera.near = 0.5;
+    directionalLight.shadow.camera.far = 50;
+    directionalLight.shadow.camera.left = -10;
+    directionalLight.shadow.camera.right = 10;
+    directionalLight.shadow.camera.top = 10;
+    directionalLight.shadow.camera.bottom = -10;
+    scene.add(directionalLight);
+
+    // Fill light
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    fillLight.position.set(-5, 5, -5);
+    scene.add(fillLight);
+
+    // Rim light
+    const rimLight = new THREE.DirectionalLight(0xffffff, 0.3);
+    rimLight.position.set(0, -5, 10);
+    scene.add(rimLight);
+
+    // Add a subtle ground plane for better shadows
+    const groundGeometry = new THREE.PlaneGeometry(20, 20);
+    const groundMaterial = new THREE.ShadowMaterial({ 
+      color: 0x000000, 
+      transparent: true, 
+      opacity: 0.3 
+    });
+    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // Add subtle environment lighting for better reflections
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.2);
+    hemiLight.position.set(0, 20, 0);
+    scene.add(hemiLight);
+
+    // Clock for animations
+    const clock = new THREE.Clock();
+    clockRef.current = clock;
+
+    // Load model
+    const loadModel = async () => {
       try {
-        // Dynamically import Three.js and related modules
-        const THREE = await import('three');
-        const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls.js');
-        const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js');
-        const { DRACOLoader } = await import('three/examples/jsm/loaders/DRACOLoader.js');
-        const { RGBELoader } = await import('three/examples/jsm/loaders/RGBELoader.js');
+        setIsLoading(true);
+        setError(null);
 
-        // Define the custom element
-        class X3DViewer extends HTMLElement {
-          static observedAttributes = ['src', 'envmap', 'skybox', 'background', 'exposure', 'camera-controls', 'auto-rotate', 'autoplay', 'animation-index', 'max-dpr', 'loading'];
+        const loader = new GLTFLoader();
+        
+        // Setup DRACO decoder
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/version/2.0/');
+        loader.setDRACOLoader(dracoLoader);
 
-          private $wrapper: HTMLDivElement;
-          private $canvas: HTMLCanvasElement;
-          private $ui: HTMLDivElement;
-          private renderer: THREE.WebGLRenderer;
-          private scene: THREE.Scene;
-          private camera: THREE.PerspectiveCamera;
-          private controls: OrbitControls;
-          private keyLight: THREE.DirectionalLight;
-          private fillLight: THREE.AmbientLight;
-          private pmrem: THREE.PMREMGenerator;
-          private gltfLoader: GLTFLoader;
-          private hdrLoader: RGBELoader;
-          private _model: THREE.Group | null;
-          private _mixer: THREE.AnimationMixer | null;
-          private _clock: THREE.Clock;
-
-          constructor() {
-            super();
-            this.attachShadow({ mode: 'open' });
-            
-            this.$wrapper = document.createElement('div');
-            this.$wrapper.style.cssText = `position:relative; inset:0; width:100%; height:100%; background:transparent;`;
-
-            this.$canvas = document.createElement('canvas');
-            this.$canvas.style.cssText = 'display:block; width:100%; height:100%;';
-
-            this.$ui = document.createElement('div');
-            this.$ui.style.cssText = `position:absolute; inset:0; pointer-events:none;`;
-
-            this.$wrapper.append(this.$canvas, this.$ui);
-            this.shadowRoot!.append(this.$wrapper);
-
-            this.renderer = new THREE.WebGLRenderer({ canvas: this.$canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-            this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-            this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            this.renderer.toneMappingExposure = 1.0;
-
-            this.scene = new THREE.Scene();
-            this.camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-            this.camera.position.set(2.5, 1.5, 3.0);
-
-            this.controls = new OrbitControls(this.camera, this.$canvas);
-            this.controls.enabled = false;
-            this.controls.enableDamping = true;
-            this.controls.dampingFactor = 0.05;
-            this.controls.zoomSpeed = 0.6;
-
-            this.keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
-            this.keyLight.position.set(5, 5, 5);
-            this.fillLight = new THREE.AmbientLight(0xffffff, 0.6);
-            this.scene.add(this.keyLight, this.fillLight);
-
-            this.pmrem = new THREE.PMREMGenerator(this.renderer);
-            this.pmrem.compileEquirectangularShader();
-            this.gltfLoader = new GLTFLoader();
-            const draco = new DRACOLoader();
-            draco.setDecoderPath('https://unpkg.com/three@0.161.0/examples/jsm/libs/draco/');
-            this.gltfLoader.setDRACOLoader(draco);
-            this.hdrLoader = new RGBELoader();
-
-            this._model = null;
-            this._mixer = null;
-            this._clock = new THREE.Clock();
-
-            // Drag & Drop support
-            this.$wrapper.addEventListener('dragover', (e) => {
-              e.preventDefault();
-              this.$wrapper.style.outline = '2px dashed #38bdf8';
-            });
-            this.$wrapper.addEventListener('dragleave', () => {
-              this.$wrapper.style.outline = '';
-            });
-            this.$wrapper.addEventListener('drop', async (e) => {
-              e.preventDefault();
-              this.$wrapper.style.outline = '';
-              const file = e.dataTransfer?.files?.[0];
-              if (file && /\.gl(b|tf)$/i.test(file.name)) {
-                const url = URL.createObjectURL(file);
-                await this._loadModel(url);
-                URL.revokeObjectURL(url);
-              }
-            });
-
-            const loop = () => {
-              requestAnimationFrame(loop);
-              const dt = this._clock.getDelta();
-              if (this.controls.enabled) { this.controls.update(); }
-              if (this._mixer) { this._mixer.update(dt); }
-              this.renderer.render(this.scene, this.camera);
-            };
-            loop();
-          }
-
-          async _loadModel(url: string) {
-            if (!url) return;
-            if (this._model) {
-              this.scene.remove(this._model);
-            }
-            try {
-              const gltf = await this.gltfLoader.loadAsync(url);
-              this._model = gltf.scene;
-              this.scene.add(this._model);
-              this._clips = gltf.animations || [];
-              if (this._clips.length) { this._mixer = new THREE.AnimationMixer(this._model); }
-              this.fit();
-            } catch (err) {
-              console.error('Model load failed', err);
-            }
-          }
-
-          fit() {
-            if (!this._model) return;
-            const box = new THREE.Box3().setFromObject(this._model);
-            const size = new THREE.Vector3();
-            const center = new THREE.Vector3();
-            box.getSize(size);
-            box.getCenter(center);
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const fov = this.camera.fov * (Math.PI / 180);
-            const dist = (maxDim / 2) / Math.tan(fov / 2);
-            const offset = 1.2;
-            const dir = new THREE.Vector3(1, 0.6, 1).normalize();
-            this.camera.position.copy(center.clone().addScaledVector(dir, dist * offset));
-            this.controls.target.copy(center);
-            this.controls.update();
-          }
-
-          connectedCallback() {
-            // Load model when element is connected
-            const src = this.getAttribute('src');
-            if (src) {
-              this._loadModel(src);
-            }
-          }
-
-          attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-            if (name === 'src' && newValue && newValue !== oldValue) {
-              this._loadModel(newValue);
-            }
-          }
+        const gltf = await loader.loadAsync(modelPath);
+        
+        // Remove previous model
+        if (modelRef.current) {
+          scene.remove(modelRef.current);
         }
 
-        // Define the custom element
-        if (!customElements.get('x-3d-viewer')) {
-          customElements.define('x-3d-viewer', X3DViewer);
+        const model = gltf.scene;
+        modelRef.current = model;
+
+        // Enable shadows for all meshes
+        model.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+        });
+
+        scene.add(model);
+
+        // Setup animations
+        if (gltf.animations && gltf.animations.length > 0) {
+          mixerRef.current = new THREE.AnimationMixer(model);
+          const action = mixerRef.current.clipAction(gltf.animations[0]);
+          action.play();
         }
 
-        scriptLoadedRef.current = true;
-      } catch (error) {
-        console.error('Failed to load 3D viewer script:', error);
+        // Fit camera to model
+        fitCameraToModel(model, camera, controls);
+
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Failed to load model:', err);
+        setError('Failed to load 3D model');
+        setIsLoading(false);
       }
     };
 
-    loadScript();
-  }, []);
+    // Fit camera to model function
+    const fitCameraToModel = (model: THREE.Group, camera: THREE.PerspectiveCamera, controls: OrbitControls) => {
+      const box = new THREE.Box3().setFromObject(model);
+      const size = box.getSize(new THREE.Vector3());
+      const center = box.getCenter(new THREE.Vector3());
+
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const fov = camera.fov * (Math.PI / 180);
+      const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.8; // Increased distance for better framing
+
+      // Better camera positioning for rocket models
+      camera.position.set(
+        center.x + cameraZ * 0.4,  // Slightly more centered
+        center.y + cameraZ * 0.2,  // Lower angle for better rocket view
+        center.z + cameraZ
+      );
+
+      controls.target.copy(center);
+      controls.minDistance = maxDim * 0.8;  // Prevent getting too close
+      controls.maxDistance = cameraZ * 3;    // Allow zooming out
+      controls.update();
+    };
+
+    // Drag and drop functionality
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      if (containerRef.current) {
+        containerRef.current.style.outline = '2px dashed #38bdf8';
+      }
+    };
+
+    const handleDragLeave = () => {
+      if (containerRef.current) {
+        containerRef.current.style.outline = '';
+      }
+    };
+
+    const handleDrop = async (e: DragEvent) => {
+      e.preventDefault();
+      if (containerRef.current) {
+        containerRef.current.style.outline = '';
+      }
+
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        const file = files[0];
+        if (/\.gl(b|tf)$/i.test(file.name)) {
+          const url = URL.createObjectURL(file);
+          try {
+            const loader = new GLTFLoader();
+            const gltf = await loader.loadAsync(url);
+            
+            if (modelRef.current) {
+              scene.remove(modelRef.current);
+            }
+
+            const model = gltf.scene;
+            modelRef.current = model;
+
+            model.traverse((child) => {
+              if (child instanceof THREE.Mesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+              }
+            });
+
+            scene.add(model);
+            fitCameraToModel(model, camera, controls);
+            
+            URL.revokeObjectURL(url);
+          } catch (err) {
+            console.error('Failed to load dropped model:', err);
+          }
+        }
+      }
+    };
+
+    // Add event listeners
+    containerRef.current.addEventListener('dragover', handleDragOver);
+    containerRef.current.addEventListener('dragleave', handleDragLeave);
+    containerRef.current.addEventListener('drop', handleDrop);
+
+    // Load initial model
+    loadModel();
+
+    // Animation loop
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+
+      if (mixerRef.current) {
+        mixerRef.current.update(delta);
+      }
+
+      if (controlsRef.current) {
+        controlsRef.current.update();
+      }
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    // Handle resize
+    const handleResize = () => {
+      if (!containerRef.current || !camera || !renderer) return;
+
+      const width = containerRef.current.clientWidth;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (containerRef.current && renderer.domElement) {
+        containerRef.current.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
+    };
+  }, [modelPath, backgroundColor, height, autoRotate]);
+
+  // Update controls when props change
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.autoRotate = autoRotate;
+    }
+  }, [autoRotate]);
+
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.enabled = cameraControls;
+    }
+  }, [cameraControls]);
+
+  if (error) {
+    return (
+      <div 
+        className={`vanilla-3d-viewer ${className}`}
+        style={{
+          width: '100%',
+          height: height,
+          background: `linear-gradient(135deg, ${backgroundColor} 0%, #1e293b 100%)`,
+          borderRadius: 12,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#ef4444',
+          fontSize: '16px',
+          fontWeight: '500'
+        }}
+      >
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div 
@@ -223,17 +358,40 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
         borderRadius: 12,
         overflow: 'hidden',
         border: '1px solid rgba(255, 255, 255, 0.1)',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+        position: 'relative'
       }}
     >
-      <x-3d-viewer
-        src={modelPath}
-        envmap={envmap}
-        camera-controls={cameraControls}
-        auto-rotate={autoRotate}
-        poster={poster}
-        style={{ height: '100%', width: '100%' }}
-      />
+      {isLoading && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'rgba(0, 0, 0, 0.7)',
+          color: '#ffffff',
+          fontSize: '16px',
+          zIndex: 10
+        }}>
+          Loading 3D Model...
+        </div>
+      )}
+      <div style={{
+        position: 'absolute',
+        bottom: '16px',
+        left: '16px',
+        right: '16px',
+        textAlign: 'center',
+        color: '#94a3b8',
+        fontSize: '12px',
+        zIndex: 5
+      }}>
+        💡 <strong>Tip:</strong> Drag and drop any .glb or .gltf file onto the viewer to load it!
+      </div>
     </div>
   );
 };
