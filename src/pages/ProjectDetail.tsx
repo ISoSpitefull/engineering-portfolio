@@ -491,18 +491,17 @@ const ProjectDetail = () => {
                     <div className="h-5 w-5 text-orange-400">🚀</div>
                     3D Rocket Model
                   </CardTitle>
-                  {/* TODO: Update the Onshape URL below with the actual USST Rocket Project document URL */}
                   <Button 
                     asChild
                     size="sm"
                     className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
                     <a 
-                      href="https://cad.onshape.com/documents/USST-Rocket-Project-2025" 
+                      href="https://cad.onshape.com/documents/43f54792d901009a1d5350b5/w/1a8062a66f6bea486a8ed6a0/e/ed78210f0cd5f2108596a0ca" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
-                      title="Open USST Rocket Project in Onshape (Update with actual document URL)"
+                      title="Open USST Rocket Project in Onshape"
                     >
                       <span>Open in Onshape</span>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
