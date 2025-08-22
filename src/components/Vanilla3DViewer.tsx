@@ -13,6 +13,7 @@ interface Vanilla3DViewerProps {
   cameraControls?: boolean;
   poster?: boolean;
   className?: string;
+  modelScale?: number;
 }
 
 export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
@@ -23,7 +24,8 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
   autoRotate = true,
   cameraControls = true,
   poster = false,
-  className = ''
+  className = '',
+  modelScale = 1.0
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -166,6 +168,11 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
         const model = gltf.scene;
         modelRef.current = model;
 
+        // Apply scaling to the model
+        if (modelScale !== 1.0) {
+          model.scale.setScalar(modelScale);
+        }
+
         // Enable shadows for all meshes
         model.traverse((child) => {
           if (child instanceof THREE.Mesh) {
@@ -253,6 +260,11 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
             const model = gltf.scene;
             modelRef.current = model;
 
+            // Apply scaling to dropped models as well
+            if (modelScale !== 1.0) {
+              model.scale.setScalar(modelScale);
+            }
+
             model.traverse((child) => {
               if (child instanceof THREE.Mesh) {
                 child.castShadow = true;
@@ -325,7 +337,7 @@ export const Vanilla3DViewer: React.FC<Vanilla3DViewerProps> = ({
       }
       renderer.dispose();
     };
-  }, [modelPath, backgroundColor, height, autoRotate]);
+  }, [modelPath, backgroundColor, height, autoRotate, modelScale]);
 
   // Update controls when props change
   useEffect(() => {

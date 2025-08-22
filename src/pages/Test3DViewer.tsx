@@ -6,6 +6,7 @@ const Test3DViewer: React.FC = () => {
   const [autoRotate, setAutoRotate] = useState(true);
   const [cameraControls, setCameraControls] = useState(true);
   const [height, setHeight] = useState(500);
+  const [modelScale, setModelScale] = useState(2.0);
 
   const sampleModels = [
     { name: 'Rocket Assembly', path: '/ROCKETAssembly_July8.gltf' },
@@ -28,7 +29,7 @@ const Test3DViewer: React.FC = () => {
         {/* Controls */}
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 mb-8 border border-slate-700/50">
           <h2 className="text-xl font-semibold mb-4 text-cyan-400">Controls</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
                 Model
@@ -60,6 +61,22 @@ const Test3DViewer: React.FC = () => {
                 className="w-full"
               />
               <span className="text-sm text-slate-400">{height}px</span>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Model Scale
+              </label>
+              <input
+                type="range"
+                min="0.1"
+                max="5.0"
+                step="0.1"
+                value={modelScale}
+                onChange={(e) => setModelScale(Number(e.target.value))}
+                className="w-full"
+              />
+              <span className="text-sm text-slate-400">{modelScale}x</span>
             </div>
 
             <div className="flex items-center space-x-3">
@@ -97,6 +114,7 @@ const Test3DViewer: React.FC = () => {
             autoRotate={autoRotate}
             cameraControls={cameraControls}
             backgroundColor="#0f172a"
+            modelScale={modelScale}
           />
           <div className="mt-4 text-center">
             <p className="text-slate-400 text-sm">
