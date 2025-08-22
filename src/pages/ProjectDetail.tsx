@@ -486,10 +486,31 @@ const ProjectDetail = () => {
           {type === 'team' && (project as any).projectName === "USST Rocket Project: Up ↑" && (
             <Card className="bg-gray-800 border-gray-700 mb-8">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-white">
-                  <div className="h-5 w-5 text-orange-400">🚀 </div>
-                  3D Rocket Model
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2 text-white">
+                    <div className="h-5 w-5 text-orange-400">🚀</div>
+                    3D Rocket Model
+                  </CardTitle>
+                  {/* TODO: Update the Onshape URL below with the actual USST Rocket Project document URL */}
+                  <Button 
+                    asChild
+                    size="sm"
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    <a 
+                      href="https://cad.onshape.com/documents/USST-Rocket-Project-2025" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                      title="Open USST Rocket Project in Onshape (Update with actual document URL)"
+                    >
+                      <span>Open in Onshape</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly with enhanced lighting and materials. Auto-rotates for optimal viewing - hover to pause, drag to rotate, scroll to zoom.</p>
@@ -514,42 +535,7 @@ const ProjectDetail = () => {
             </Card>
           )}
 
-          {/* Onshape Document Link - Only for USST Rocket Project */}
-          {/* TODO: Update the Onshape URL below with the actual USST Rocket Project document URL */}
-          {type === 'team' && (project as any).projectName === "USST Rocket Project: Up ↑" && (
-            <Card className="bg-gray-800 border-gray-700 mb-8">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-white">
-                  <div className="h-5 w-5 text-blue-400">🔗 </div>
-                  Interactive Onshape Document
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 mb-4">
-                  Access the complete interactive CAD model in Onshape. Explore all rocket components, assemblies, and detailed engineering specifications with real-time collaboration features.
-                </p>
-                <div className="flex justify-center">
-                  <Button 
-                    asChild
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg font-semibold"
-                  >
-                                         <a 
-                       href="https://cad.onshape.com/documents/USST-Rocket-Project-2025" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="flex items-center gap-2"
-                       title="Open USST Rocket Project in Onshape (Update with actual document URL)"
-                     >
-                      <span>Open in Onshape</span>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Purpose/Motivation */}

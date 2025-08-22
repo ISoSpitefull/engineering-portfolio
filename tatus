@@ -1,0 +1,48 @@
+[1mdiff --git a/src/pages/ProjectDetail.tsx b/src/pages/ProjectDetail.tsx[m
+[1mindex ac9dd74..2fd8a54 100644[m
+[1m--- a/src/pages/ProjectDetail.tsx[m
+[1m+++ b/src/pages/ProjectDetail.tsx[m
+[36m@@ -514,6 +514,43 @@[m [mconst ProjectDetail = () => {[m
+             </Card>[m
+           )}[m
+ [m
+[32m+[m[32m          {/* Onshape Document Link - Only for USST Rocket Project */}[m
+[32m+[m[32m          {/* TODO: Update the Onshape URL below with the actual USST Rocket Project document URL */}[m
+[32m+[m[32m          {type === 'team' && (project as any).projectName === "USST Rocket Project: Up ↑" && ([m
+[32m+[m[32m            <Card className="bg-gray-800 border-gray-700 mb-8">[m
+[32m+[m[32m              <CardHeader>[m
+[32m+[m[32m                <CardTitle className="flex items-center gap-2 text-white">[m
+[32m+[m[32m                  <div className="h-5 w-5 text-blue-400">🔗</div>[m
+[32m+[m[32m                  Interactive Onshape Document[m
+[32m+[m[32m                </CardTitle>[m
+[32m+[m[32m              </CardHeader>[m
+[32m+[m[32m              <CardContent>[m
+[32m+[m[32m                <p className="text-gray-300 mb-4">[m
+[32m+[m[32m                  Access the complete interactive CAD model in Onshape. Explore all rocket components, assemblies, and detailed engineering specifications with real-time collaboration features.[m
+[32m+[m[32m                </p>[m
+[32m+[m[32m                <div className="flex justify-center">[m
+[32m+[m[32m                  <Button[m[41m [m
+[32m+[m[32m                    asChild[m
+[32m+[m[32m                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg font-semibold"[m
+[32m+[m[32m                  >[m
+[32m+[m[32m                                         <a[m[41m [m
+[32m+[m[32m                       href="https://cad.onshape.com/documents/USST-Rocket-Project-2025"[m[41m [m
+[32m+[m[32m                       target="_blank"[m[41m [m
+[32m+[m[32m                       rel="noopener noreferrer"[m
+[32m+[m[32m                       className="flex items-center gap-2"[m
+[32m+[m[32m                       title="Open USST Rocket Project in Onshape (Update with actual document URL)"[m
+[32m+[m[32m                     >[m
+[32m+[m[32m                      <span>Open in Onshape</span>[m
+[32m+[m[32m                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">[m
+[32m+[m[32m                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />[m
+[32m+[m[32m                      </svg>[m
+[32m+[m[32m                    </a>[m
+[32m+[m[32m                  </Button>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m              </CardContent>[m
+[32m+[m[32m            </Card>[m
+[32m+[m[32m          )}[m
+[32m+[m
+           <div className="grid lg:grid-cols-2 gap-8">[m
+             {/* Purpose/Motivation */}[m
+             <Card className="bg-gray-800 border-gray-700">[m
