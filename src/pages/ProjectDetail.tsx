@@ -487,7 +487,7 @@ const ProjectDetail = () => {
             <Card className="bg-gray-800 border-gray-700 mb-8">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
-                  <div className="h-5 w-5 text-orange-400">🚀</div>
+                  <div className="h-5 w-5 text-orange-400">🚀 </div>
                   3D Rocket Model
                 </CardTitle>
               </CardHeader>
