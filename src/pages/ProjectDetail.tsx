@@ -488,11 +488,18 @@ const ProjectDetail = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
                   <div className="h-5 w-5 text-orange-400">🚀 </div>
-                  3D Rocket Model
+                  <a 
+                    href="https://cad.onshape.com/documents/43f54792d901009a1d5350b5/w/1a8062a66f6bea486a8ed6a0/e/ed78210f0cd5f2108596a0ca" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-orange-300 transition-colors"
+                  >
+                    3D Rocket Model
+                  </a>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly with enhanced lighting and materials. Auto-rotates for optimal viewing - hover to pause, drag to rotate, scroll to zoom.</p>
+                <p className="text-gray-300 mb-4">Interactive 3D model of the rocket assembly with enhanced lighting and materials. Auto-rotates for optimal viewing - hover to pause, drag to rotate, scroll to zoom. <a href="https://cad.onshape.com/documents/43f54792d901009a1d5350b5/w/1a8062a66f6bea486a8ed6a0/e/ed78210f0cd5f2108596a0ca" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:text-orange-300 underline">Click here to view a more detailed model in OnShape</a>.</p>
                 <div className="relative">
                   <React.Suspense fallback={
                     <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
