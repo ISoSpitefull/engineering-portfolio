@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Code, Lightbulb, Target, Image } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const PersonalProjects = () => {
   const navigate = useNavigate();
@@ -178,6 +179,29 @@ const PersonalProjects = () => {
     );
   };
 
+  const ProjectsGrid = ({ projects }: { projects: typeof personalProjects }) => {
+    const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+    
+    return (
+      <div 
+        ref={ref}
+        className={`grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-auto transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+        {projects.map((project, index) => (
+          <div
+            key={project.id}
+            className="transition-all duration-500"
+            style={{ transitionDelay: `${index * 150}ms` }}
+          >
+            {renderProjectCard(project)}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-900">
       <div className="pt-16">
@@ -202,9 +226,7 @@ const PersonalProjects = () => {
 
         {/* Projects Grid */}
         <section className="py-20 px-4 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-auto">
-            {personalProjects.map(renderProjectCard)}
-          </div>
+          <ProjectsGrid projects={personalProjects} />
         </section>
       </div>
     </div>

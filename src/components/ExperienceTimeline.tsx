@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const ExperienceTimeline = () => {
   const experiences = [
@@ -45,27 +46,37 @@ const ExperienceTimeline = () => {
       </div>
 
       <div className="space-y-6">
-        {experiences.map((exp, index) => (
-          <div 
-            key={index} 
-            className="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg hover:bg-gray-800/70 transition-all duration-300"
-          >
-            {/* Year */}
-            <div className="md:col-span-1">
-              <span className="text-gray-400 font-medium text-sm">{exp.year}</span>
-            </div>
-            
-            {/* Content */}
-            <div className="md:col-span-3 space-y-2">
-              <div>
-                <h3 className="text-white font-semibold text-lg">{exp.title}</h3>
-                <p className="text-blue-400 font-medium text-sm">{exp.company}</p>
+        {experiences.map((exp, index) => {
+          const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+          
+          return (
+            <div 
+              key={index} 
+              ref={ref}
+              className={`grid grid-cols-1 md:grid-cols-4 gap-4 p-6 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg hover:bg-gray-800/70 transition-all duration-700 ${
+                isVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${index * 150}ms` }}
+            >
+              {/* Year */}
+              <div className="md:col-span-1">
+                <span className="text-gray-300 font-bold text-xl md:text-2xl">{exp.year}</span>
               </div>
               
-              <p className="text-gray-300 text-sm leading-relaxed">{exp.description}</p>
+              {/* Content */}
+              <div className="md:col-span-3 space-y-2">
+                <div>
+                  <h3 className="text-white font-semibold text-lg">{exp.title}</h3>
+                  <p className="text-blue-400 font-medium text-sm">{exp.company}</p>
+                </div>
+                
+                <p className="text-gray-300 text-sm leading-relaxed">{exp.description}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

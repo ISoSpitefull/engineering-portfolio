@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const SkillsSection = () => {
   const skillCategories = [
@@ -58,8 +59,15 @@ const SkillsSection = () => {
     }
   };
 
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1 });
+  
   return (
-    <section className="py-12 sm:py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl sm:rounded-3xl my-8 sm:my-20">
+    <section 
+      ref={sectionRef}
+      className={`py-12 sm:py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl sm:rounded-3xl my-8 sm:my-20 transition-all duration-700 ${
+        sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="text-center mb-8 sm:mb-16">
         <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">Technical Skills</h2>
         <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto px-2">
@@ -68,36 +76,48 @@ const SkillsSection = () => {
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4 sm:gap-8">
-        {skillCategories.map((category, index) => (
-          <Card 
-            key={index} 
-            className={`hover:shadow-xl transition-shadow duration-300 bg-gray-800 backdrop-blur-sm border-gray-700 ${
-              index === skillCategories.length - 1 ? 'sm:col-span-2 md:col-span-1 md:col-start-2' : ''
-            }`}
-          >
-            <CardHeader className="pb-3 sm:pb-4">
-              <CardTitle className="text-lg sm:text-xl text-white flex items-center">
-                <div className="w-2 sm:w-3 h-2 sm:h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-2 sm:mr-3"></div>
-                {category.category}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-2 sm:gap-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="flex items-center justify-between text-sm sm:text-base">
-                    <span className="font-medium text-gray-300">{skill.name}</span>
-                    <Badge 
-                      variant="outline" 
-                      className={`${getLevelColor(skill.level)} text-xs sm:text-sm font-semibold border ml-2`}
-                    >
-                      {skill.level}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        {skillCategories.map((category, index) => {
+          const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 });
+          
+          return (
+            <Card 
+              key={index}
+              ref={ref} 
+              className={`hover:shadow-xl transition-all duration-700 bg-gray-800 backdrop-blur-sm border-gray-700 ${
+                index === skillCategories.length - 1 ? 'sm:col-span-2 md:col-span-1 md:col-start-2' : ''
+              } ${
+                isVisible 
+                  ? 'opacity-100 translate-x-0' 
+                  : index % 2 === 0 
+                    ? 'opacity-0 -translate-x-8' 
+                    : 'opacity-0 translate-x-8'
+              }`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <CardHeader className="pb-3 sm:pb-4">
+                <CardTitle className="text-lg sm:text-xl text-white flex items-center">
+                  <div className="w-2 sm:w-3 h-2 sm:h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-2 sm:mr-3"></div>
+                  {category.category}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-2 sm:gap-3">
+                  {category.skills.map((skill, skillIndex) => (
+                    <div key={skillIndex} className="flex items-center justify-between text-sm sm:text-base">
+                      <span className="font-medium text-gray-300">{skill.name}</span>
+                      <Badge 
+                        variant="outline" 
+                        className={`${getLevelColor(skill.level)} text-xs sm:text-sm font-semibold border ml-2`}
+                      >
+                        {skill.level}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </section>
   );

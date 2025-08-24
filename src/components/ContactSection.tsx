@@ -5,10 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1 });
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,7 +61,12 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-12 sm:py-20 px-4 max-w-6xl mx-auto">
+    <section 
+      ref={sectionRef}
+      className={`py-12 sm:py-20 px-4 max-w-6xl mx-auto transition-all duration-700 ${
+        sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       <div className="text-center mb-10 sm:mb-16 animate-fade-in-up">
         <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6 relative inline-block">
           <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
