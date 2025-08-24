@@ -185,19 +185,33 @@ const PersonalProjects = () => {
     return (
       <div 
         ref={ref}
-        className={`grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-auto transition-all duration-700 ${
+        className={`space-y-8 transition-all duration-700 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        {projects.map((project, index) => (
+        {/* Large project - full width */}
+        <div
+          className="transition-all duration-500"
+          style={{ transitionDelay: '0ms' }}
+        >
+          {renderProjectCard(projects[0])}
+        </div>
+        
+        {/* Medium and Small projects - side by side */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div
-            key={project.id}
             className="transition-all duration-500"
-            style={{ transitionDelay: `${index * 150}ms` }}
+            style={{ transitionDelay: '150ms' }}
           >
-            {renderProjectCard(project)}
+            {renderProjectCard(projects[1])}
           </div>
-        ))}
+          <div
+            className="transition-all duration-500"
+            style={{ transitionDelay: '300ms' }}
+          >
+            {renderProjectCard(projects[2])}
+          </div>
+        </div>
       </div>
     );
   };
