@@ -200,7 +200,7 @@ const PersonalProjects = () => {
         {/* Medium and Small projects - side by side */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div
-            className="transition-all duration-500"
+            className="md:col-span-2 transition-all duration-500"
             style={{ transitionDelay: '150ms' }}
           >
             {renderProjectCard(projects[1])}
