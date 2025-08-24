@@ -36,7 +36,7 @@ const ExperienceTimeline = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-20 px-4 max-w-4xl mx-auto">
+    <section className="py-12 sm:py-20 px-4 max-w-6xl mx-auto">
       <div className="text-center mb-8 sm:mb-12">
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">My Engineering Journey</h2>
         <p className="text-base text-gray-300 max-w-xl mx-auto">
