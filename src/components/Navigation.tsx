@@ -35,12 +35,12 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-md border-b border-gray-700/50 transition-all duration-500 shadow-lg ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 glass-card transition-all duration-500 shadow-lg ${
       isVisible ? "translate-y-0" : "-translate-y-full"
     }`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-xl font-bold text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-500 transition-all duration-300 transform hover:scale-105">
+          <Link to="/" className="text-xl font-bold text-foreground hover:text-gradient transition-all duration-300 transform hover:scale-105">
             Nikhil - Eng
           </Link>
 
@@ -50,13 +50,13 @@ const Navigation = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative text-gray-300 hover:text-white transition-all duration-300 transform hover:scale-105 group ${
-                  location.pathname === link.path ? "text-white font-semibold" : ""
+                className={`relative text-muted-foreground hover:text-foreground transition-all duration-300 transform hover:scale-105 group ${
+                  location.pathname === link.path ? "text-foreground font-semibold" : ""
                 }`}
               >
                 {link.label}
                 {/* Animated underline */}
-                <span className={`absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transition-all duration-300 group-hover:w-full ${
+                <span className={`absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full ${
                   location.pathname === link.path ? "w-full" : ""
                 }`}></span>
                 
@@ -70,7 +70,7 @@ const Navigation = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="md:hidden text-white hover:bg-gray-800/50 transition-all duration-300 hover:scale-110"
+            className="md:hidden text-foreground hover:bg-muted transition-all duration-300 hover:scale-110"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <div className="relative">
@@ -84,15 +84,15 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          isMobileMenuOpen ? "max-h-60 py-4 border-t border-gray-700/50" : "max-h-0"
+          isMobileMenuOpen ? "max-h-60 py-4 border-t border-border" : "max-h-0"
         }`}>
           <div className="flex flex-col space-y-4">
             {navLinks.map((link, index) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-gray-300 hover:text-white transition-all duration-300 transform hover:translate-x-2 hover:scale-105 relative group animate-fade-in-left ${
-                  location.pathname === link.path ? "text-white font-semibold" : ""
+                className={`text-muted-foreground hover:text-foreground transition-all duration-300 transform hover:translate-x-2 hover:scale-105 relative group animate-fade-in-left ${
+                  location.pathname === link.path ? "text-foreground font-semibold" : ""
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => setIsMobileMenuOpen(false)}

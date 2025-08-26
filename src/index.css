@@ -4,32 +4,32 @@
 
 @layer base {
   html {
-    background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+    background: #111418;
     height: 100%;
   }
 
   body {
-    background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+    background: #111418;
     min-height: 100%;
   }
 
   :root {
-    --background: 216 100% 2%;
+    --background: 220 14% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 216 50% 4%;
+    --card: 220 14% 10%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 216 50% 4%;
+    --popover: 220 14% 10%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 217 91% 60%;
     --primary-foreground: 216 100% 2%;
 
-    --secondary: 216 50% 8%;
+    --secondary: 220 14% 12%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 216 50% 6%;
+    --muted: 220 14% 10%;
     --muted-foreground: 215 20% 65%;
 
     --accent: 271 91% 65%;
@@ -38,8 +38,8 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 216 50% 12%;
-    --input: 216 50% 8%;
+    --border: 220 14% 15%;
+    --input: 220 14% 12%;
     --ring: 217 91% 60%;
 
     --radius: 0.75rem;
@@ -55,13 +55,13 @@
     --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(216 50% 6%) 100%);
     --gradient-glow: radial-gradient(circle at center, hsl(var(--glow-primary) / 0.1) 0%, transparent 70%);
 
-    --sidebar-background: 216 50% 4%;
+    --sidebar-background: 220 14% 8%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 216 100% 2%;
-    --sidebar-accent: 216 50% 8%;
+    --sidebar-accent: 220 14% 12%;
     --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 216 50% 12%;
+    --sidebar-border: 220 14% 15%;
     --sidebar-ring: 217 91% 60%;
   }
 
@@ -148,11 +148,11 @@
     box-shadow: 0 0 30px hsl(var(--glow-warm) / 0.3), 0 0 60px hsl(var(--glow-warm) / 0.1);
   }
 
-  .glass-card {
-    background: linear-gradient(145deg, hsl(var(--card) / 0.8), hsl(216 50% 6% / 0.6));
-    backdrop-filter: blur(10px);
-    border: 1px solid hsl(var(--border) / 0.3);
-  }
+    .glass-card {
+      background: linear-gradient(145deg, hsl(220 14% 10% / 0.8), hsl(220 14% 12% / 0.6));
+      backdrop-filter: blur(10px);
+      border: 1px solid hsl(220 14% 15% / 0.3);
+    }
 
   .text-gradient {
     background: var(--gradient-primary);
