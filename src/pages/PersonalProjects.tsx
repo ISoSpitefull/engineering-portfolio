@@ -4,43 +4,16 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Code, Lightbulb, Target, Image } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { personalProjects } from "@/data/projects";
+import type { PersonalProject } from "@/data/projects";
 
 const PersonalProjects = () => {
   const navigate = useNavigate();
-  const personalProjects = [
-    {
-      id: 1,
-      name: "Sunrise Simulight",
-      skills: ["Arduino", "Python", "Systems Integration", "IoT"],
-      learningExperience: "Learned IoT connections, power optimization through intelligent dimming algorithms, and user-centered design through feedback from 15+ test subjects to improve wake-up experience.",
-      futurePlans: "Develop standalone mobile app, integrate with smart home systems, implement machine learning for personalized light patterns, and explore commercial manufacturing partnerships.",
-      image: "/images/SimuLight Wide Banner Website.png",
-      format: "large"
-    },
-    {
-      id: 2,
-      name: "Arduino Based Macro Keyboard",
-      skills: ["Arduino", "C++", "Electronics", "User-Centric Design"],
-      learningExperience: "Developed accessible solutions for users with motor disabilities, improved programming skills through custom firmware development, and learned the importance of cross-platform compatibility.",
-      futurePlans: "Create customizable keyboard layout software, develop wireless Bluetooth versions, implement advanced macro features, and establish open-source community collaboration.",
-      image: "/images/MacroKeyboard Banner Website.png",
-      format: "medium"
-    },
-    {
-      id: 3,
-      name: "RC Airplane Based Land Surveying System",
-      skills: ["Raspberry Pi", "Python", "LiDAR", "GPS"],
-      learningExperience: "Building radio controlled airplane for aerial photography and 3D land modeling, learning flight path automation algorithms and image stitching techniques for seamless aerial mosaics.",
-      futurePlans: "Integrate LiDAR and GPS for centimeter-level precision, add real-time data transmission, develop machine learning for crop health analysis, and establish agricultural research partnerships.",
-      image: "https://images.unsplash.com/photo-1628158088936-68ccaaa400dc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      format: "small"
-    }
-  ];
 
-  const renderProjectCard = (project: typeof personalProjects[0]) => {
+  const renderProjectCard = (project: PersonalProject) => {
     const baseClasses = "group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-800 backdrop-blur-sm border-gray-700 shadow-lg";
     
-    if (project.format === "large") {
+    if (project.layout === "large") {
       return (
         <Card key={project.id} className={`${baseClasses} col-span-full cursor-pointer`} onClick={() => navigate(`/project/personal/${project.id}`)}>
           <div className="relative h-48 sm:h-64 overflow-hidden rounded-t-lg">
@@ -82,7 +55,7 @@ const PersonalProjects = () => {
             <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/50 p-4 rounded-lg border-l-4 border-purple-500">
               <h4 className="font-semibold text-white mb-2">Future Plans</h4>
               <p className="text-gray-300">
-                {project.futurePlans}
+                {project.futurePlansSummary}
               </p>
             </div>
           </CardContent>
@@ -90,7 +63,7 @@ const PersonalProjects = () => {
       );
     }
 
-    if (project.format === "medium") {
+    if (project.layout === "medium") {
       return (
         <Card key={project.id} className={`${baseClasses} md:col-span-2 cursor-pointer`} onClick={() => navigate(`/project/personal/${project.id}`)}>
           <div className="relative h-40 sm:h-48 overflow-hidden rounded-t-lg">
@@ -124,7 +97,7 @@ const PersonalProjects = () => {
             <div className="bg-gradient-to-r from-green-900/50 to-teal-900/50 p-3 rounded-lg border-l-4 border-green-500">
               <h4 className="font-medium text-white mb-1 text-sm">Future Plans</h4>
               <p className="text-gray-300 text-sm">
-                {project.futurePlans}
+                {project.futurePlansSummary}
               </p>
             </div>
           </CardContent>
@@ -170,7 +143,7 @@ const PersonalProjects = () => {
             </p>
             <div className="bg-gradient-to-r from-orange-900/50 to-red-900/50 p-2 rounded border-l-2 border-orange-400">
               <p className="text-gray-300 text-xs">
-                {project.futurePlans}
+                {project.futurePlansSummary}
               </p>
             </div>
           </div>
@@ -179,7 +152,7 @@ const PersonalProjects = () => {
     );
   };
 
-  const ProjectsGrid = ({ projects }: { projects: typeof personalProjects }) => {
+  const ProjectsGrid = ({ projects }: { projects: PersonalProject[] }) => {
     const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
     
     return (

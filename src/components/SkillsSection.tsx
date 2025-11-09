@@ -1,71 +1,67 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { skillCategories } from "@/data/skills";
+import type { SkillCategory, SkillLevel } from "@/data/skills";
+
+const levelColors: Record<SkillLevel, string> = {
+  Advanced: "bg-green-900 text-green-200 border-green-700",
+  Intermediate: "bg-blue-900 text-blue-200 border-blue-700",
+  Beginner: "bg-yellow-900 text-yellow-200 border-yellow-700"
+};
+
+const getLevelColor = (level: SkillLevel) => levelColors[level] ?? "bg-gray-700 text-gray-300 border-gray-600";
+
+const SkillCategoryCard = ({ category, index }: { category: SkillCategory; index: number }) => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 });
+
+  return (
+    <Card
+      ref={ref}
+      className={`hover:shadow-xl transition-all duration-700 bg-gray-800 backdrop-blur-sm border-gray-700 ${
+        index === skillCategories.length - 1 ? "sm:col-span-2 md:col-span-1 md:col-start-2" : ""
+      } ${
+        isVisible
+          ? "opacity-100 translate-x-0"
+          : index % 2 === 0
+            ? "opacity-0 -translate-x-8"
+            : "opacity-0 translate-x-8"
+      }`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <CardHeader className="pb-3 sm:pb-4">
+        <CardTitle className="text-lg sm:text-xl text-white flex items-center">
+          <div className="w-2 sm:w-3 h-2 sm:h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-2 sm:mr-3"></div>
+          {category.category}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-2 sm:gap-3">
+          {category.skills.map((skill) => (
+            <div key={skill.name} className="flex items-center justify-between text-sm sm:text-base">
+              <span className="font-medium text-gray-300">{skill.name}</span>
+              <Badge
+                variant="outline"
+                className={`${getLevelColor(skill.level)} text-xs sm:text-sm font-semibold border ml-2`}
+              >
+                {skill.level}
+              </Badge>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 const SkillsSection = () => {
-  const skillCategories = [
-    {
-      category: "Programming Languages",
-      skills: [
-        { name: "Python", level: "Beginner" },
-        { name: "JavaScript", level: "Beginner" },
-        { name: "C++", level: "Intermediate" },
-        { name: "MATLAB", level: "Advanced" },
-        { name: "HTML/CSS", level: "Intermediate" }
-      ]
-    },
-    {
-      category: "Engineering Tools",
-      skills: [
-        { name: "AutoCAD", level: "Advanced" },
-        { name: "SolidWorks", level: "Intermediate" },
-        { name: "Arduino", level: "Advanced" },
-        { name: "Fusion 360", level: "Advanced" },
-        { name: "Circuit Design", level: "Intermediate" }
-      ]
-    },
-    {
-      category: "Documentation",
-      skills: [
-        { name: "Microsoft Word", level: "Advanced" },
-        { name: "Microsoft PowerPoint", level: "Advanced" },
-        { name: "Excel", level: "Intermediate" },
-        { name: "GitHub", level: "Intermediate" },
-        { name: "Engineering Logbook", level: "Intermediate" }
-      ]
-    },
-    {
-      category: "Other Tools",
-      skills: [
-        { name: "Revit", level: "Intermediate" },
-        { name: "PASCO Capstone", level: "Advanced" },
-        { name: "EasyEDA Web Editor", level: "Advanced" },
-        { name: "CAM (CNC)", level: "Beginner" },
-        { name: "AutoCAD", level: "Advanced" }
-      ]
-    },
-  ];
-
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case "Advanced":
-        return "bg-green-900 text-green-200 border-green-700";
-      case "Intermediate":
-        return "bg-blue-900 text-blue-200 border-blue-700";
-      case "Beginner":
-        return "bg-yellow-900 text-yellow-200 border-yellow-700";
-      default:
-        return "bg-gray-700 text-gray-300 border-gray-600";
-    }
-  };
-
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1 });
-  
+
   return (
-    <section 
+    <section
       ref={sectionRef}
       className={`py-12 sm:py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl sm:rounded-3xl my-8 sm:my-20 transition-all duration-700 ${
-        sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >
       <div className="text-center mb-8 sm:mb-16">
@@ -76,48 +72,9 @@ const SkillsSection = () => {
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4 sm:gap-8">
-        {skillCategories.map((category, index) => {
-          const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 });
-          
-          return (
-            <Card 
-              key={index}
-              ref={ref} 
-              className={`hover:shadow-xl transition-all duration-700 bg-gray-800 backdrop-blur-sm border-gray-700 ${
-                index === skillCategories.length - 1 ? 'sm:col-span-2 md:col-span-1 md:col-start-2' : ''
-              } ${
-                isVisible 
-                  ? 'opacity-100 translate-x-0' 
-                  : index % 2 === 0 
-                    ? 'opacity-0 -translate-x-8' 
-                    : 'opacity-0 translate-x-8'
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
-              <CardHeader className="pb-3 sm:pb-4">
-                <CardTitle className="text-lg sm:text-xl text-white flex items-center">
-                  <div className="w-2 sm:w-3 h-2 sm:h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-2 sm:mr-3"></div>
-                  {category.category}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-2 sm:gap-3">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="flex items-center justify-between text-sm sm:text-base">
-                      <span className="font-medium text-gray-300">{skill.name}</span>
-                      <Badge 
-                        variant="outline" 
-                        className={`${getLevelColor(skill.level)} text-xs sm:text-sm font-semibold border ml-2`}
-                      >
-                        {skill.level}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+        {skillCategories.map((category, index) => (
+          <SkillCategoryCard key={category.category} category={category} index={index} />
+        ))}
       </div>
     </section>
   );
