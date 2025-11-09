@@ -1,56 +1,64 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
-import { skillCategories } from "@/data/skills";
-import type { SkillCategory, SkillLevel } from "@/data/skills";
+import { cn } from "@/lib/utils";
+import { skillCarousels, type SkillCarousel } from "@/data/skills";
 
-const levelColors: Record<SkillLevel, string> = {
-  Advanced: "bg-green-900 text-green-200 border-green-700",
-  Intermediate: "bg-blue-900 text-blue-200 border-blue-700",
-  Beginner: "bg-yellow-900 text-yellow-200 border-yellow-700"
-};
-
-const getLevelColor = (level: SkillLevel) => levelColors[level] ?? "bg-gray-700 text-gray-300 border-gray-600";
-
-const SkillCategoryCard = ({ category, index }: { category: SkillCategory; index: number }) => {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 });
+const AutoScrollCarousel = ({ title, items, direction = "right" }: SkillCarousel) => {
+  const duplicatedItems = [...items, ...items];
+  const animationClass = direction === "right" ? "animate-scroll-right" : "animate-scroll-left";
+  const animationDuration = Math.max(items.length * 4.5, 24);
 
   return (
-    <Card
-      ref={ref}
-      className={`hover:shadow-xl transition-all duration-700 bg-gray-800 backdrop-blur-sm border-gray-700 ${
-        index === skillCategories.length - 1 ? "sm:col-span-2 md:col-span-1 md:col-start-2" : ""
-      } ${
-        isVisible
-          ? "opacity-100 translate-x-0"
-          : index % 2 === 0
-            ? "opacity-0 -translate-x-8"
-            : "opacity-0 translate-x-8"
-      }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
-    >
-      <CardHeader className="pb-3 sm:pb-4">
-        <CardTitle className="text-lg sm:text-xl text-white flex items-center">
-          <div className="w-2 sm:w-3 h-2 sm:h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mr-2 sm:mr-3"></div>
-          {category.category}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-2 sm:gap-3">
-          {category.skills.map((skill) => (
-            <div key={skill.name} className="flex items-center justify-between text-sm sm:text-base">
-              <span className="font-medium text-gray-300">{skill.name}</span>
-              <Badge
-                variant="outline"
-                className={`${getLevelColor(skill.level)} text-xs sm:text-sm font-semibold border ml-2`}
-              >
-                {skill.level}
-              </Badge>
+    <div className="group">
+      <div className="mb-2 flex items-center gap-3 px-1 sm:px-2">
+        <span className="h-2 w-2 rounded-full bg-gradient-to-r from-indigo-400 to-purple-500"></span>
+        <h3 className="text-sm font-semibold text-gray-200 sm:text-base">{title}</h3>
+      </div>
+      <div className="relative overflow-hidden py-2 sm:py-3">
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[6rem] sm:w-[6.75rem] lg:w-[7.25rem]"
+          aria-hidden="true"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0.9) 45%, rgba(17,24,39,0.5) 80%, rgba(17,24,39,0.15) 100%)"
+          }}
+        ></div>
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[6rem] sm:w-[6.75rem] lg:w-[7.25rem]"
+          aria-hidden="true"
+          style={{
+            background:
+              "linear-gradient(270deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0.9) 45%, rgba(17,24,39,0.5) 80%, rgba(17,24,39,0.15) 100%)"
+          }}
+        ></div>
+        <div
+          className={cn(
+            "relative z-0 flex gap-3 sm:gap-4 scrolling-carousel-track",
+            animationClass,
+            "group-hover:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:[animation-play-state:paused]"
+          )}
+          style={{ animationDuration: `${animationDuration}s` }}
+          role="list"
+          aria-label={`${title} carousel`}
+        >
+          {duplicatedItems.map((item, index) => (
+            <div key={`${item.label}-${index}`} role="listitem" className="shrink-0">
+              <div className="flex h-36 w-36 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-3 text-center text-sm font-semibold text-gray-100 backdrop-blur-lg sm:h-40 sm:w-40 sm:text-base">
+                {item.iconSrc ? (
+                  <img
+                    src={item.iconSrc}
+                    alt={item.label}
+                    className="h-14 w-14 object-contain sm:h-20 sm:w-20"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="leading-tight">{item.label}</span>
+                )}
+              </div>
             </div>
           ))}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
@@ -60,20 +68,20 @@ const SkillsSection = () => {
   return (
     <section
       ref={sectionRef}
-      className={`py-12 sm:py-20 px-4 max-w-6xl mx-auto bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl sm:rounded-3xl my-8 sm:my-20 transition-all duration-700 ${
+      className={`mx-auto mt-10 mb-6 w-full max-w-7xl transform px-2 pt-8 pb-6 transition-all duration-700 sm:mt-16 sm:mb-10 sm:px-4 sm:pt-12 sm:pb-8 md:px-8 ${
         sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >
-      <div className="text-center mb-8 sm:mb-16">
-        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">Technical Skills</h2>
-        <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto px-2">
-          A comprehensive overview of my technical expertise across different domains of engineering and development.
+      <div className="mb-5 rounded-3xl bg-gradient-to-r from-gray-800 to-gray-700 px-6 py-8 text-center shadow-2xl sm:mb-8 sm:px-8 sm:py-10">
+        <h2 className="mb-2 text-2xl font-bold text-white sm:mb-3 sm:text-4xl">Technical Skills</h2>
+        <p className="text-base text-gray-300 sm:text-xl">
+          A continuously scrolling view of the tools, languages, and platforms I rely on every day.
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-4 sm:gap-8">
-        {skillCategories.map((category, index) => (
-          <SkillCategoryCard key={category.category} category={category} index={index} />
+      <div className="space-y-3 sm:space-y-5">
+        {skillCarousels.map((carousel) => (
+          <AutoScrollCarousel key={carousel.title} {...carousel} />
         ))}
       </div>
     </section>

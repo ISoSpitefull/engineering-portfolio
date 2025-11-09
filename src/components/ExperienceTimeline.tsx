@@ -45,7 +45,7 @@ const ExperienceCard = ({ entry, index }: { entry: ExperienceEntry; index: numbe
 };
 
 const ExperienceTimeline = () => (
-  <section className="py-12 sm:py-20 px-4 max-w-6xl mx-auto">
+  <section className="px-4 max-w-6xl mx-auto pt-12 sm:pt-20 pb-6 sm:pb-8">
     <div className="text-center mb-8 sm:mb-12">
       <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">My Engineering Journey</h2>
       <p className="text-base text-gray-300 max-w-xl mx-auto">

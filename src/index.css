@@ -109,3 +109,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@layer utilities {
+  .scrolling-carousel-track {
+    width: max-content;
+    will-change: transform;
+  }
+
+  .animate-scroll-left {
+    animation: scroll-left 35s linear infinite;
+  }
+
+  .animate-scroll-right {
+    animation: scroll-right 35s linear infinite;
+  }
+}
