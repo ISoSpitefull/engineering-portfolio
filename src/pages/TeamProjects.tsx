@@ -3,51 +3,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Users, Award, Code, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { featuredTeamProject, teamProjects } from "@/data/projects";
+import type { TeamProject } from "@/data/projects";
 
 const TeamProjects = () => {
   const navigate = useNavigate();
-  const showcaseProject = {
-    teamSize: 25,
-    teamName: "USST - University of Saskatchewan Space Design Team",
-    projectName: "USST Rocket Project: Up ↑",
-    skills: ["OpenRocket", "Fusion 360", "ANSYS", "SolidWorks", "OnShape"],
-    image: "/images/Rocket Full Length.png",
-    description: "Designed and optimized components for an 8ft M-class rocket launch at Launch Canada 2025, contributing to Canada's growing space sector through innovative propulsion and structural design solutions.",
-    myRole: "CAD modeling lead for rocket components, aerodynamic analysis using ANSYS/OpenRocket, and cross-functional team coordination between propulsion, structures, and avionics sub-teams."
-  };
+  const highlightedProject = featuredTeamProject ?? teamProjects[0];
+  const supportingProjects: TeamProject[] = highlightedProject
+    ? teamProjects.filter((project) => project.id !== highlightedProject.id)
+    : teamProjects;
 
-  const teamProjects = [
-    {
-      id: 1,
-      teamSize: 35,
-      teamName: "4627 Manning Robotics",
-      projectName: "Thor & Loki",
-      skills: ["Fusion 360 Simulation", "Fusion 360 Assemblies", "Team Leadership", "Manufacturing"],
-      image: "/images/4627Thor.png",
-      description: "Designed and maintained drive train systems for 4627 Manning Robotics during the 2023 FRC Charged Up challenge, achieving 95% reliability during competitions.",
-      myRole: "Drive train systems lead engineer responsible for gearbox design, system optimization, and mentoring junior team members in CAD modeling and manufacturing processes."
-    },
-    {
-      id: 2,
-      teamSize: 3,
-      teamName: "Manning Robotics",
-      projectName: "2023 Skills Alberta Robotics Competition",
-      skills: ["Machining", "Circuit Design", "Problem Solving", "Technical Documentation", "Fabrication"],
-      image: "/images/skillsbot.JPG",
-      description: "Led a team of 3 to design and engineer two high-performance hockey robots for the 2023 Skills Robotics Competition, showcasing advanced robotics engineering skills.",
-      myRole: "Team leader coordinating design, prototyping, documentation, and testing to optimize robot functionality and precision for competitive performance."
-    },
-    {
-      id: 3,
-      teamSize: 6,
-      teamName: "ExoSpace",
-      projectName: "2024 NASA Space Apps Challenge",
-      skills: ["HTML", "CSS", "JavaScript", "NASA API"],
-      image: "https://images-assets.nasa.gov/image/PIA23408/PIA23408~orig.jpg?w=600&h=300&fit=crop",
-      description: "Competed in the 2024 NASA Space Apps Challenge, developing innovative solutions for space exploration and technology using web technologies and NASA APIs.",
-      myRole: "Front-end development and API integration for data visualization components, contributing to creative solutions for space science challenges."
-    }
-  ];
+  if (!highlightedProject) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+        <p>Team projects will be published soon.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -80,8 +52,8 @@ const TeamProjects = () => {
           {/* Background Image */}
           <div className="w-full h-[140px] sm:h-[200px] md:h-[300px] relative group">
             <img 
-              src={showcaseProject.image} 
-              alt={showcaseProject.projectName}
+              src={highlightedProject.image} 
+              alt={highlightedProject.projectName}
               className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/40"></div>
@@ -104,9 +76,9 @@ const TeamProjects = () => {
                   <span className="text-xs sm:text-sm font-medium text-purple-400 uppercase tracking-wide group-hover:text-purple-300 transition-colors duration-300">Showcase Project</span>
                 </div>
                 
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 relative z-10 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-500 transition-all duration-500 animate-fade-in-up [animation-delay:1s] opacity-0 [animation-fill-mode:forwards]">{showcaseProject.projectName}</h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 relative z-10 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-500 transition-all duration-500 animate-fade-in-up [animation-delay:1s] opacity-0 [animation-fill-mode:forwards]">{highlightedProject.projectName}</h2>
                 <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed relative z-10 group-hover:text-gray-200 transition-colors duration-300 animate-fade-in-up [animation-delay:1.2s] opacity-0 [animation-fill-mode:forwards]">
-                  {showcaseProject.description}
+                  {highlightedProject.description}
                 </p>
                 
                 <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6">
@@ -115,7 +87,7 @@ const TeamProjects = () => {
                       <Users className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
                       <div>
                         <p className="text-xs sm:text-sm text-gray-400">Team Size</p>
-                        <p className="text-sm sm:text-base font-semibold text-white">{showcaseProject.teamSize} members</p>
+                        <p className="text-sm sm:text-base font-semibold text-white">{highlightedProject.teamSize} members</p>
                       </div>
                     </div>
                     
@@ -123,7 +95,7 @@ const TeamProjects = () => {
                       <Award className="h-4 w-4 sm:h-5 sm:w-5 text-green-400" />
                       <div>
                         <p className="text-xs sm:text-sm text-gray-400">Team Name</p>
-                        <p className="text-sm sm:text-base font-semibold text-white">{showcaseProject.teamName}</p>
+                        <p className="text-sm sm:text-base font-semibold text-white">{highlightedProject.teamName}</p>
                       </div>
                     </div>
                     
@@ -132,14 +104,14 @@ const TeamProjects = () => {
                       <div>
                         <p className="text-xs sm:text-sm text-gray-400">Key Technologies</p>
                         <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-1">
-                          {showcaseProject.skills.slice(0, 3).map((skill) => (
+                          {highlightedProject.skills.slice(0, 3).map((skill) => (
                             <Badge key={skill} variant="secondary" className="bg-purple-900 text-purple-200 text-xs sm:text-sm py-0.5">
                               {skill}
                             </Badge>
                           ))}
-                          {showcaseProject.skills.length > 3 && (
+                          {highlightedProject.skills.length > 3 && (
                             <Badge variant="secondary" className="bg-gray-700 text-gray-300 text-xs sm:text-sm py-0.5">
-                              +{showcaseProject.skills.length - 3} more
+                              +{highlightedProject.skills.length - 3} more
                             </Badge>
                           )}
                         </div>
@@ -153,7 +125,7 @@ const TeamProjects = () => {
                       <p className="text-xs sm:text-sm text-gray-400 font-semibold">My Role</p>
                     </div>
                     <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                      {showcaseProject.myRole}
+                      {highlightedProject.roleSummary}
                     </p>
                   </div>
                 </div>
@@ -172,8 +144,8 @@ const TeamProjects = () => {
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            {teamProjects.map((project) => (
-              <Card key={project.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gray-800 backdrop-blur-sm border-gray-700 shadow-lg cursor-pointer" onClick={() => navigate(`/project/team/${project.id + 1}`)}>
+            {supportingProjects.map((project) => (
+              <Card key={project.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gray-800 backdrop-blur-sm border-gray-700 shadow-lg cursor-pointer" onClick={() => navigate(`/project/team/${project.id}`)}>
                 <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden rounded-t-lg">
                   <img 
                     src={project.image} 
@@ -185,7 +157,7 @@ const TeamProjects = () => {
                     <h3 className="text-base sm:text-lg md:text-xl font-bold text-white">{project.projectName}</h3>
                     <p className="text-xs sm:text-sm text-gray-300">{project.teamName}</p>
                   </div>
-                  {project.id === 3 && (
+                  {project.id === 4 && (
                     <a 
                       href="https://images-assets.nasa.gov/image/PIA23408/PIA23408~orig.jpg"
                       target="_blank"
@@ -210,7 +182,7 @@ const TeamProjects = () => {
                   <div className="space-y-1.5 sm:space-y-2">
                     <h4 className="font-semibold text-white text-xs sm:text-sm">My Role</h4>
                     <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                      {project.myRole}
+                      {project.roleSummary}
                     </p>
                   </div>
                   

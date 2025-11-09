@@ -7,10 +7,14 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+const DEFAULT_WEB3FORMS_KEY = "57552333-638f-41a0-8e70-9ed33ef005ec";
+
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1 });
+  const web3FormsKey = import.meta.env.VITE_WEB3FORMS_KEY?.trim() || DEFAULT_WEB3FORMS_KEY;
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -18,23 +22,44 @@ const ContactSection = () => {
 
     try {
       const formData = new FormData(event.currentTarget);
-      
-      // Web3Forms submission
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const firstName = (formData.get("firstName") ?? "").toString().trim();
+      const lastName = (formData.get("lastName") ?? "").toString().trim();
+      const email = (formData.get("email") ?? "").toString().trim();
+      const subject = (formData.get("subject") ?? "").toString().trim() || "Portfolio contact form";
+      const message = (formData.get("message") ?? "").toString().trim();
+      const phoneNumber = (formData.get("phone_number") ?? "").toString().trim();
+
+      if (!firstName || !lastName || !email || !message) {
+        toast({
+          title: "Missing information",
+          description: "First name, last name, email, and message are required.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const payload = {
+        access_key: web3FormsKey,
+        name: `${firstName} ${lastName}`.trim(),
+        email,
+        subject,
+        message,
+        phone_number: phoneNumber,
+        from_name: "Engineering Portfolio Contact Form",
+      };
+
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          access_key: "57552333-638f-41a0-8e70-9ed33ef005ec",
-          name: `${formData.get("firstName")} ${formData.get("lastName")}`,
-          email: formData.get("email"),
-          subject: formData.get("subject"),
-          message: formData.get("message"),
-          phone_number: formData.get("phone_number"),
-          from_name: "Engineering Portfolio Contact Form",
-        }),
+        body: JSON.stringify(payload),
       });
+
+      if (!response.ok) {
+        throw new Error("Unable to send message right now.");
+      }
 
       const data = await response.json();
 
@@ -49,7 +74,7 @@ const ContactSection = () => {
         throw new Error(data.message || "Failed to send message");
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error("Form submission error:", error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again later.",
