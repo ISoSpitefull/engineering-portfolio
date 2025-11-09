@@ -10,7 +10,11 @@ import useScrollAnimation from "@/hooks/useScrollAnimation";
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const DEFAULT_WEB3FORMS_KEY = "57552333-638f-41a0-8e70-9ed33ef005ec";
 
-const ContactSection = () => {
+interface ContactSectionProps {
+  compactTop?: boolean;
+}
+
+const ContactSection = ({ compactTop = false }: ContactSectionProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -85,11 +89,13 @@ const ContactSection = () => {
     }
   };
 
+  const spacingClasses = compactTop ? "pt-6 sm:pt-10 pb-12 sm:pb-16" : "py-12 sm:py-20";
+
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className={`py-12 sm:py-20 px-4 max-w-6xl mx-auto transition-all duration-700 ${
-        sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      className={`${spacingClasses} px-4 max-w-6xl mx-auto transition-all duration-700 ${
+        sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >
       <div className="text-center mb-10 sm:mb-16 animate-fade-in-up">

@@ -1,54 +1,57 @@
-export type SkillLevel = "Beginner" | "Intermediate" | "Advanced";
+export type CarouselDirection = "left" | "right";
 
-export interface SkillEntry {
-  name: string;
-  level: SkillLevel;
+export interface SkillCarouselItem {
+  label: string;
+  iconSrc?: string;
 }
 
-export interface SkillCategory {
-  category: string;
-  skills: SkillEntry[];
+export interface SkillCarousel {
+  title: string;
+  direction?: CarouselDirection;
+  items: SkillCarouselItem[];
 }
 
-export const skillCategories: SkillCategory[] = [
+export const skillCarousels: SkillCarousel[] = [
   {
-    category: "Programming Languages",
-    skills: [
-      { name: "Python", level: "Beginner" },
-      { name: "JavaScript", level: "Beginner" },
-      { name: "C++", level: "Intermediate" },
-      { name: "MATLAB", level: "Advanced" },
-      { name: "HTML/CSS", level: "Intermediate" }
+    title: "Engineering Tools",
+    direction: "right",
+    items: [
+      { label: "Fusion 360" },
+      { label: "Inventor" },
+      { label: "AutoCAD" },
+      { label: "OnShape" },
+      { label: "SolidWorks" },
+      { label: "Civil 3D" },
+      { label: "Revit" },
+      { label: "SketchUp" },
+      { label: "OpenRocket" },
+      { label: "ANSYS" },
+      { label: "Fusion 360 Simulation" },
+      { label: "Excel" }
     ]
   },
   {
-    category: "Engineering Tools",
-    skills: [
-      { name: "AutoCAD", level: "Advanced" },
-      { name: "SolidWorks", level: "Intermediate" },
-      { name: "Arduino", level: "Advanced" },
-      { name: "Fusion 360", level: "Advanced" },
-      { name: "Circuit Design", level: "Intermediate" }
+    title: "Programming Languages",
+    direction: "right",
+    items: [
+      { label: "Arduino variant C/C++" },
+      { label: "C/C++" },
+      { label: "MATLAB" },
+      { label: "Python" },
+      { label: "HTML5" },
+      { label: "Java" }
     ]
   },
   {
-    category: "Documentation",
-    skills: [
-      { name: "Microsoft Word", level: "Advanced" },
-      { name: "Microsoft PowerPoint", level: "Advanced" },
-      { name: "Excel", level: "Intermediate" },
-      { name: "GitHub", level: "Intermediate" },
-      { name: "Engineering Logbook", level: "Intermediate" }
-    ]
-  },
-  {
-    category: "Other Tools",
-    skills: [
-      { name: "Revit", level: "Intermediate" },
-      { name: "PASCO Capstone", level: "Advanced" },
-      { name: "EasyEDA Web Editor", level: "Advanced" },
-      { name: "CAM (CNC)", level: "Beginner" },
-      { name: "AutoCAD", level: "Advanced" }
+    title: "Platforms",
+    direction: "right",
+    items: [
+      { label: "Microsoft Office" },
+      { label: "Google Suite" },
+      { label: "Autodesk Online" },
+      { label: "GitHub" },
+      { label: "Vercel" },
+      { label: "Microsoft Projects" }
     ]
   }
 ];

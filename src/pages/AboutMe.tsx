@@ -30,7 +30,7 @@ const AboutMe = () => {
 
         <ExperienceTimeline />
         <SkillsSection />
-        <ContactSection />
+        <ContactSection compactTop />
       </div>
     </div>
   );
