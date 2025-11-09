@@ -15,19 +15,19 @@ const AutoScrollCarousel = ({ title, items, direction = "right" }: SkillCarousel
       </div>
       <div className="relative overflow-hidden py-2 sm:py-3">
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[6rem] sm:w-[6.75rem] lg:w-[7.25rem]"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[7rem] sm:w-[8rem] lg:w-[9rem]"
           aria-hidden="true"
           style={{
             background:
-              "linear-gradient(90deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0.9) 45%, rgba(17,24,39,0.5) 80%, rgba(17,24,39,0.15) 100%)"
+              "linear-gradient(90deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0.97) 15%, rgba(17,24,39,0.85) 35%, rgba(17,24,39,0.6) 60%, rgba(17,24,39,0.35) 85%, rgba(17,24,39,0) 100%)"
           }}
         ></div>
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[6rem] sm:w-[6.75rem] lg:w-[7.25rem]"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[7rem] sm:w-[8rem] lg:w-[9rem]"
           aria-hidden="true"
           style={{
             background:
-              "linear-gradient(270deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0.9) 45%, rgba(17,24,39,0.5) 80%, rgba(17,24,39,0.15) 100%)"
+              "linear-gradient(270deg, rgba(17,24,39,1) 0%, rgba(17,24,39,0.97) 15%, rgba(17,24,39,0.85) 35%, rgba(17,24,39,0.6) 60%, rgba(17,24,39,0.35) 85%, rgba(17,24,39,0) 100%)"
           }}
         ></div>
         <div
