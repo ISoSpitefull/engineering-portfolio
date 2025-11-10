@@ -42,17 +42,16 @@ const AutoScrollCarousel = ({ title, items, direction = "right" }: SkillCarousel
         >
           {duplicatedItems.map((item, index) => (
             <div key={`${item.label}-${index}`} role="listitem" className="shrink-0">
-              <div className="flex h-36 w-36 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-3 text-center text-sm font-semibold text-gray-100 backdrop-blur-lg sm:h-40 sm:w-40 sm:text-base">
-                {item.iconSrc ? (
+              <div className="flex h-36 w-36 flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 text-center text-sm font-semibold text-gray-100 backdrop-blur-lg sm:h-40 sm:w-40 sm:text-base">
+                {item.iconSrc && (
                   <img
                     src={item.iconSrc}
                     alt={item.label}
                     className="h-14 w-14 object-contain sm:h-20 sm:w-20"
                     loading="lazy"
                   />
-                ) : (
-                  <span className="leading-tight">{item.label}</span>
                 )}
+                <span className="leading-tight">{item.label}</span>
               </div>
             </div>
           ))}
