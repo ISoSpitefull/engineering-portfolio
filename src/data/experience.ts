@@ -9,6 +9,19 @@ export interface ExperienceEntry {
 
 export const experienceTimeline: ExperienceEntry[] = [
   {
+    year: "2025-2026",
+    title: "Propulsion Lead & Facilities Manager",
+    company: "University of Saskatchewan Space Design Team",
+    description: [
+      "Managed the daily operations, security, and organization of the USST engineering lab and workshop. Developed and enforced safety protocols and standard operating procedures, conducting regular briefings to maintain a zero-incident workplace.",
+      "Led the propulsion sub-team in designing, testing, and optimizing rocket propulsion systems. Coordinated test schedules, data collection, and analysis to enhance performance and reliability.",
+      "Additionally, acted as the primary liaison for university faculty, coordinating space allocation, equipment maintenance, and institutional compliance."
+    ],
+    skills: ["Team Management", "Safety Protocols", "Data Analysis", "Communication", "Organization"],
+    lessons:
+      "Learned the importance of code reviews and agile development practices in a fast-paced startup environment."
+  },
+  {
     year: "2024-2025",
     title: "Propulsion & Systems Member",
     company: "University of Saskatchewan Space Design Team",
