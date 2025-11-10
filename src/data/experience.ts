@@ -19,7 +19,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     ],
     skills: ["Team Management", "Safety Protocols", "Data Analysis", "Communication", "Organization"],
     lessons:
-      "Learned the importance of code reviews and agile development practices in a fast-paced startup environment."
+      "Learned the importance of leadership and communication in managing a diverse team."
   },
   {
     year: "2024-2025",
